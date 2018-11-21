@@ -11,7 +11,7 @@ export class StructureService {
   constructor(private http: HttpClient) {
   }
 
-  getStructure(): Observable<Element> {
-    return this.http.get<Element>('http://localhost:3000/structure');
+  getStructure(resource: string): Observable<Element> {
+    return this.http.get<Element>('http://localhost:3000/structure?resource=' + resource);
   }
 }

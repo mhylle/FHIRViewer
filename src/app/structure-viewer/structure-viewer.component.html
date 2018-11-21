@@ -1,3 +1,22 @@
+<div>
+  <div>Select resource</div>
+  <div>
+    <input type="text" [(ngModel)]="selectedResource">
+  </div>
+  <!--<select class="form-control" [ngModel]="selectedResource" >-->
+  <!--<option  value="" selected>Choose...</option>-->
+  <!--<option *ngFor="let opt of resourceTypes" [value]="opt.name" >{{opt.label}}</option>-->
+  <!--</select>-->
+  <!--<select >-->
+  <!--<option *ngFor="let opt of resourceTypes" value="{{opt.name}}" [ngModel]="selectedResource" name="selectedResource">{{opt.label}}</option>-->
+  <!--<option value="episodeofcare">EpisodeOfCare</option>-->
+  <!--<option value="condition">Condition</option>-->
+  <!--</select>-->
+  <div>
+    <button (click)="chooseResource()">Show Resource</button>
+  </div>
+  <div>{{selectedResource}}</div>
+</div>
 <div class="element">
   <div>Name</div>
   <div>Flags</div>

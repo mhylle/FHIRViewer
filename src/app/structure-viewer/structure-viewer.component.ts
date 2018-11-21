@@ -9,16 +9,22 @@ import {Element} from '../model/element';
 })
 export class StructureViewerComponent implements OnInit {
 
+  resourceTypes = [{'name': 'episodeofcare', 'label': 'EpisodeOfCare'}, {'name': 'condition', 'label': 'Condition'}];
+  selectedResource: string;
   element: Element;
 
   constructor(private structureService: StructureService) {
   }
 
   ngOnInit() {
-    this.structureService.getStructure().subscribe(value => this.element = value);
+
   }
 
   stripUrl(referenceUrl: string) {
     return referenceUrl.split('/').pop();
+  }
+
+  chooseResource() {
+    this.structureService.getStructure(this.selectedResource).subscribe(value => this.element = value);
   }
 }
