@@ -4,6 +4,7 @@ import {Binding} from './binding';
 
 export class Element {
   id: string | number;
+  snapshot: any;
   path: string;
   short: string;
   definition: string;

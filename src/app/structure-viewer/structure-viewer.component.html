@@ -2,7 +2,7 @@
   <div>Select resource</div>
   <div>
     <select [(ngModel)]="selectedResource">
-      <option *ngFor="let opt of resourceTypes" value="{{opt.name}}" >{{opt.label}}</option>
+      <option *ngFor="let opt of resourceTypes" value="{{opt.name}}">{{opt.label}}</option>
     </select>
   </div>
   <div>
@@ -29,19 +29,46 @@
   <div>Type</div>
   <div>Description</div>
 </div>
-<div *ngFor="let elem of element?.snapshot?.element; let even = even; let odd = odd" class="userList" [ngClass]="{odd: odd, even: even}">
-
-  <div *ngIf="elem.path.endsWith('extension')">{{elem.sliceName}}</div>
-  <div *ngIf="!elem.path.endsWith('extension')">{{elem.path}}</div>
-  <div>
-    <span *ngIf="elem.isModifier">?!</span>
-    <span *ngIf="elem.isSummary">Σ</span>
-  </div>
-  <div>{{elem.min}}..{{elem.max}}</div>
-  <div *ngIf="elem.type">{{elem.type[0].code}}
-    <span *ngIf="elem.type[0].code === 'Reference'">({{stripUrl(elem.type[0].targetProfile)}})</span>
-    <!--<span *ngIf="elem.type[0].code === 'Extension'">({{stripUrl(elem.type[0].profile)}})</span>-->
-  </div>
-  <div *ngIf="!elem.type"></div>
-  <div>{{elem.definition}}</div>
+<div class="userList">
+  <div>{{structure?.id}}</div>
+  <div></div>
+  <div></div>
+  <div><a href="https://www.hl7.org/fhir/domainresource.html">DomainResource</a></div>
+  <div>{{structure?.url}}</div>
 </div>
+
+<div *ngFor="let entry of structure?.entries; let even = even; let odd = odd"
+     [ngClass]="{odd: odd, even:even}">
+  <div *ngIf="!(entry.min === 0 && entry.max === '0') && entry.name !== structure.name" class="userList">
+    <div>{{entry.name}}</div>
+    <div>
+      <span *ngIf="entry.isModifier">?!</span>
+      <span *ngIf="entry.isSummary">Σ</span>
+    </div>
+
+    <div>{{entry.min}}..{{entry.max}}</div>
+    <div>
+      <div *ngIf="entry.reference">Reference({{entry.reference}})</div>
+      <div *ngIf="entry.extension && !entry.code">Extension({{entry.extension}})</div>
+      <div *ngIf="entry.code">code</div>
+      <div *ngIf="entry.extension === '' && entry.reference === ''">{{entry.type}}</div>
+    </div>
+    <div>{{entry.description}}<div *ngIf="entry.code">{{entry.code[0].code}}</div></div>
+  </div>
+</div>
+<!--<div *ngFor="let elem of element?.snapshot?.element; let even = even; let odd = odd" class="userList" [ngClass]="{odd: odd, even: even}">-->
+
+<!--<div *ngIf="elem.path.endsWith('extension')">{{elem.sliceName}}</div>-->
+<!--<div *ngIf="!elem.path.endsWith('extension')">{{elem.path}}</div>-->
+<!--<div>-->
+<!--<span *ngIf="elem.isModifier">?!</span>-->
+<!--<span *ngIf="elem.isSummary">Σ</span>-->
+<!--</div>-->
+<!--<div>{{elem.min}}..{{elem.max}}</div>-->
+<!--<div *ngIf="elem.type">{{elem.type[0].code}}-->
+<!--<span *ngIf="elem.type[0].code === 'Reference'">({{stripUrl(elem.type[0].targetProfile)}})</span>-->
+<!--&lt;!&ndash;<span *ngIf="elem.type[0].code === 'Extension'">({{stripUrl(elem.type[0].profile)}})</span>&ndash;&gt;-->
+<!--</div>-->
+<!--<div *ngIf="!elem.type"></div>-->
+<!--<div>{{elem.definition}}</div>-->
+<!--</div>-->
