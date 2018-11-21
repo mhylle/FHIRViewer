@@ -9,7 +9,12 @@ import {Element} from '../model/element';
 })
 export class StructureViewerComponent implements OnInit {
 
-  resourceTypes = [{'name': 'episodeofcare', 'label': 'EpisodeOfCare'}, {'name': 'condition', 'label': 'Condition'}];
+  resourceTypes = [
+    {'name': 'episodeofcare', 'label': 'EpisodeOfCare'},
+    {'name': 'condition','label': 'Condition'},
+    {'name': 'ColumnaHealthIssue', 'label': 'ColumnaHealthIssue'},
+    {'name': 'ColumnaEpisodeOfCare', 'label': 'ColumnaEpisodeOfCare'}
+    ];
   selectedResource: string;
   element: Element;
 
@@ -21,6 +26,9 @@ export class StructureViewerComponent implements OnInit {
   }
 
   stripUrl(referenceUrl: string) {
+    if (!referenceUrl){
+      return "";
+    }
     return referenceUrl.split('/').pop();
   }
 

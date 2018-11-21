@@ -22,22 +22,26 @@
   </div>
   <div>{{selectedResource}}</div>
 </div>
-<div class="element">
+<div class="header userListHeader">
   <div>Name</div>
   <div>Flags</div>
   <div>Card</div>
   <div>Type</div>
   <div>Description</div>
 </div>
-<div *ngFor="let elem of element?.differential.element" class="element">
-  <div>{{elem.path}}</div>
+<div *ngFor="let elem of element?.snapshot?.element; let even = even; let odd = odd" class="userList" [ngClass]="{odd: odd, even: even}">
+
+  <div *ngIf="elem.path.endsWith('extension')">{{elem.sliceName}}</div>
+  <div *ngIf="!elem.path.endsWith('extension')">{{elem.path}}</div>
   <div>
     <span *ngIf="elem.isModifier">?!</span>
     <span *ngIf="elem.isSummary">Σ</span>
   </div>
   <div>{{elem.min}}..{{elem.max}}</div>
-  <div *ngIf="elem.type">{{elem.type[0].code}}<span *ngIf="elem.type[0].code === 'Reference'">({{stripUrl(elem.type[0].targetProfile)}})</span>
+  <div *ngIf="elem.type">{{elem.type[0].code}}
+    <span *ngIf="elem.type[0].code === 'Reference'">({{stripUrl(elem.type[0].targetProfile)}})</span>
+    <!--<span *ngIf="elem.type[0].code === 'Extension'">({{stripUrl(elem.type[0].profile)}})</span>-->
   </div>
   <div *ngIf="!elem.type"></div>
-  <div>{{elem.short}}</div>
+  <div>{{elem.definition}}</div>
 </div>
