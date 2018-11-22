@@ -40,7 +40,7 @@
 <div *ngFor="let entry of structure?.entries; let even = even; let odd = odd"
      [ngClass]="{odd: odd, even:even}">
   <div *ngIf="!(entry.min === 0 && entry.max === '0') && entry.name !== structure.name" class="userList">
-    <div>{{entry.name}}</div>
+    <div>{{entry.name}}({{entry.level}})</div>
     <div>
       <span *ngIf="entry.isModifier">?!</span>
       <span *ngIf="entry.isSummary">Σ</span>

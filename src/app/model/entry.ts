@@ -11,4 +11,5 @@ export class Entry {
   reference: string;
   extension: string;
   code: string;
+  level: number;
 }

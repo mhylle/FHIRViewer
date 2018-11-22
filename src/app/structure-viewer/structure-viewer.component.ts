@@ -35,6 +35,12 @@ export class StructureViewerComponent implements OnInit {
     return referenceUrl.split('/').pop();
   }
 
+  computeLevel(path: string): number {
+    const match = path.match(/\./g);
+    const length1 = (match || []).length;
+    return length1;
+  }
+
   chooseResource() {
     this.structureService.getStructure(this.selectedResource).subscribe(value => {
       this.structure = new Structure();
@@ -47,6 +53,7 @@ export class StructureViewerComponent implements OnInit {
             const item = value.snapshot.element[i];
             entry.name = item.sliceName;
             entry.path = item.path;
+            entry.level = this.computeLevel(item.path);
             entry.isSummary = item.isSummary;
             entry.isModifier = item.isModifier;
             entry.min = item.min;

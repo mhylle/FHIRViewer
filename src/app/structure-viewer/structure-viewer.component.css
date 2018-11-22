@@ -1,6 +1,6 @@
 .element {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: 200px 50px 50px 200px auto;
 }
 
 .header {
@@ -10,7 +10,7 @@
 
 .userListHeader {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: 200px 50px 50px 200px auto;
   grid-template-rows: 24px auto;
   align-self: center;
   padding: 4px;
@@ -19,7 +19,7 @@
 .userList {
   font-size: 0.8em;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: 200px 50px 50px 200px auto;
   /*grid-template-rows: 18px auto;*/
   align-self: center;
   padding: 4px;
