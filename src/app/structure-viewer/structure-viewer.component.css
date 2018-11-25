@@ -10,7 +10,7 @@
 
 .userListHeader {
   display: grid;
-  grid-template-columns: 200px 50px 50px 200px auto;
+  grid-template-columns: 200px 50px 50px 400px auto;
   grid-template-rows: 24px auto;
   align-self: center;
   padding: 4px;
@@ -19,7 +19,7 @@
 .userList {
   font-size: 0.8em;
   display: grid;
-  grid-template-columns: 200px 50px 50px 200px auto;
+  grid-template-columns: 200px 50px 50px 400px auto;
   /*grid-template-rows: 18px auto;*/
   align-self: center;
   padding: 4px;
@@ -49,4 +49,40 @@
 .odd {
   /*border-bottom: 1px solid lightblue;*/
   background-color: #fafafa;
+}
+
+.outerElement {
+  /*border-right: 1px aliceblue dashed;*/
+  border: 1px aliceblue dashed;
+  width: 20px;
+  height: 100%;
+  /*background-color: cyan;*/
+
+}
+
+
+.entry {
+  display: grid;
+  grid-template-columns: auto 24px auto;
+  align-self: start;
+  justify-self: start;
+  text-align: left;
+}
+
+.entry_indention {
+  align-self: start;
+  justify-self: start;
+  text-align: left;
+}
+
+.entry_icon {
+  align-self: start;
+  justify-self: start;
+  text-align: left;
+}
+
+.entry_name {
+  align-self: start;
+  justify-self: start;
+  text-align: left;
 }
