@@ -1,19 +1,19 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {Structure} from './model/structure';
+import {Capability} from '../model/capability';
 import {catchError} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class StructureService {
+export class CapabilityService {
 
   constructor(private http: HttpClient) {
   }
 
-  getStructure(resource: string): Observable<Structure> {
-    return this.http.get<Structure>('http://localhost:3000/structure?resource=' + resource)
+  getCapability(resource: string): Observable<Capability> {
+    return this.http.get<Capability>('http://localhost:3000/capability?resource=' + resource)
       .pipe(
         catchError(this.handleError)
       );

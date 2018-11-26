@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CapabilityViewerComponent } from './capability-viewer.component';
+import { BasicCapabilityComponent } from './basic-capability.component';
 
-describe('CapabilityViewerComponent', () => {
-  let component: CapabilityViewerComponent;
-  let fixture: ComponentFixture<CapabilityViewerComponent>;
+describe('BasicCapabilityComponent', () => {
+  let component: BasicCapabilityComponent;
+  let fixture: ComponentFixture<BasicCapabilityComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CapabilityViewerComponent ]
+      declarations: [ BasicCapabilityComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CapabilityViewerComponent);
+    fixture = TestBed.createComponent(BasicCapabilityComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

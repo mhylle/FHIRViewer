@@ -1,0 +1,14 @@
+.container {
+  margin: 8px;
+}
+
+.keyValue {
+  display: grid;
+  grid-template-columns: 200px auto;
+}
+
+
+.header {
+  background-color: #e1eff4;
+  border-bottom: 2px solid #9c9c9c;
+}

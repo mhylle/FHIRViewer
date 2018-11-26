@@ -1,0 +1,37 @@
+<div class="container"><!--<div class="keyValue">-->
+  <!--<div>Profile</div>-->
+  <!--<div>-->
+  <!--{{capability?.profile}}-->
+  <!--</div>-->
+  <!--</div>-->
+  <div class="header">CRUD</div>
+  <div class="keyValue">
+    <div>Read</div>
+    <div>{{capability?.read}}</div>
+  </div>
+  <div class="keyValue">
+    <div>vread</div>
+    <div>{{capability?.vread}}</div>
+  </div>
+  <div class="keyValue">
+    <div>update</div>
+    <div>{{capability?.update}}</div>
+  </div>
+  <div class="keyValue">
+    <div>delete</div>
+    <div>{{capability?.delete}}</div>
+  </div>
+  <div class="keyValue">
+    <div>create</div>
+    <div>{{capability?.create}}</div>
+  </div>
+  <div class="keyValue">
+    <div>search-type</div>
+    <div>{{capability?.search - type}}</div>
+  </div>
+  <div class="header">Operations:</div>
+  <div *ngFor="let operation of capability?.operations">
+    <div>{{operation.name}}</div>
+    <div>{{operation.reference}}</div>
+  </div>
+</div>

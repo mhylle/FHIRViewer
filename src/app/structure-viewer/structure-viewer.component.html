@@ -10,58 +10,7 @@
     <button (click)="chooseResource()">Show Resource</button>
   </div>
 </div>
-<div class="header userListHeader">
-  <div>Name</div>
-  <div>Flags</div>
-  <div>Card</div>
-  <div>Type</div>
-  <div>Description</div>
-</div>
-<div class="userList">
-
-  <div class="entry">
-    <div class="entry_icon"><img src="../../assets/icon_element.gif"></div>
-    <div class="entry_name">{{structure?.id}}</div>
-  </div>
-  <div></div>
-  <div></div>
-  <div><a href="https://www.hl7.org/fhir/domainresource.html">DomainResource</a></div>
-  <div>{{structure?.url}}</div>
-</div>
-
-<div *ngFor="let entry of structure?.entries; let even = even; let odd = odd"
-     [ngClass]="{odd: odd, even:even}">
-  <div *ngIf="!(entry.max === '0' && hideUnused) && entry.name !== structure.name" class="userList">
-    <div class="entry">
-      <div class="entry_indention">
-        <span *ngFor="let idx of entry.level|repeat">
-        <span *ngIf="idx === 1" class="outerElement">&nbsp;</span>
-        <span *ngIf="idx === 1">...</span>
-        <span *ngIf="idx > 1">.....</span>
-        </span>
-      </div>
-      <div class="entry_icon" *ngIf="entry.type === 'Reference'"><img src="../../assets/icon_reference.png" title="Reference to another resource"></div>
-      <div class="entry_icon" *ngIf="entry.type === 'code'"><img src="../../assets/icon_primitive.png" title="Primitive data type"></div>
-      <div class="entry_icon" *ngIf="entry.type ==='Extension'"><img src="../../assets/icon_extension_simple.png" title="Data type"></div>
-      <div class="entry_icon" *ngIf="entry.type ==='data_type'"><img src="../../assets/icon_datatype.gif" title="Data type"></div>
-      <div class="entry_icon" *ngIf="entry.type ==='primitive_data_type'"><img src="../../assets/icon_primitive.png" title="Data type"></div>
-      <div class="entry_name">{{entry.name}}</div>
-    </div>
-    <div class="flags">
-      <span *ngIf="entry.isModifier">?!</span>
-      <span *ngIf="entry.isSummary">Σ</span>
-    </div>
-
-    <div class="card">{{entry.min}}..{{entry.max}}</div>
-    <div class="type">
-      <div></div>
-      <div *ngIf="entry.type === 'Reference'">{{entry.type}}(<a routerLink="/StructureDefinition/{{entry.type_name}}">{{entry.type_name}}</a>)</div>
-      <div *ngIf="entry.type === 'data_type'"><a href="https://www.hl7.org/fhir/datatypes.html#{{entry.type_name}}">{{entry.type_name}}</a></div>
-      <div *ngIf="entry.type === 'primitive_data_type'"><a href="https://www.hl7.org/fhir/datatypes.html#{{entry.type_name}}">{{entry.type_name}}</a></div>
-      <div *ngIf="entry.type === 'Extension'">Extension</div>
-    </div>
-    <div>{{entry.description}}
-      <div *ngIf="entry.code">{{entry.code[0].code}}</div>
-    </div>
-  </div>
+<div class="container">
+  <app-detailed-structure [hideUnused]="hideUnused"></app-detailed-structure>
+  <app-basic-capability></app-basic-capability>
 </div>
