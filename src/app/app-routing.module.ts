@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from './home/home.component';
-import {DetailedCapabilityComponent} from './capability-viewer/detailed-capability/detailed-capability.component';
+
 import {StructureViewerComponent} from './structure-viewer/structure-viewer.component';
 
 const routes: Routes = [
@@ -21,10 +21,6 @@ const routes: Routes = [
   {
     path: 'StructureDefinition',
     component: StructureViewerComponent,
-  },
-  {
-    path: 'CapabilityStatement',
-    component: DetailedCapabilityComponent
   },
   {
     path: '**',

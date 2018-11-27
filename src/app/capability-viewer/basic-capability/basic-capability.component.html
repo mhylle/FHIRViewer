@@ -10,9 +10,9 @@
   </div>
   <div class="operations">
     <div class="header">Operations:</div>
-    <div *ngFor="let operation of capability?.operations">
-      <div><a href="{{operation.reference}}">{{operation.name}}</a></div>
-      <!--<div>{{operation.reference}}</div>-->
+    <div *ngFor="let operation of capability?.operations" class="operation">
+      <div>Bundle<{{resource}}> <a href="{{operation.reference}}">{{operation.name}}</a>(period: DateTime, organization: String)</div>
+      <div class="description">{{operation.description}}</div>
     </div>
   </div>
 </div>

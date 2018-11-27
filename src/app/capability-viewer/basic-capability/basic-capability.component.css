@@ -7,8 +7,10 @@
 .interaction {
   width: 100%;
   display: grid;
-  grid-template-columns: 24px 24px 24px 24px 24px 24px;
-  grid-template-rows: 24px;
+  grid-template-columns: 48px 48px 48px 48px 48px 48px;
+  line-height: 48px;
+  font-size: 2em;
+  grid-template-rows: 48px;
   justify-content: center;
   vertical-align: center;
   grid-gap: 4px;
@@ -21,6 +23,14 @@
   text-align: start;
 }
 
+.operation {
+  margin: 4px;
+}
+
+.operation .description {
+  padding-left: 24px;
+}
+
 .keyValue {
   display: grid;
   grid-template-columns: 200px auto;
@@ -30,6 +40,7 @@
   background-color: #e1eff4;
   border-bottom: 2px solid #9c9c9c;
 }
+
 
 
 .read {

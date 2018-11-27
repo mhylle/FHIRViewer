@@ -24,6 +24,9 @@ export class DetailedStructureComponent implements OnInit {
   private $resource: Observable<Structure>;
 
   static computeLevel(path: string): number {
+    if (path == null) {
+      return 0;
+    }
     const match = path.match(/\./g);
     return (match || []).length;
   }
@@ -114,7 +117,6 @@ export class DetailedStructureComponent implements OnInit {
           this.structure.entries.push(entry);
         }
       }
-      // entry.name
     });
   }
 }

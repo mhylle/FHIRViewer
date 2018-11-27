@@ -91,16 +91,20 @@ export class BasicCapabilityComponent implements OnInit {
         }
       }
       this.capability.operations = [];
-      for (let k = 0; k < rest.operation.length; k++) {
-        const op = rest.operation[k];
-        const opDef = op.definition.reference.split('/');
-        const searchString = this.resource.substring('Columna'.length, this.resource.length);
-        console.log('see ' + searchString + ' OPdef: ' + opDef[1])
-        if (opDef[1].startsWith(searchString)) {
-          const operation = new Operation();
-          operation.name = op.name;
-          operation.reference = op.definition.reference;
-          this.capability.operations.push(operation);
+
+      if (rest.operation) {
+        for (let k = 0; k < rest.operation.length; k++) {
+          const op = rest.operation[k];
+          const opDef = op.definition.reference.split('/');
+          const searchString = this.resource.substring('Columna'.length, this.resource.length);
+          console.log('see ' + searchString + ' OPdef: ' + opDef[1])
+          if (opDef[1].startsWith(searchString)) {
+            const operation = new Operation();
+            operation.name = op.name;
+            operation.reference = op.definition.reference;
+            operation.description= op.definition.description;
+            this.capability.operations.push(operation);
+          }
         }
       }
     });

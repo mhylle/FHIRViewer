@@ -1,0 +1,39 @@
+.container {
+  display: grid;
+  grid-template-columns: 80% 20%;
+  margin-bottom: 8px;
+}
+
+.menuContainer {
+  display: grid;
+  grid-template-columns: repeat(12, 0.5fr);
+  grid-template-rows: 36px auto;
+  align-self: center;
+}
+
+.menu {
+  border: 1px solid lightgray;
+  background-color: #e1eff4;
+  border-bottom: 2px solid #9c9c9c;
+}
+
+.menu_item {
+  color: #105581;
+  align-self: center;
+  justify-self: center;
+}
+
+.context {
+  align-self: end;
+  justify-self: right;
+}
+
+a {
+  text-decoration: none;
+  color: #105581;
+}
+
+a:hover {
+  color: #333333;
+  text-decoration: underline;
+}
