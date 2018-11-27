@@ -6,6 +6,7 @@ export class Structure {
   type: string;
   url: string;
   baseDefinition: string;
+  definition: string;
   snapshot: any;
   entries: Entry[];
   differential: any;

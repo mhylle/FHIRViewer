@@ -5,6 +5,7 @@ export class Entry {
   max: string;
   type: string;
   description: string;
+  definition: string;
   isSummary: boolean;
   isModifier: boolean;
   parent: Entry;

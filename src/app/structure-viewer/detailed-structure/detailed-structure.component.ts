@@ -75,6 +75,7 @@ export class DetailedStructureComponent implements OnInit {
       if (value.differential) {
         res = value.differential;
       }
+      this.structure.definition = res.definition;
       if (res.element) {
         this.structure.entries = [];
         for (let i = 0; i < res.element.length; i++) {

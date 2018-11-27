@@ -1,5 +1,24 @@
 .container {
   margin: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+.interaction {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 24px 24px 24px 24px 24px 24px;
+  grid-template-rows: 24px;
+  justify-content: center;
+  vertical-align: center;
+  grid-gap: 4px;
+  margin-bottom: 8px;
+}
+
+.operations {
+  display: grid;
+  grid-template-columns: auto;
+  text-align: start;
 }
 
 .keyValue {
@@ -7,8 +26,62 @@
   grid-template-columns: 200px auto;
 }
 
-
 .header {
   background-color: #e1eff4;
   border-bottom: 2px solid #9c9c9c;
 }
+
+
+.read {
+  border: 2px solid green;
+  border-radius: 50%;
+}
+.noread {
+  border: 2px solid red;
+  border-radius: 50%;
+}
+
+.vread {
+  border: 2px solid green;
+  border-radius: 50%;
+}
+.novread {
+  border: 2px solid red;
+  border-radius: 50%;
+}
+.update {
+  border: 2px solid green;
+  border-radius: 50%;
+}
+.noupdate {
+  border: 2px solid red;
+  border-radius: 50%;
+}
+.delete {
+  border: 2px solid green;
+  border-radius: 50%;
+}
+.nodelete {
+  border: 2px solid red;
+  border-radius: 50%;
+}
+.create {
+  border: 2px solid green;
+  border-radius: 50%;
+}
+.nocreate {
+  border: 2px solid red;
+  border-radius: 50%;
+}
+.search_type {
+  border: 2px solid green;
+  border-radius: 50%;
+}
+.nosearch_type {
+  border: 2px solid red;
+  border-radius: 50%;
+}
+
+
+
+

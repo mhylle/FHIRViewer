@@ -1,37 +1,18 @@
-<div class="container"><!--<div class="keyValue">-->
-  <!--<div>Profile</div>-->
-  <!--<div>-->
-  <!--{{capability?.profile}}-->
-  <!--</div>-->
-  <!--</div>-->
-  <div class="header">CRUD</div>
-  <div class="keyValue">
-    <div>Read</div>
-    <div>{{capability?.read}}</div>
+<div class="container">
+  <div class="information"></div>
+  <div class="interaction">
+    <div [ngClass]="{'create': capability.create ,'nocreate': !capability.create}">C</div>
+    <div [ngClass]="{'read': capability.read ,'noread': !capability.read}">R</div>
+    <div [ngClass]="{'update': capability.update ,'noupdate': !capability.update}">U</div>
+    <div [ngClass]="{'delete': capability.delete ,'nodelete': !capability.delete}">D</div>
+    <div [ngClass]="{'vread': capability.vread ,'novread': !capability.vread}">V1</div>
+    <div [ngClass]="{'search_type': capability.search_type ,'nosearch_type': !capability.search_type}">S</div>
   </div>
-  <div class="keyValue">
-    <div>vread</div>
-    <div>{{capability?.vread}}</div>
-  </div>
-  <div class="keyValue">
-    <div>update</div>
-    <div>{{capability?.update}}</div>
-  </div>
-  <div class="keyValue">
-    <div>delete</div>
-    <div>{{capability?.delete}}</div>
-  </div>
-  <div class="keyValue">
-    <div>create</div>
-    <div>{{capability?.create}}</div>
-  </div>
-  <div class="keyValue">
-    <div>search-type</div>
-    <div>{{capability?.search - type}}</div>
-  </div>
-  <div class="header">Operations:</div>
-  <div *ngFor="let operation of capability?.operations">
-    <div>{{operation.name}}</div>
-    <div>{{operation.reference}}</div>
+  <div class="operations">
+    <div class="header">Operations:</div>
+    <div *ngFor="let operation of capability?.operations">
+      <div><a href="{{operation.reference}}">{{operation.name}}</a></div>
+      <!--<div>{{operation.reference}}</div>-->
+    </div>
   </div>
 </div>
