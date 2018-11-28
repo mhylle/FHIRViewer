@@ -1,0 +1,31 @@
+.card {
+  width: 500px;
+  border-radius: 2px;
+  margin: 8px;
+  -webkit-box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.5);
+  box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.5);
+  background: white;
+  transition: all 0.15s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.02);
+  filter: brightness(95%);
+}
+
+.card-header {
+  text-align: center;
+  background-color: lightblue;
+  margin-bottom: 4px;
+}
+
+.card-content {
+  padding: 0 4px 4px 4px;
+}
+
+.lineItem {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  font-size: 0.7em;
+}

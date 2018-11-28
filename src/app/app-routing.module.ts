@@ -14,6 +14,10 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
+    path: 'Home/:resource',
+    component: HomeComponent
+  },
+  {
     path: 'StructureDefinition/:resource',
     component: StructureViewerComponent,
     pathMatch: 'prefix'

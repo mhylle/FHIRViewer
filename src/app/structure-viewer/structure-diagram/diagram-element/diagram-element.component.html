@@ -1,0 +1,14 @@
+<div class="card">
+  <div class="card-header">{{resource}} (DomainResource)</div>
+  <div class="card-content">
+    <div *ngFor="let entry of structure?.entries;">
+      <div class="lineItem" *ngIf="!(entry.max === '0' && hideUnused) && entry.name !== structure.name">
+        <div>{{entry.name}}</div>
+        <div>:</div>
+        <div>{{entry.type_name}}</div>
+        <div>[{{entry.min}}..{{entry.max}}]</div>
+        <div *ngIf="entry.type_name === 'code'">{{entry.type}}</div>
+      </div>
+    </div>
+  </div>
+</div>

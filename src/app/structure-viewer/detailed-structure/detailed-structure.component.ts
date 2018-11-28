@@ -38,7 +38,7 @@ export class DetailedStructureComponent implements OnInit {
     return referenceUrl.split('/').pop();
   }
 
-  private static checkType(code: string) {
+  static checkType(code: string) {
     switch (code) {
       case 'boolean':
       case'integer':

@@ -16,6 +16,8 @@ import { StructureViewerComponent } from './structure-viewer/structure-viewer.co
 import { MenuComponent } from './menu/menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {AngularFontAwesomeModule} from "angular-font-awesome";
+import { StructureDiagramComponent } from './structure-viewer/structure-diagram/structure-diagram.component';
+import { DiagramElementComponent } from './structure-viewer/structure-diagram/diagram-element/diagram-element.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import {AngularFontAwesomeModule} from "angular-font-awesome";
     HomeComponent,
     BasicCapabilityComponent,
     StructureViewerComponent,
-    MenuComponent
+    MenuComponent,
+    StructureDiagramComponent,
+    DiagramElementComponent
   ],
   imports: [
     BrowserModule,

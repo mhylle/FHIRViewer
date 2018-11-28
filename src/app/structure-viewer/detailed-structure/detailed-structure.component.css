@@ -23,6 +23,14 @@
   /*grid-template-rows: 18px auto;*/
   align-self: center;
   padding: 4px;
+  transition: all 0.1s ease-in-out;
+}
+
+.userList:hover {
+  transform: scale(1.01);
+  background-color: #105581;
+  /*color: white;*/
+  font-weight: bold;
 }
 
 .hover {
