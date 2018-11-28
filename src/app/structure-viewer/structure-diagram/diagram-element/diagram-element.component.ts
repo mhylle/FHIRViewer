@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Structure} from '../../../model/structure';
+import {BackboneElement} from '../../../model/backbone-element';
+import {isDefined} from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-diagram-element',
@@ -9,9 +10,8 @@ import {Structure} from '../../../model/structure';
 export class DiagramElementComponent implements OnInit {
 
   @Input()
-  structure: Structure;
-  @Input()
-  resource: string;
+  backboneElement: BackboneElement;
+
   @Input()
   hideUnused: boolean;
 
@@ -21,4 +21,10 @@ export class DiagramElementComponent implements OnInit {
   ngOnInit() {
   }
 
+  stripUrl(referenceUrl: string) {
+    if (!isDefined(referenceUrl) || referenceUrl === null || referenceUrl === '') {
+      return '';
+    }
+    return referenceUrl.split('/').pop();
+  }
 }

@@ -1,13 +1,14 @@
 <div class="card">
-  <div class="card-header">{{resource}} (DomainResource)</div>
+  <div class="card-header">{{backboneElement.name}} (DomainResource)</div>
   <div class="card-content">
-    <div *ngFor="let entry of structure?.entries;">
-      <div class="lineItem" *ngIf="!(entry.max === '0' && hideUnused) && entry.name !== structure.name">
-        <div>{{entry.name}}</div>
+    <div *ngFor="let item of backboneElement.items;">
+      <div class="lineItem" *ngIf="!(item.max === '0' && hideUnused) && item.type !== 'BackboneElement'">
+        <div>{{item.name}}</div>
         <div>:</div>
-        <div>{{entry.type_name}}</div>
-        <div>[{{entry.min}}..{{entry.max}}]</div>
-        <div *ngIf="entry.type_name === 'code'">{{entry.type}}</div>
+        <div>{{item.type}}</div>
+        <div>[{{item.min}}..{{item.max}}]</div>
+        <div *ngIf="item.type === 'code'">{{item.type}}</div>
+        <div *ngIf="item.type === 'Reference'">{{stripUrl(item.profile)}}</div>
       </div>
     </div>
   </div>

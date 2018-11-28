@@ -1,2 +1,4 @@
+<div *ngFor="let backBoneElement of backBoneElements">
+  <app-diagram-element [backboneElement]="backBoneElement" [hideUnused]="hideUnused" *ngIf="backBoneElement.max != 0"></app-diagram-element>
+</div>
 
-<app-diagram-element [resource]="resource" [structure]="structure" [hideUnused]="hideUnused"></app-diagram-element>

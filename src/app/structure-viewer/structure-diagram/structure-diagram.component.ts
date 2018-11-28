@@ -5,6 +5,8 @@ import {Observable} from 'rxjs';
 import {Structure} from '../../model/structure';
 import {switchMap} from 'rxjs/operators';
 import {BackboneElement} from '../../model/backbone-element';
+import {CoreElement} from '../../model/coreElement';
+import {isDefined} from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-structure-diagram',
@@ -15,6 +17,7 @@ export class StructureDiagramComponent implements OnInit {
   private $resource: Observable<Structure>;
   structure: Structure;
   resource: string;
+  backBoneElements: BackboneElement[];
 
   @Input()
   hideUnused: boolean;
@@ -23,13 +26,16 @@ export class StructureDiagramComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.$resource = this.route.paramMap.pipe(
       switchMap((params: ParamMap) => {
         this.resource = params.get('resource');
+        console.log('Resource: ' + this.resource);
         return this.structureService.getStructure(this.resource);
       }));
 
     this.$resource.subscribe(value => {
+      this.backBoneElements = [];
       this.structure = new Structure();
       this.structure.id = value.id;
       let res: any;
@@ -39,87 +45,62 @@ export class StructureDiagramComponent implements OnInit {
       if (value.differential) {
         res = value.differential;
       }
-      const parentBackBone = new BackboneElement();
-      this.createBackBoneElement(parentBackBone, res, null);
-    });
-  }
-
-  createBackBoneElement(element: BackboneElement, item: any, parent: string) {
-    element.items = [];
-    if (item.element) {
-      for (let i = 0; i < item.element.length; i++) {
-        if (parent != null) {
-          if (!item.path.startsWith(parent)) {
-            continue;
+      const coreElements: CoreElement[] = [];
+      if (res.element) {
+        for (let i = 0; i < res.element.length; i++) {
+          const elm = res.element[i];
+          const coreElement = new CoreElement();
+          coreElement.path = elm.path;
+          coreElement.name = elm.sliceName;
+          coreElement.min = elm.min;
+          coreElement.max = elm.max;
+          if (elm.type) {
+            coreElement.type = elm.type[0].code;
+            if (elm.type[0].profile) {
+              coreElement.profile = elm.type[0].profile[0];
+            }
           }
-        }
-        const elm = item.element[i];
-        element.path = elm.path;
-        element.name = elm.sliceName;
-        element.parent = elm;
-        element.min = elm.min;
-        element.max = elm.max;
-        if (elm.short) {
-          element.description = elm.short;
-        }
-        if (elm.type && elm.type[0].code === 'BackboneElement') {
-          const backboneElement = new BackboneElement();
-          this.createBackBoneElement(backboneElement, item, item.path);
-          element.items.push(backboneElement);
+          if (elm.short) {
+            coreElement.description = elm.short;
+          }
+          if (elm.definition && !elm.type) {
+            coreElement.definition = elm.definition;
+          }
+          coreElements.push(coreElement);
         }
       }
-    }
+
+      const parentElement = new BackboneElement();
+      parentElement.items = [];
+      this.backBoneElements.push(parentElement);
+      for (let i = 0; i < coreElements.length; i++) {
+        const coreElement = coreElements[i];
+        if (!isDefined(coreElement.path) || coreElement.path === null) {
+          if (!isDefined(coreElement.name) || coreElement.name === null) {
+            parentElement.description = coreElement.definition;
+          }
+        } else if (!isDefined(coreElement.name) || coreElement.name === null) {
+          parentElement.name = coreElement.path;
+          parentElement.path = coreElement.path;
+        } else if (coreElement.type === 'BackboneElement') {
+          const backBoneElement = new BackboneElement();
+          backBoneElement.items = [];
+          backBoneElement.name = coreElement.name;
+          backBoneElement.min = coreElement.min;
+          backBoneElement.max = coreElement.max;
+          for (let j = 0; j < coreElements.length; j++) {
+            const coreElement1 = coreElements[j];
+            if (coreElement1.path && coreElement1.path.startsWith(coreElement.path)) {
+              backBoneElement.items.push(coreElement1);
+            }
+          }
+          this.backBoneElements.push(backBoneElement);
+        } else {
+          if (coreElement.type && coreElement.type.split('.').length === 1) {
+            parentElement.items.push(coreElement);
+          }
+        }
+      }
+    });
   }
-
-
-  // oldBackBone(res: any) {
-  //   this.structure.definition = res.definition;
-  //   if (res.element) {
-  //     this.structure.entries = [];
-  //     for (let i = 0; i < res.element.length; i++) {
-  //       const entry: Entry = new Entry();
-  //       const item = res.element[i];
-  //       if (item.type) {
-  //         if (item.typ) {
-  //           const typeElement = item.type[0];
-  //           if (typeElement.code === 'BackboneElement') {
-  //             const basePath = item.path;
-  //             this.createBackBoneElement(item, res);
-  //           }
-  //         }
-  //       }
-  //       entry.name = item.sliceName;
-  //       entry.path = item.path;
-  //       entry.level = DetailedStructureComponent.computeLevel(item.path);
-  //       entry.isSummary = item.isSummary;
-  //       entry.isModifier = item.isModifier;
-  //       entry.min = item.min;
-  //       entry.max = item.max;
-  //       if (item.code) {
-  //         entry.code = item.code;
-  //       }
-  //       if (item.type) {
-  //         const typeElement = item.type[0];
-  //         if (typeElement.code === 'Extension') {
-  //           entry.type_name = DetailedStructureComponent.stripUrl(typeElement.profile[0]);
-  //           entry.type = 'Extension';
-  //         } else if (typeElement.code === 'Reference') {
-  //           entry.type = 'Reference';
-  //           if (typeElement.profile) {
-  //             entry.type_name = DetailedStructureComponent.stripUrl(typeElement.profile[0]);
-  //           } else if (typeElement.targetProfile) {
-  //             entry.type_name = DetailedStructureComponent.stripUrl(typeElement.targetProfile[0]);
-  //           }
-  //         } else {
-  //           entry.type = DetailedStructureComponent.checkType(typeElement.code);
-  //           // entry.type = 'data_type';
-  //           entry.type_name = typeElement.code;
-  //
-  //         }
-  //       }
-  //       entry.description = item.definition;
-  //       this.structure.entries.push(entry);
-  //     }
-  //   }
-  // }
 }

@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DetailedStructureComponent } from './structure-viewer.component';
+import { DetailedStructureComponent } from './backboneElement-viewer.component';
 
 describe('StructureViewerComponent', () => {
   let component: DetailedStructureComponent;

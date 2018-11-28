@@ -1,7 +1,9 @@
+import {CoreElement} from './coreElement';
+
 export class BackboneElement {
   path: string;
   name: string;
-  items: BackboneElement[];
+  items: CoreElement[];
   parent?: BackboneElement;
   min: number;
   max: string;
