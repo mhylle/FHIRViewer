@@ -1,43 +1,39 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ActivatedRoute, ParamMap} from '@angular/router';
-import {StructureService} from '../../structure.service';
-import {Observable} from 'rxjs';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Structure} from '../../model/structure';
-import {switchMap} from 'rxjs/operators';
 import {BackboneElement} from '../../model/backbone-element';
 import {CoreElement} from '../../model/coreElement';
 import {isDefined} from '@angular/compiler/src/util';
+import {StructureService} from '../../structure.service';
 
 @Component({
   selector: 'app-structure-diagram',
   templateUrl: './structure-diagram.component.html',
   styleUrls: ['./structure-diagram.component.css']
 })
-export class StructureDiagramComponent implements OnInit {
-  private $resource: Observable<Structure>;
-  structure: Structure;
+export class StructureDiagramComponent implements OnInit, OnChanges {
+  @Input()
   resource: string;
-  backBoneElements: BackboneElement[];
 
   @Input()
   hideUnused: boolean;
 
-  constructor(private route: ActivatedRoute, private structureService: StructureService) {
+  backBoneElements: BackboneElement[];
+  structure: Structure;
+
+  constructor(private structureService: StructureService) {
   }
 
   ngOnInit() {
+    this.calculateElements();
+  }
 
-    this.$resource = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => {
-        this.resource = params.get('resource');
-        console.log('Resource: ' + this.resource);
-        return this.structureService.getStructure(this.resource);
-      }));
-
-    this.$resource.subscribe(value => {
+  private calculateElements() {
+    if (!this.resource) {
+      return;
+    }
+    this.structureService.getStructure(this.resource).subscribe(value => {
       this.backBoneElements = [];
-      this.structure = new Structure();
-      this.structure.id = value.id;
+      // this.structure.id = value.id;
       let res: any;
       if (value.snapshot) {
         res = value.snapshot;
@@ -84,8 +80,9 @@ export class StructureDiagramComponent implements OnInit {
           parentElement.path = coreElement.path;
         } else if (coreElement.type === 'BackboneElement') {
           const backBoneElement = new BackboneElement();
+          backBoneElement.parent = parentElement;
           backBoneElement.items = [];
-          backBoneElement.name = coreElement.name;
+          backBoneElement.name = coreElement.name.trim();
           backBoneElement.min = coreElement.min;
           backBoneElement.max = coreElement.max;
           for (let j = 0; j < coreElements.length; j++) {
@@ -103,4 +100,10 @@ export class StructureDiagramComponent implements OnInit {
       }
     });
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.calculateElements();
+  }
 }
+
+

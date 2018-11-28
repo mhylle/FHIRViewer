@@ -10,7 +10,10 @@
     <button (click)="chooseResource()">Show Resource</button>
   </div>
 </div>
+<div class="resourceInformation">
+
+</div>
 <div class="container">
-  <app-structure-diagram [hideUnused]="hideUnused"></app-structure-diagram>
-  <app-basic-capability></app-basic-capability>
+  <app-structure-diagram [resource]="selectedResource" [hideUnused]="hideUnused"></app-structure-diagram>
+  <app-basic-capability [resource]="selectedResource"></app-basic-capability>
 </div>

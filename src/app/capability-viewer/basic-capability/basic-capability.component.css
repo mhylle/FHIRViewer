@@ -25,6 +25,8 @@
 
 .operation {
   margin: 4px;
+  font-size: 0.8em;
+
 }
 
 .operation .description {
@@ -40,8 +42,6 @@
   background-color: #e1eff4;
   border-bottom: 2px solid #9c9c9c;
 }
-
-
 
 .read {
   border: 2px solid green;

@@ -29,3 +29,12 @@
   grid-template-columns: auto auto auto auto auto;
   font-size: 0.7em;
 }
+
+.main {
+  float: left;
+}
+
+.backbones {
+  float: right;
+  margin-right: 200px;
+}

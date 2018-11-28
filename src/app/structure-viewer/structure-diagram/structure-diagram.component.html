@@ -1,4 +1,11 @@
-<div *ngFor="let backBoneElement of backBoneElements">
-  <app-diagram-element [backboneElement]="backBoneElement" [hideUnused]="hideUnused" *ngIf="backBoneElement.max != 0"></app-diagram-element>
+<div *ngFor="let backBoneElement of backBoneElements; let idx = index">
+  <div *ngIf="idx===0" class="main">
+    <app-diagram-element [backboneElement]="backBoneElement" [hideUnused]="hideUnused"
+                         *ngIf="backBoneElement.max != 0"></app-diagram-element>
+  </div>
+  <div *ngIf="idx>0" class="backbones">
+    <app-diagram-element [backboneElement]="backBoneElement" [hideUnused]="hideUnused"
+                         *ngIf="backBoneElement.max != 0"></app-diagram-element>
+  </div>
 </div>
 

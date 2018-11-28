@@ -1,5 +1,5 @@
 .card {
-  width: 500px;
+  width: 350px;
   border-radius: 2px;
   margin: 8px;
   -webkit-box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.5);
@@ -25,7 +25,36 @@
 }
 
 .lineItem {
-  display: grid;
-  grid-template-columns: auto auto auto auto auto;
+  /*display: grid;*/
+  /*grid-template-columns: auto 8px auto auto auto;*/
+  /*justify-self: stretch;*/
+  /*grid-gap: 0px;*/
   font-size: 0.7em;
+}
+
+.lineItem:hover {
+  background-color: lightblue;
+}
+
+.name {
+margin-right: 4px;
+}
+
+.seperator {
+  margin-right: 4px;
+}
+
+.type {
+  margin-right: 4px;
+}
+
+.cardinality {
+  margin-right: 4px;
+}
+
+.typeName {
+
+}
+
+.reference {
 }

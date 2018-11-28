@@ -3,12 +3,12 @@
   <div class="card-content">
     <div *ngFor="let item of backboneElement.items;">
       <div class="lineItem" *ngIf="!(item.max === '0' && hideUnused) && item.type !== 'BackboneElement'">
-        <div>{{item.name}}</div>
-        <div>:</div>
-        <div>{{item.type}}</div>
-        <div>[{{item.min}}..{{item.max}}]</div>
-        <div *ngIf="item.type === 'code'">{{item.type}}</div>
-        <div *ngIf="item.type === 'Reference'">{{stripUrl(item.profile)}}</div>
+        <span class="name">{{item.name}}</span>
+        <span class="seperator">:</span>
+        <span class="type">{{item.type}}</span>
+        <span class="cardinality">[{{item.min}}..{{item.max}}]</span>
+        <span *ngIf="item.type === 'code'" class="typeName">{{item.type}}</span>
+        <span *ngIf="item.type === 'Reference'" class="reference">{{stripUrl(item.profile)}}</span>
       </div>
     </div>
   </div>

@@ -44,7 +44,7 @@
     <div class="card">{{entry.min}}..{{entry.max}}</div>
     <div class="type">
       <div></div>
-      <div *ngIf="entry.type === 'Reference'">{{entry.type}}(<a routerLink="/StructureDefinition/{{entry.type_name}}">{{entry.type_name}}</a>)</div>
+      <div *ngIf="entry.type === 'Reference'">{{entry.type}}(<a routerLink="/Home/{{entry.type_name}}">{{entry.type_name}}</a>)</div>
       <div *ngIf="entry.type === 'data_type'"><a href="https://www.hl7.org/fhir/datatypes.html#{{entry.type_name}}">{{entry.type_name}}</a></div>
       <div *ngIf="entry.type === 'primitive_data_type'"><a href="https://www.hl7.org/fhir/datatypes.html#{{entry.type_name}}">{{entry.type_name}}</a></div>
       <div *ngIf="entry.type === 'Extension'">Extension</div>
