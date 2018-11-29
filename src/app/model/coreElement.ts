@@ -7,5 +7,6 @@ export class CoreElement {
   type: string;
   definition: string;
   profile: string;
+  readonly: boolean;
 
 }

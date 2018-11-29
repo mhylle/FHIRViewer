@@ -113,11 +113,16 @@ export class DetailedStructureComponent implements OnInit {
               }
             } else {
               entry.type = DetailedStructureComponent.checkType(typeElement.code);
-              // entry.type = 'data_type';
               entry.type_name = typeElement.code;
-
             }
           }
+
+          if (item.constraint) {
+            if (item.constraint[0].key === 'Readonly') {
+              entry.readonly = true;
+            }
+          }
+
           entry.description = item.definition;
           this.structure.entries.push(entry);
         }

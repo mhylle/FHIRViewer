@@ -14,4 +14,5 @@ export class Entry {
   code: string;
   level: number;
   type_name: string;
+  readonly: boolean;
 }

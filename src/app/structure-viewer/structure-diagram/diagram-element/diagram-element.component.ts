@@ -14,6 +14,8 @@ export class DiagramElementComponent implements OnInit {
 
   @Input()
   hideUnused: boolean;
+  @Input()
+  hideReadonly: boolean;
 
   @Output()
   resourceSelected: EventEmitter<string> = new EventEmitter<string>();

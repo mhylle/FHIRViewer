@@ -68,6 +68,11 @@ export class StructureDiagramComponent implements OnInit, OnChanges {
               coreElement.profile = elm.type[0].profile[0];
             }
           }
+          if (elm.constraint) {
+            if (elm.constraint[0].key === 'Readonly') {
+              coreElement.readonly = true;
+            }
+          }
           if (elm.short) {
             coreElement.description = elm.short;
           }

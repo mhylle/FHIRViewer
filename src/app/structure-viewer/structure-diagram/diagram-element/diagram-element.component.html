@@ -2,7 +2,7 @@
   <div class="card-header">{{backboneElement.name}} (DomainResource)</div>
   <div class="card-content">
     <div *ngFor="let item of backboneElement.items;">
-      <div class="lineItem" *ngIf="!(item.max === '0' && hideUnused) && item.type !== 'BackboneElement'">
+      <div class="lineItem" *ngIf="!(item.max === '0' && hideUnused) && !(item.readonly && hideReadonly) && item.type !== 'BackboneElement'">
         <span class="name">{{item.name}}</span>
         <span class="seperator">:</span>
         <span class="type">{{item.type}}</span>
