@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  resourceServer: 'http://localhost:3023'
 };

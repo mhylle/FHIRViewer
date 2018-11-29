@@ -3,6 +3,7 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {Capability} from '../model/capability';
 import {catchError} from 'rxjs/operators';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class CapabilityService {
   }
 
   getCapability(resource: string): Observable<Capability> {
-    return this.http.get<Capability>('http://localhost:3023/capability?resource=' + resource)
+    return this.http.get<Capability>(environment.resourceServer + '/capability?resource=' + resource)
       .pipe(
         catchError(this.handleError)
       );

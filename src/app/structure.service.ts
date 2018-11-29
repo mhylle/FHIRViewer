@@ -3,6 +3,7 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {Structure} from './model/structure';
 import {catchError} from 'rxjs/operators';
+import {environment} from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class StructureService {
   }
 
   getStructure(resource: string): Observable<Structure> {
-    return this.http.get<Structure>('http://localhost:3023/structure?resource=' + resource)
+    return this.http.get<Structure>(environment.resourceServer + '/structure?resource=' + resource)
       .pipe(
         catchError(StructureService.handleError)
       );
