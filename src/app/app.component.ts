@@ -4,12 +4,10 @@ import {MenuItem} from './menu/menu-item';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   menuItems: MenuItem[] = [];
-  title = 'FHIRDocs';
-
 
   constructor() {
     const homeMenu = new MenuItem();
@@ -25,9 +23,9 @@ export class AppComponent {
     this.menuItems.push(structureMenu);
 
     const capabilityMenu = new MenuItem();
-    capabilityMenu .name = 'Capabilities';
-    capabilityMenu .icon = 'book';
-    capabilityMenu .link = 'CapabilityStatement';
-    this.menuItems.push(capabilityMenu );
+    capabilityMenu.name = 'Capabilities';
+    capabilityMenu.icon = 'book';
+    capabilityMenu.link = 'CapabilityStatement';
+    this.menuItems.push(capabilityMenu);
   }
 }

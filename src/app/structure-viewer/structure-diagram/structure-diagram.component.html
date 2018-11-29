@@ -1,4 +1,4 @@
-<div>{{resourceDescription}}</div>
+<div class="resourceDescription">{{resourceDescription}}</div>
 <div *ngFor="let backBoneElement of backBoneElements; let idx = index">
   <div *ngIf="idx===0" class="main">
     <app-diagram-element [backboneElement]="backBoneElement" [hideUnused]="hideUnused" [hideReadonly]="hideReadonly"
