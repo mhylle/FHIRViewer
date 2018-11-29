@@ -13,7 +13,7 @@ export class StructureService {
   }
 
   getStructure(resource: string): Observable<Structure> {
-    return this.http.get<Structure>('http://localhost:3000/structure?resource=' + resource)
+    return this.http.get<Structure>('http://localhost:3023/structure?resource=' + resource)
       .pipe(
         catchError(StructureService.handleError)
       );
