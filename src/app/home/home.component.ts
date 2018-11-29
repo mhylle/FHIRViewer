@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -7,23 +6,25 @@ import {Router} from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  resourceTypes = [
-    {'name': 'episodeofcare', 'label': 'EpisodeOfCare'},
-    {'name': 'condition', 'label': 'Condition'},
-    {'name': 'ColumnaHealthIssue', 'label': 'ColumnaHealthIssue'},
-    {'name': 'ColumnaEpisodeOfCare', 'label': 'ColumnaEpisodeOfCare'},
-    {'name': 'ColumnaEncounter', 'label': 'ColumnaEncounter'}
-  ];
   selectedResource: string;
+  hideReadonly = true;
   hideUnused = true;
 
-  constructor(private router: Router) {
+  constructor() {
   }
 
   ngOnInit() {
   }
 
-  chooseResource() {
-    this.router.navigate(['Home', this.selectedResource]);
+  selectResource(resource: string) {
+    this.selectedResource = resource;
+  }
+
+  updateReadOnly(hideReadOnly: boolean) {
+    this.hideReadonly = hideReadOnly;
+  }
+
+  updateUnused(hideUnused: boolean) {
+    this.hideUnused = hideUnused;
   }
 }

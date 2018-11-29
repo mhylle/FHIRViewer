@@ -4,6 +4,9 @@ import {BackboneElement} from '../../model/backbone-element';
 import {CoreElement} from '../../model/coreElement';
 import {isDefined} from '@angular/compiler/src/util';
 import {StructureService} from '../../structure.service';
+import {switchMap} from 'rxjs/operators';
+import {ActivatedRoute, ParamMap} from '@angular/router';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-structure-diagram',
@@ -17,13 +20,18 @@ export class StructureDiagramComponent implements OnInit, OnChanges {
   @Input()
   hideUnused: boolean;
 
+  @Input()
+  hideReadonly: boolean;
+
   @Output()
   resourceSelected: EventEmitter<string> = new EventEmitter<string>();
   resourceDescription: string;
   backBoneElements: BackboneElement[];
   structure: Structure;
 
-  constructor(private structureService: StructureService) {
+  private $resource: Observable<Structure>;
+
+  constructor(private route: ActivatedRoute, private structureService: StructureService) {
   }
 
   ngOnInit() {
@@ -31,10 +39,11 @@ export class StructureDiagramComponent implements OnInit, OnChanges {
   }
 
   private calculateElements() {
-    if (!this.resource) {
-      return;
-    }
-    this.structureService.getStructure(this.resource).subscribe(value => {
+    this.$resource = this.route.paramMap.pipe(
+      switchMap((params: ParamMap) => {
+        return this.structureService.getStructure(params.get('resource'));
+      }));
+    this.$resource.subscribe(value => {
       this.backBoneElements = [];
       // this.structure.id = value.id;
       let res: any;

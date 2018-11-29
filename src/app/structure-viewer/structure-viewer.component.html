@@ -1,19 +1,8 @@
-<div>
-  <div>Select resource</div>
-  <div>
-    <select [(ngModel)]="selectedResource">
-      <option *ngFor="let opt of resourceTypes" value="{{opt.name}}">{{opt.label}}</option>
-    </select>
-  </div>
-  <div><input type="checkbox" [(ngModel)]="hideUnused">Hide Unused</div>
-  <div>
-    <button (click)="chooseResource()">Show Resource</button>
-  </div>
-</div>
+<app-resource-selector (resourceSelected)="selectResource($event)" (hideReadOnlyChanged)="updateReadOnly($event)" (hideUnusedChanged)="updateUnused($event)"></app-resource-selector>
 <div class="resourceInformation">
 <!-- todo -->
 </div>
 <div class="container">
-  <app-structure-diagram [resource]="selectedResource" [hideUnused]="hideUnused" (resourceSelected)="selectResource($event)"></app-structure-diagram>
+  <app-structure-diagram [resource]="selectedResource" [hideUnused]="hideUnused" [hideReadonly]="hideReadonly" (resourceSelected)="selectResource($event)"></app-structure-diagram>
   <app-basic-capability [resource]="selectedResource"></app-basic-capability>
 </div>

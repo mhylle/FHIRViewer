@@ -12,12 +12,14 @@ import {Observable} from 'rxjs';
   styleUrls: ['./detailed-structure.component.css']
 })
 export class DetailedStructureComponent implements OnInit {
-
-  constructor(private route: ActivatedRoute, private structureService: StructureService) {
-  }
-
   @Input()
   hideUnused = true;
+
+  @Input()
+  hideReadonly = true;
+
+  @Input()
+  resource: string;
 
   structure: Structure;
   baseResource: string;
@@ -60,6 +62,9 @@ export class DetailedStructureComponent implements OnInit {
       default:
         return 'data_type';
     }
+  }
+
+  constructor(private route: ActivatedRoute, private structureService: StructureService) {
   }
 
   ngOnInit() {

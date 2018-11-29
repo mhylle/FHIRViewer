@@ -1,19 +1,22 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {Component, Input, OnInit} from '@angular/core';
+import {ActivatedRoute, ParamMap} from '@angular/router';
 import {CapabilityService} from '../capability.service';
 import {Capability} from '../../model/capability';
 import {Operation} from '../../model/operation';
+import {switchMap} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-basic-capability',
   templateUrl: './basic-capability.component.html',
   styleUrls: ['./basic-capability.component.css']
 })
-export class BasicCapabilityComponent implements OnInit, OnChanges {
+export class BasicCapabilityComponent implements OnInit {
   capability: Capability = new Capability();
 
   @Input()
   resource: string;
+  private $resource: Observable<Capability>;
 
   constructor(private route: ActivatedRoute, private capabilityService: CapabilityService) {
   }
@@ -23,10 +26,12 @@ export class BasicCapabilityComponent implements OnInit, OnChanges {
   }
 
   private calculateCapabilities() {
-    if (!this.resource) {
-      return;
-    }
-    this.capabilityService.getCapability(this.resource).subscribe(value => {
+    this.$resource = this.route.paramMap.pipe(
+      switchMap((params: ParamMap) => {
+        this.resource = params.get('resource');
+        return this.capabilityService.getCapability(this.resource);
+      }));
+    this.$resource.subscribe(value => {
       const rest = value.rest[0];
       for (let i = 0; i < rest.resource.length; i++) {
         const res = rest.resource[i];
@@ -104,9 +109,5 @@ export class BasicCapabilityComponent implements OnInit, OnChanges {
         }
       }
     });
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    this.calculateCapabilities();
   }
 }

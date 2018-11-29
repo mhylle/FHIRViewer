@@ -18,6 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {AngularFontAwesomeModule} from "angular-font-awesome";
 import { StructureDiagramComponent } from './structure-viewer/structure-diagram/structure-diagram.component';
 import { DiagramElementComponent } from './structure-viewer/structure-diagram/diagram-element/diagram-element.component';
+import { ResourceSelectorComponent } from './resource-selector/resource-selector.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { DiagramElementComponent } from './structure-viewer/structure-diagram/di
     StructureViewerComponent,
     MenuComponent,
     StructureDiagramComponent,
-    DiagramElementComponent
+    DiagramElementComponent,
+    ResourceSelectorComponent
   ],
   imports: [
     BrowserModule,
