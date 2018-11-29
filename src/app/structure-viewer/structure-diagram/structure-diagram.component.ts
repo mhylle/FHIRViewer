@@ -17,6 +17,7 @@ export class StructureDiagramComponent implements OnInit, OnChanges {
   @Input()
   hideUnused: boolean;
 
+  resourceDescription: string;
   backBoneElements: BackboneElement[];
   structure: Structure;
 
@@ -68,12 +69,14 @@ export class StructureDiagramComponent implements OnInit, OnChanges {
 
       const parentElement = new BackboneElement();
       parentElement.items = [];
+      this.resourceDescription = '';
       this.backBoneElements.push(parentElement);
       for (let i = 0; i < coreElements.length; i++) {
         const coreElement = coreElements[i];
         if (!isDefined(coreElement.path) || coreElement.path === null) {
           if (!isDefined(coreElement.name) || coreElement.name === null) {
             parentElement.description = coreElement.definition;
+            this.resourceDescription = coreElement.definition;
           }
         } else if (!isDefined(coreElement.name) || coreElement.name === null) {
           parentElement.name = coreElement.path;
