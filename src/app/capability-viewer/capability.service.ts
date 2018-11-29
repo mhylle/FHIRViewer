@@ -13,7 +13,7 @@ export class CapabilityService {
   }
 
   getCapability(resource: string): Observable<Capability> {
-    return this.http.get<Capability>('http://localhost:3000/capability?resource=' + resource)
+    return this.http.get<Capability>('http://localhost:3023/capability?resource=' + resource)
       .pipe(
         catchError(this.handleError)
       );
