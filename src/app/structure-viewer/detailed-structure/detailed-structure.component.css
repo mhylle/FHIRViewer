@@ -4,8 +4,10 @@
 }
 
 .header {
-  background-color: #e1eff4;
-  border-bottom: 2px solid #9c9c9c;
+  background: rgb(255,255,255);
+  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 63%, rgba(242,238,232,1) 100%);
+  /*border-top: 1px solid #9c9c9c;*/
+  border-bottom: 1px solid #9c9c9c;
 }
 
 .userListHeader {
@@ -14,6 +16,11 @@
   grid-template-rows: 24px auto;
   align-self: center;
   padding: 4px;
+}
+
+.headerItem {
+  border-right: 1px solid lightgray;
+  margin: 4px;
 }
 
 .userList {
@@ -27,10 +34,10 @@
 }
 
 .userList:hover {
-  transform: scale(1.01);
-  background-color: #105581;
+  background-color: lightblue;
+  /*transform: scale(1.01);*/
   /*color: white;*/
-  font-weight: bold;
+  /*font-weight: bold;*/
 }
 
 .hover {

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {BackboneElement} from '../../../model/backbone-element';
 import {isDefined} from '@angular/compiler/src/util';
 
@@ -15,6 +15,9 @@ export class DiagramElementComponent implements OnInit {
   @Input()
   hideUnused: boolean;
 
+  @Output()
+  resourceSelected: EventEmitter<string> = new EventEmitter<string>();
+
   constructor() {
   }
 
@@ -26,5 +29,9 @@ export class DiagramElementComponent implements OnInit {
       return '';
     }
     return referenceUrl.split('/').pop();
+  }
+
+  selectResource(resource: string) {
+    this.resourceSelected.emit(resource);
   }
 }

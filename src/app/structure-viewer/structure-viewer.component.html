@@ -14,6 +14,6 @@
 <!-- todo -->
 </div>
 <div class="container">
-  <app-structure-diagram [resource]="selectedResource" [hideUnused]="hideUnused"></app-structure-diagram>
+  <app-structure-diagram [resource]="selectedResource" [hideUnused]="hideUnused" (resourceSelected)="selectResource($event)"></app-structure-diagram>
   <app-basic-capability [resource]="selectedResource"></app-basic-capability>
 </div>

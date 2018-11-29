@@ -1,20 +1,20 @@
 .container {
-  display: grid;
-  grid-template-columns: 80% 20%;
+  /*display: grid;*/
+  /*grid-template-columns: 80% 20%;*/
   margin-bottom: 8px;
 }
 
 .menuContainer {
   display: grid;
-  grid-template-columns: repeat(12, 0.5fr);
+  grid-template-columns: repeat(10, 1fr);
   grid-template-rows: 36px auto;
-  align-self: center;
+  align-self: start;
 }
 
 .menu {
   border: 1px solid lightgray;
-  background-color: #e1eff4;
-  border-bottom: 2px solid #9c9c9c;
+  background-color: white;
+  border-bottom: 1px solid #9c9c9c;
 }
 
 .menu_item {

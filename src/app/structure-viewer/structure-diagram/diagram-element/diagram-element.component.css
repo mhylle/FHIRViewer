@@ -11,7 +11,6 @@
 
 .card:hover {
   transform: scale(1.02);
-  filter: brightness(95%);
 }
 
 .card-header {

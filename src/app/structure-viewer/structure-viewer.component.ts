@@ -20,7 +20,8 @@ export class StructureViewerComponent implements OnInit {
   ];
   selectedResource: string;
   hideUnused = true;
-  resourceDescription: string;
+  private structure: Structure;
+  // private $resource: Observable<Structure>;
 
   @Output()
   resourceUpdated: EventEmitter<Structure> = new EventEmitter<Structure>();
@@ -34,10 +35,15 @@ export class StructureViewerComponent implements OnInit {
       switchMap((params: ParamMap) => {
         return this.structureService.getStructure(params.get('resource'));
       }));
-    // this.$resource.subscribe(value => this.structure = value);
   }
 
   chooseResource() {
+    this.structureService.getStructure(this.selectedResource).subscribe(value => this.structure = value);
     this.router.navigate(['StructureDefinition', this.selectedResource]);
   }
+
+  selectResource(resource: string) {
+    this.selectedResource = resource;
+  }
+
 }

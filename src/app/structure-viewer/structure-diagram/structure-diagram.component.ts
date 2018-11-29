@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Structure} from '../../model/structure';
 import {BackboneElement} from '../../model/backbone-element';
 import {CoreElement} from '../../model/coreElement';
@@ -17,6 +17,8 @@ export class StructureDiagramComponent implements OnInit, OnChanges {
   @Input()
   hideUnused: boolean;
 
+  @Output()
+  resourceSelected: EventEmitter<string> = new EventEmitter<string>();
   resourceDescription: string;
   backBoneElements: BackboneElement[];
   structure: Structure;
@@ -102,6 +104,10 @@ export class StructureDiagramComponent implements OnInit, OnChanges {
         }
       }
     });
+  }
+
+  selectResource(resource: string) {
+    this.resourceSelected.emit(resource);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
