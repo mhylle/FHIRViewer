@@ -12,13 +12,15 @@ import {HomeComponent} from './home/home.component';
 
 import {BasicCapabilityComponent} from './capability-viewer/basic-capability/basic-capability.component';
 import {DetailedStructureComponent} from './structure-viewer/detailed-structure/detailed-structure.component';
-import { StructureViewerComponent } from './structure-viewer/structure-viewer.component';
-import { MenuComponent } from './menu/menu.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {AngularFontAwesomeModule} from "angular-font-awesome";
-import { StructureDiagramComponent } from './structure-viewer/structure-diagram/structure-diagram.component';
-import { DiagramElementComponent } from './structure-viewer/structure-diagram/diagram-element/diagram-element.component';
-import { ResourceSelectorComponent } from './resource-selector/resource-selector.component';
+import {StructureViewerComponent} from './structure-viewer/structure-viewer.component';
+import {MenuComponent} from './menu/menu.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+import {StructureDiagramComponent} from './structure-viewer/structure-diagram/structure-diagram.component';
+import {DiagramElementComponent} from './structure-viewer/structure-diagram/diagram-element/diagram-element.component';
+import {ResourceSelectorComponent} from './resource-selector/resource-selector.component';
+import {MatCheckboxModule} from '@angular/material';
+import {AngularFontAwesomeModule} from 'angular-font-awesome';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,7 @@ import { ResourceSelectorComponent } from './resource-selector/resource-selector
     MenuComponent,
     StructureDiagramComponent,
     DiagramElementComponent,
-    ResourceSelectorComponent
+    ResourceSelectorComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,7 +41,8 @@ import { ResourceSelectorComponent } from './resource-selector/resource-selector
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,12 +1,20 @@
 <div class="resourceDescription">{{resourceDescription}}</div>
-<div *ngFor="let backBoneElement of backBoneElements; let idx = index">
-  <div *ngIf="idx===0" class="main">
-    <app-diagram-element [backboneElement]="backBoneElement" [hideUnused]="hideUnused" [hideReadonly]="hideReadonly"
-                         *ngIf="backBoneElement.max != 0" (resourceSelected)="selectResource($event)"></app-diagram-element>
+<div class="diagrams">
+  <div>
+    <div *ngFor="let backBoneElement of backBoneElements; let idx = index">
+      <div *ngIf="idx===0" class="main">
+        <app-diagram-element [backboneElement]="backBoneElement" [hideUnused]="hideUnused" [hideReadonly]="hideReadonly"
+                             *ngIf="backBoneElement.max != 0"
+                             (resourceSelected)="selectResource($event)"></app-diagram-element>
+      </div>
+    </div>
   </div>
-  <div *ngIf="idx>0" class="backbones">
-    <app-diagram-element [backboneElement]="backBoneElement" [hideUnused]="hideUnused" [hideReadonly]="hideReadonly"
-                         *ngIf="backBoneElement.max != 0"></app-diagram-element>
+  <div>
+    <div *ngFor="let backBoneElement of backBoneElements; let idx = index">
+      <div *ngIf="idx>0" class="backbones">
+        <app-diagram-element [backboneElement]="backBoneElement" [hideUnused]="hideUnused" [hideReadonly]="hideReadonly"
+                             *ngIf="backBoneElement.max != 0"></app-diagram-element>
+      </div>
+    </div>
   </div>
 </div>
-

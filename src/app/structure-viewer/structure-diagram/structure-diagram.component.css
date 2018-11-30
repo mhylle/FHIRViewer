@@ -25,20 +25,25 @@
 }
 
 .lineItem {
-  display: grid;
-  grid-template-columns: auto auto auto auto auto;
-  font-size: 0.7em;
+  /*display: grid;*/
+  /*grid-template-columns: auto auto auto auto auto;*/
+  /*font-size: 0.7em;*/
 }
 
 .main {
-  float: left;
+  /*float: left;*/
 }
 
 .backbones {
-  float: right;
-  margin-right: 200px;
+  /*float: right;*/
+  /*margin-right: 200px;*/
 }
 
 .resourceDescription {
   margin: 8px;
+}
+
+.diagrams {
+  display: grid;
+  grid-template-columns: auto auto;
 }

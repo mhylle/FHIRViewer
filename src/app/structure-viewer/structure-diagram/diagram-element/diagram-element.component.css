@@ -57,3 +57,7 @@ margin-right: 4px;
 
 .reference {
 }
+.diagrams {
+  display: grid;
+  grid-template-columns: 400px auto;
+}
