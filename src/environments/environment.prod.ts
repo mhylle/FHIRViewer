@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  resourceServer: 'http://clud-13783:3023'
+  resourceServer: 'http://clud-13783-web:3023'
 };
