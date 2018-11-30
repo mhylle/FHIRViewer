@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "prod": "ng server --prod --host 0.0.0.0",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
