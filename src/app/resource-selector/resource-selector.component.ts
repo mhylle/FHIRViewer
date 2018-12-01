@@ -42,8 +42,6 @@ export class ResourceSelectorComponent implements OnInit {
   }
 
   fireResourceChanged() {
-    const data = this.route.snapshot.data;
-    console.log(data);
     const urlElement = this.route.snapshot.url[0].path;
     this.router.navigate([urlElement, this.selectedResource]);
   }

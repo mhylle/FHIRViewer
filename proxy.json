@@ -1,0 +1,6 @@
+{
+  "/structure": {
+    "target": "http://localhost:3023/",
+    "secure": false
+  }
+}

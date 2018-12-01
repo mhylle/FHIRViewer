@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {ServerInformationService} from '../services/server-information.service';
 
 @Component({
   selector: 'app-home',
@@ -9,11 +10,15 @@ export class HomeComponent implements OnInit {
   selectedResource: string;
   hideReadonly = true;
   hideUnused = true;
+  serverDescription: string;
 
-  constructor() {
+  constructor(private serverInformationService: ServerInformationService) {
   }
 
   ngOnInit() {
+    this.serverInformationService.getServerDescription().subscribe(value => {
+      this.serverDescription = value.description;
+    });
   }
 
   selectResource(resource: string) {

@@ -1,0 +1,19 @@
+<mat-toolbar>
+
+  <div *ngFor="let item of menuItems">
+    <a routerLink="/{{item.link}}">
+      <fa name="{{item.icon}}"></fa>
+      {{item.name}}
+    </a>
+  </div>
+</mat-toolbar>
+<!--<div class="container menu">-->
+<!--<div class="menuContainer">-->
+<!--<div class="menu_item" *ngFor="let item of menuItems">-->
+<!--<a routerLink="/{{item.link}}">-->
+<!--<fa name="{{item.icon}}"></fa>-->
+<!--{{item.name}}-->
+<!--</a>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->

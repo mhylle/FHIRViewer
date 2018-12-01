@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-structure-viewer',
-  templateUrl: './structure-viewer.component.html',
-  styleUrls: ['./structure-viewer.component.css']
+  selector: 'app-real-structure',
+  templateUrl: './real-structure.component.html',
+  styleUrls: ['./real-structure.component.css']
 })
-export class StructureViewerComponent implements OnInit {
+export class RealStructureComponent implements OnInit {
   selectedResource: string;
   hideReadonly = true;
   hideUnused = true;
@@ -27,4 +27,5 @@ export class StructureViewerComponent implements OnInit {
   updateUnused(hideUnused: boolean) {
     this.hideUnused = hideUnused;
   }
+
 }

@@ -1,5 +1,8 @@
 import {Component} from '@angular/core';
-import {MenuItem} from './menu/menu-item';
+import {MenuItem} from './core/menu/menu-item';
+import {AuthService} from './core/auth/auth.service';
+import {Router} from '@angular/router';
+import {User} from './core/login/user';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +11,10 @@ import {MenuItem} from './menu/menu-item';
 })
 export class AppComponent {
   menuItems: MenuItem[] = [];
+  currentUser: User;
 
-  constructor() {
+  constructor(private router: Router, private authenticationService: AuthService) {
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     const homeMenu = new MenuItem();
     homeMenu.name = 'Home';
     homeMenu.icon = 'home';
@@ -22,10 +27,27 @@ export class AppComponent {
     structureMenu.link = 'StructureDefinition';
     this.menuItems.push(structureMenu);
 
+    const structureDefinitionMenu = new MenuItem();
+    structureDefinitionMenu.name = 'StructureDefinition';
+    structureDefinitionMenu.icon = 'address-card';
+    structureDefinitionMenu.link = 'RealStructureDefinition';
+    this.menuItems.push(structureDefinitionMenu);
+
     const capabilityMenu = new MenuItem();
     capabilityMenu.name = 'Capabilities';
     capabilityMenu.icon = 'book';
     capabilityMenu.link = 'CapabilityStatement';
     this.menuItems.push(capabilityMenu);
+
+    const loginMenu = new MenuItem();
+    loginMenu.name = 'Login';
+    loginMenu.icon = 'sign-in-alt';
+    loginMenu.link = 'login';
+    this.menuItems.push(loginMenu);
+  }
+
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['/login']);
   }
 }

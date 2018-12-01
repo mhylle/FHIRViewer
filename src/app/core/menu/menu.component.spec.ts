@@ -1,7 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {MenuComponent} from './menu.component';
-import {AppRoutingModule} from '../app-routing.module';
+import {AppRoutingModule} from '../../app-routing.module';
 import {FormsModule} from '@angular/forms';
 import {AngularFontAwesomeModule} from "angular-font-awesome";
 

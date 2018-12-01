@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {StructureService} from '../../structure.service';
-import {Entry} from '../../model/entry';
-import {Structure} from '../../model/structure';
+import {StructureService} from '../../services/structure.service';
+import {Entry} from '../../core/model/entry';
+import {Structure} from '../../core/model/structure';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {switchMap} from 'rxjs/operators';
 import {Observable} from 'rxjs';

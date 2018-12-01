@@ -1,0 +1,103 @@
+.element {
+  display: grid;
+  grid-template-columns: 200px 50px 50px 200px auto;
+}
+
+.header {
+  background: rgb(255,255,255);
+  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 63%, rgba(242,238,232,1) 100%);
+  /*border-top: 1px solid #9c9c9c;*/
+  border-bottom: 1px solid #9c9c9c;
+}
+
+.userListHeader {
+  display: grid;
+  grid-template-columns: 200px 50px 50px 400px auto;
+  grid-template-rows: 24px auto;
+  align-self: center;
+  padding: 4px;
+}
+
+.headerItem {
+  border-right: 1px solid lightgray;
+  margin: 4px;
+}
+
+.userList {
+  font-size: 0.8em;
+  display: grid;
+  grid-template-columns: 200px 50px 50px 400px auto;
+  /*grid-template-rows: 18px auto;*/
+  align-self: center;
+  padding: 4px;
+  transition: all 0.1s ease-in-out;
+}
+
+.userList:hover {
+  background-color: lightblue;
+  /*transform: scale(1.01);*/
+  /*color: white;*/
+  /*font-weight: bold;*/
+}
+
+.hover {
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.unHover {
+  cursor: default;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.even {
+  background-color: white;
+  /*border-bottom: 1px solid lightblue;*/
+}
+
+.odd {
+  /*border-bottom: 1px solid lightblue;*/
+  background-color: #fafafa;
+}
+
+.outerElement {
+  /*border-right: 1px aliceblue dashed;*/
+  border: 1px aliceblue dashed;
+  width: 20px;
+  height: 100%;
+  /*background-color: cyan;*/
+
+}
+
+
+.entry {
+  display: grid;
+  grid-template-columns: auto 24px auto;
+  align-self: start;
+  justify-self: start;
+  text-align: left;
+}
+
+.entry_indention {
+  align-self: start;
+  justify-self: start;
+  text-align: left;
+}
+
+.entry_icon {
+  align-self: start;
+  justify-self: start;
+  text-align: left;
+}
+
+.entry_name {
+  align-self: start;
+  justify-self: start;
+  text-align: left;
+}

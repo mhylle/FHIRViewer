@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap} from '@angular/router';
-import {CapabilityService} from '../capability.service';
-import {Capability} from '../../model/capability';
-import {Operation} from '../../model/operation';
+import {CapabilityService} from '../../services/capability.service';
+import {Capability} from '../../core/model/capability';
+import {Operation} from '../../core/model/operation';
 import {switchMap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 

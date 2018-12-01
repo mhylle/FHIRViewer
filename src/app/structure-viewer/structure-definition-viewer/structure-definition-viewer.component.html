@@ -1,0 +1,64 @@
+<div>{{structure?.definition}}</div>
+<div class="header userListHeader">
+  <div class="headerItem">Name</div>
+  <div class="headerItem">Flags</div>
+  <div class="headerItem">Card</div>
+  <div class="headerItem">Type</div>
+  <div class="headerItem">Description</div>
+</div>
+
+<div *ngFor="let entry of structure?.snapshot?.element; let even = even; let odd = odd"
+     [ngClass]="{odd: odd, even:even}">
+  <div *ngIf="!(entry.max === '0' && hideUnused)"
+       class="userList">
+    <div class="entry">
+      <div class="entry_indention">
+        <span *ngFor="let idx of computeLevel(entry.path)|repeat">
+        <span *ngIf="idx === 1" class="outerElement">&nbsp;</span>
+        <span *ngIf="idx === 1">...</span>
+        <span *ngIf="idx > 1">.....</span>
+        </span>
+      </div>
+      <div *ngIf="entry.type">
+        <div class="entry_icon" *ngIf="entry?.type[0].code === 'Reference'"><img
+          src="../../../assets/icon_reference.png"
+          title="Reference to another resource"></div>
+        <div class="entry_icon" *ngIf="entry?.type[0].code === 'code'"><img src="../../../assets/icon_primitive.png"
+                                                                            title="Primitive data type"></div>
+        <div class="entry_icon" *ngIf="entry?.type[0].code ==='Extension'"><img
+          src="../../../assets/icon_extension_simple.png"
+          title="Data type"></div>
+        <div class="entry_icon" *ngIf="entry?.type[0].code ==='data_type'"><img src="../../../assets/icon_datatype.gif"
+                                                                                title="Data type"></div>
+        <div class="entry_icon" *ngIf="entry?.type[0].code ==='primitive_data_type'"><img
+          src="../../../assets/icon_primitive.png"
+          title="Data type"></div>
+      </div>
+      <div *ngIf="!entry.type"></div>
+      <div class="entry_name">{{computeName(entry.path)}}</div>
+    </div>
+    <div class="flags">
+      <span *ngIf="entry.isModifier">?!</span>
+      <span *ngIf="entry.isSummary">Σ</span>
+    </div>
+
+    <div class="card">{{entry.min}}..{{entry.max}}</div>
+    <div class="type">
+      <div *ngIf="entry.type">
+        <span>{{entry.type[0].code}}</span>
+        <span *ngIf="entry.type[0].code === 'Reference'">({{entry.type[0].targetProfile}})</span>
+      </div>
+      <!--<div></div>-->
+      <!--<div *ngIf="entry.type === 'Reference'">{{entry.type}}(<a-->
+        <!--routerLink="/Home/{{entry.type_name}}">{{entry.type_name}}</a>)-->
+      <!--</div>-->
+      <!--<div *ngIf="entry.type === 'data_type'"><a-->
+        <!--href="https://www.hl7.org/fhir/datatypes.html#{{entry.type_name}}">{{entry.type_name}}</a></div>-->
+      <!--<div *ngIf="entry.type === 'primitive_data_type'"><a-->
+        <!--href="https://www.hl7.org/fhir/datatypes.html#{{entry.type_name}}">{{entry.type_name}}</a></div>-->
+      <!--<div *ngIf="entry.type === 'Extension'">Extension</div>-->
+    </div>
+    <div>{{entry.short}}</div>
+  </div>
+</div>
+<!--<div>{{baseResource}}</div>-->

@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {Structure} from '../../model/structure';
-import {BackboneElement} from '../../model/backbone-element';
-import {CoreElement} from '../../model/coreElement';
+import {Structure} from '../../core/model/structure';
+import {BackboneElement} from '../../core/model/backbone-element';
+import {CoreElement} from '../../core/model/coreElement';
 import {isDefined} from '@angular/compiler/src/util';
-import {StructureService} from '../../structure.service';
+import {StructureService} from '../../services/structure.service';
 import {switchMap} from 'rxjs/operators';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {Observable} from 'rxjs';

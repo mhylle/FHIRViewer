@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-structure-viewer',
-  templateUrl: './structure-viewer.component.html',
-  styleUrls: ['./structure-viewer.component.css']
+  selector: 'app-capability-viewer',
+  templateUrl: './capability-viewer.component.html',
+  styleUrls: ['./capability-viewer.component.css']
 })
-export class StructureViewerComponent implements OnInit {
+export class CapabilityViewerComponent implements OnInit {
   selectedResource: string;
   hideReadonly = true;
   hideUnused = true;

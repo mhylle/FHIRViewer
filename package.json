@@ -4,12 +4,13 @@
   "scripts": {
     "ng": "ng",
     "prod": "ng serve --prod --host clud-13783-web",
-    "start": "ng serve",
+    "start": "ng serve --proxy-config proxy.json",
     "build": "ng build",
     "build-prod": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "webbuild": "webpack --mode production"
   },
   "private": true,
   "dependencies": {
