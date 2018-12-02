@@ -26,6 +26,7 @@ import {JwtInterceptor} from './core/auth/jwt.interceptor';
 import {CapabilityViewerComponent} from './capability-viewer/capability-viewer.component';
 import {StructureDefinitionViewerComponent} from './structure-viewer/structure-definition-viewer/structure-definition-viewer.component';
 import {RealStructureComponent} from './structure-viewer/real-structure/real-structure.component';
+import { MenuItemComponent } from './core/menu/menu-item/menu-item.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import {RealStructureComponent} from './structure-viewer/real-structure/real-str
     LoginComponent,
     CapabilityViewerComponent,
     StructureDefinitionViewerComponent,
-    RealStructureComponent
+    RealStructureComponent,
+    MenuItemComponent
   ],
   imports: [
     BrowserModule,

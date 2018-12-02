@@ -50,7 +50,7 @@ export class AppComponent {
     this.menuItems.push(capabilityMenu);
 
     const serverMenu = new MenuItem();
-    serverMenu.name = 'servers';
+    serverMenu.name = this.configurationService.selectedServer != null ? this.configurationService.selectedServer : 'Server';
     serverMenu.icon = 'server';
     serverMenu.link = '';
     serverMenu.menuItems = [];
@@ -71,28 +71,46 @@ export class AppComponent {
     const loginMenu = new MenuItem();
     loginMenu.name = 'Login';
     loginMenu.icon = 'sign-in';
-    loginMenu.link = 'login';
-    loginMenu.visible = this.loggedIn;
+    loginMenu.visible = !this.loggedIn;
     loginMenu.position = 'right';
-    this.menuItems.push(loginMenu);
+
 
     const logoutMenu = new MenuItem();
     logoutMenu.name = 'Logout';
     logoutMenu.icon = 'sign-out';
-    logoutMenu.link = 'login';
     logoutMenu.position = 'right';
-    logoutMenu.action = () => {
-      this.logout();
+    logoutMenu.visible = this.loggedIn;
+
+    loginMenu.action = () => {
+      this.login(loginMenu, logoutMenu);
     };
-    logoutMenu.visible = !this.loggedIn;
+
+    logoutMenu.action = () => {
+      this.logout(logoutMenu, loginMenu);
+    };
+
+    this.menuItems.push(loginMenu);
     this.menuItems.push(logoutMenu);
   }
 
   selectServer(serverMenu: MenuItem, subMenu: MenuItem, server: string) {
+    for (let i = 0; i < serverMenu.menuItems.length; i++) {
+      serverMenu.menuItems[i].selected = false;
+    }
+    subMenu.selected = true;
     this.configurationService.changeServer(server);
   }
 
-  logout() {
+  login(loginMenu: MenuItem, logoutMenu: MenuItem) {
+    loginMenu.visible = false;
+    logoutMenu.visible = true;
+    this.router.navigate(['/login']);
+  }
+
+  logout(logoutMenu: MenuItem, loginMenu: MenuItem) {
+    loginMenu.visible = true;
+    logoutMenu.visible = false;
+    // logoutMenu.visible = false;
     console.log('logout called in app');
     this.authenticationService.logout();
     this.router.navigate(['/login']);

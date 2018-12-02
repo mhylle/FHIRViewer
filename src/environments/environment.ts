@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  resourceServers: ['http://localhost:3023/columna']
+  resourceServers: ['http://localhost:3023/columna', 'http://localhost:3021/columna', 'http://localhost:3020/columna']
 };
 
 /*

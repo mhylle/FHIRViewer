@@ -72,6 +72,7 @@ export class DetailedStructureComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.selectedServer = this.configurationService.selectedServer;
     this.configurationService.serverChanged.subscribe((server) => {
       this.selectedServer = server;
       this.calculateStructure();
