@@ -30,7 +30,7 @@ export class StructureService {
   }
 
   getStructure(resource: string): Observable<Structure> {
-    return this.http.get<Structure>(this.configurationService.selectedServer + '/structure?resource=' + resource)
+    return this.http.get<Structure>(this.configurationService.selectedServer + '/fhir/StructureDefinition/' + resource)
       .pipe(
         catchError(StructureService.handleError)
       );

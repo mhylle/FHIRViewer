@@ -13,18 +13,7 @@ export class CapabilityService {
   constructor(private http: HttpClient, private configurationService: ConfigurationService) {
   }
 
-  getCapability(resource: string): Observable<Capability> {
-    // if (this.configurationService.selectedServer === '') {
-    //   throwError('No server selected');
-    //   return;
-    // }
-    return this.http.get<Capability>(this.configurationService.selectedServer + '/capability?resource=' + resource)
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
-
-  private handleError(error: HttpErrorResponse) {
+  private static handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error.message);
@@ -38,5 +27,16 @@ export class CapabilityService {
     // return an observable with a user-facing error message
     return throwError(
       'Something bad happened; please try again later.');
+  }
+
+  getCapability(resource: string): Observable<Capability> {
+    // if (this.configurationService.selectedServer === '') {
+    //   throwError('No server selected');
+    //   return;
+    // }
+    return this.http.get<Capability>(this.configurationService.selectedServer + '/fhir/metadata/' + resource)
+      .pipe(
+        catchError(CapabilityService.handleError)
+      );
   }
 }

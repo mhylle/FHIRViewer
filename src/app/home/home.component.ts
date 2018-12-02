@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ServerInformationService} from '../services/server-information.service';
+import {ConfigurationService} from '../services/infrastructure/configuration.service';
 
 @Component({
   selector: 'app-home',
@@ -12,12 +13,21 @@ export class HomeComponent implements OnInit {
   hideUnused = true;
   serverDescription: string;
 
-  constructor(private serverInformationService: ServerInformationService) {
+  constructor(private configurationService: ConfigurationService, private serverInformationService: ServerInformationService) {
   }
 
   ngOnInit() {
+    this.configurationService.serverChanged.subscribe(() => this.retrieveServerInformation());
+    this.retrieveServerInformation();
+  }
+
+  private retrieveServerInformation() {
     this.serverInformationService.getServerDescription().subscribe(value => {
-      this.serverDescription = value.description;
+      if (value != null) {
+        this.serverDescription = value.description;
+      } else {
+        this.serverDescription = 'No description returned from the server';
+      }
     });
   }
 

@@ -1,15 +1,15 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {environment} from '../../environments/environment';
 import {catchError} from 'rxjs/operators';
+import {ConfigurationService} from './infrastructure/configuration.service';
 import StructureDefinition = fhir.StructureDefinition;
 
 @Injectable({
   providedIn: 'root'
 })
 export class StructureDefinitionService {
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private configurationService: ConfigurationService) {
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -29,7 +29,7 @@ export class StructureDefinitionService {
   }
 
   getStructure(resource: string): Observable<StructureDefinition> {
-    return this.http.get<StructureDefinition>(environment.resourceServers[0] + '/structure?resource=' + resource)
+    return this.http.get<StructureDefinition>(this.configurationService.selectedServer + 'fhir/StructureDefinition/' + resource)
       .pipe(
         catchError(this.handleError)
       );
