@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {ConfigurationService} from '../services/infrastructure/configuration.service';
 
 @Component({
   selector: 'app-capability-viewer',
@@ -11,7 +10,7 @@ export class CapabilityViewerComponent implements OnInit {
   hideReadonly = true;
   hideUnused = true;
 
-  constructor(private configurationService: ConfigurationService) {
+  constructor() {
   }
 
   ngOnInit() {

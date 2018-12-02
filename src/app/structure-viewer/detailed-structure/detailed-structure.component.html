@@ -53,7 +53,7 @@
     <div class="type">
       <div></div>
       <div *ngIf="entry.type === 'Reference'">{{entry.type}}(<a
-        routerLink="/Home/{{entry.type_name}}">{{entry.type_name}}</a>)
+        routerLink="/StructureDefinition/{{entry.type_name}}">{{entry.type_name}}</a>)
       </div>
       <div *ngIf="entry.type === 'data_type'"><a
         href="https://www.hl7.org/fhir/datatypes.html#{{entry.type_name}}">{{entry.type_name}}</a></div>

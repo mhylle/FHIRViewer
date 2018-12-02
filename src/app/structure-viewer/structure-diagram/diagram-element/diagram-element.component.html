@@ -8,7 +8,7 @@
         <span class="type">{{item.type}}</span>
         <span class="cardinality">[{{item.min}}..{{item.max}}]</span>
         <span *ngIf="item.type === 'code'" class="typeName">{{item.type}}</span>
-        <span *ngIf="item.type === 'Reference'" class="reference" (click)="selectResource(stripUrl(item.profile))">{{stripUrl(item.profile)}}</span>
+        <span *ngIf="item.type === 'Reference'" class="reference"><a routerLink="/CapabilityStatement/{{stripUrl(item.profile)}}">{{stripUrl(item.profile)}}</a></span>
       </div>
     </div>
   </div>
