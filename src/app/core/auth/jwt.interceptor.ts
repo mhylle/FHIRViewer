@@ -14,10 +14,9 @@ export class JwtInterceptor implements HttpInterceptor {
       req = req.clone({
         setHeaders: {
           Authorization: '${currentToken}',
-          HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN: 'clud-13783-t70',
+          HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN: '*',
           HTTP2_HEADER_ACCESS_CONTROL_ALLOW_METHODS: 'GET, POST',
-          HTTP2_HEADER_ACCESS_CONTROL_ALLOW_HEADERS: 'X-Requested-With, content-type, Authorization',
-          HTTP2_HEADER_ACCESS_CONTROL_ALLOW_Credentials: 'true'
+          HTTP2_HEADER_ACCESS_CONTROL_ALLOW_HEADERS: 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
         }
       });
     }
