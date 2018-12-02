@@ -78,6 +78,7 @@ export class DetailedStructureComponent implements OnInit {
   }
 
   private calculateStructure() {
+    this.structure = null;
     this.$resource = this.route.paramMap.pipe(
       switchMap((params: ParamMap) => {
         return this.structureService.getStructure(params.get('resource'));

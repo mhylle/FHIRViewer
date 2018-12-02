@@ -2,6 +2,7 @@
 <div class="resourceInformation">
   <!-- todo -->
 </div>
+
 <div class="container">
   <app-structure-diagram [resource]="selectedResource" [hideUnused]="hideUnused" [hideReadonly]="hideReadonly" (resourceSelected)="selectResource($event)"></app-structure-diagram>
   <app-basic-capability [resource]="selectedResource"></app-basic-capability>

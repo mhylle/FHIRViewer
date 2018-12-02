@@ -6,7 +6,7 @@
   <div class="headerItem">Type</div>
   <div class="headerItem">Description</div>
 </div>
-<div class="userList">
+<div class="userList" *ngIf="structure">
   <div class="entry">
     <div class="entry_icon"><img src="../../../assets/icon_element.gif"></div>
     <div class="entry_name">{{structure?.id}}</div>
@@ -16,6 +16,9 @@
   <div><a href="https://www.hl7.org/fhir/domainresource.html">DomainResource</a></div>
   <div>{{structure?.url}}</div>
 </div>
+
+<div *ngIf="!structure && configurationService.selectedServer">Select a resource to show the StructureDefinition.</div>
+<div *ngIf="!configurationService.selectedServer">Please select a server to retrieve StructureDefinitions from.</div>
 
 <div *ngFor="let entry of structure?.entries; let even = even; let odd = odd"
      [ngClass]="{odd: odd, even:even}">
