@@ -5,6 +5,7 @@ import {Structure} from '../../core/model/structure';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {switchMap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
+import {ConfigurationService} from '../../services/infrastructure/configuration.service';
 
 @Component({
   selector: 'app-detailed-structure',
@@ -64,10 +65,19 @@ export class DetailedStructureComponent implements OnInit {
     }
   }
 
-  constructor(private route: ActivatedRoute, private structureService: StructureService) {
+  constructor(private route: ActivatedRoute,
+              private configurationService: ConfigurationService,
+              private structureService: StructureService) {
   }
 
   ngOnInit() {
+    this.configurationService.serverChanged.subscribe(() => {
+      this.calculateStructure();
+    });
+    this.calculateStructure();
+  }
+
+  private calculateStructure() {
     this.$resource = this.route.paramMap.pipe(
       switchMap((params: ParamMap) => {
         return this.structureService.getStructure(params.get('resource'));

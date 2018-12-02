@@ -7,6 +7,7 @@ import {StructureService} from '../../services/structure.service';
 import {switchMap} from 'rxjs/operators';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {Observable} from 'rxjs';
+import {ConfigurationService} from '../../services/infrastructure/configuration.service';
 
 @Component({
   selector: 'app-structure-diagram',
@@ -31,10 +32,13 @@ export class StructureDiagramComponent implements OnInit, OnChanges {
 
   private $resource: Observable<Structure>;
 
-  constructor(private route: ActivatedRoute, private structureService: StructureService) {
+  constructor(private route: ActivatedRoute,
+              private configurationService: ConfigurationService,
+              private structureService: StructureService) {
   }
 
   ngOnInit() {
+    this.configurationService.serverChanged.subscribe(() => this.calculateElements());
     this.calculateElements();
   }
 

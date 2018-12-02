@@ -5,6 +5,8 @@ import {Capability} from '../../core/model/capability';
 import {Operation} from '../../core/model/operation';
 import {switchMap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
+import {isDefined} from '@angular/compiler/src/util';
+import {ConfigurationService} from '../../services/infrastructure/configuration.service';
 
 @Component({
   selector: 'app-basic-capability',
@@ -18,10 +20,15 @@ export class BasicCapabilityComponent implements OnInit {
   resource: string;
   private $resource: Observable<Capability>;
 
-  constructor(private route: ActivatedRoute, private capabilityService: CapabilityService) {
+  constructor(private route: ActivatedRoute,
+              private capabilityService: CapabilityService,
+              private configurationService: ConfigurationService) {
   }
 
   ngOnInit() {
+    this.configurationService.serverChanged.subscribe(() => {
+      this.calculateCapabilities();
+    });
     this.calculateCapabilities();
   }
 
@@ -29,8 +36,13 @@ export class BasicCapabilityComponent implements OnInit {
     this.$resource = this.route.paramMap.pipe(
       switchMap((params: ParamMap) => {
         this.resource = params.get('resource');
+        console.log('Check capability for: ' + this.resource);
         return this.capabilityService.getCapability(this.resource);
       }));
+    if (!isDefined(this.$resource)) {
+      console.log('Got nothing back from service');
+      return;
+    }
     this.$resource.subscribe(value => {
       const rest = value.rest[0];
       for (let i = 0; i < rest.resource.length; i++) {

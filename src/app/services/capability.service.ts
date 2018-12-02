@@ -3,18 +3,22 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {Capability} from '../core/model/capability';
 import {catchError} from 'rxjs/operators';
-import {environment} from '../../environments/environment';
+import {ConfigurationService} from './infrastructure/configuration.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CapabilityService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private configurationService: ConfigurationService) {
   }
 
   getCapability(resource: string): Observable<Capability> {
-    return this.http.get<Capability>(environment.resourceServers[0] + '/capability?resource=' + resource)
+    // if (this.configurationService.selectedServer === '') {
+    //   throwError('No server selected');
+    //   return;
+    // }
+    return this.http.get<Capability>(this.configurationService.selectedServer + '/capability?resource=' + resource)
       .pipe(
         catchError(this.handleError)
       );

@@ -3,14 +3,14 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {Structure} from '../core/model/structure';
 import {catchError} from 'rxjs/operators';
-import {environment} from '../../environments/environment';
+import {ConfigurationService} from './infrastructure/configuration.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StructureService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private configurationService: ConfigurationService) {
   }
 
   private static handleError(error: HttpErrorResponse) {
@@ -30,7 +30,7 @@ export class StructureService {
   }
 
   getStructure(resource: string): Observable<Structure> {
-    return this.http.get<Structure>(environment.resourceServers[0] + '/structure?resource=' + resource)
+    return this.http.get<Structure>(this.configurationService.selectedServer + '/structure?resource=' + resource)
       .pipe(
         catchError(StructureService.handleError)
       );

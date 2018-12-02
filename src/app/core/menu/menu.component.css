@@ -5,10 +5,7 @@
 }
 
 .menuContainer {
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: 36px auto;
-  align-self: start;
+  height: 36px;
 }
 
 .menu {
@@ -36,4 +33,8 @@ a {
 a:hover {
   color: #333333;
   text-decoration: underline;
+}
+.spacer{
+  flex: 1 1 auto;
+
 }

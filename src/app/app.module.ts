@@ -19,7 +19,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {StructureDiagramComponent} from './structure-viewer/structure-diagram/structure-diagram.component';
 import {DiagramElementComponent} from './structure-viewer/structure-diagram/diagram-element/diagram-element.component';
 import {ResourceSelectorComponent} from './resource-selector/resource-selector.component';
-import {MatCheckboxModule, MatToolbarModule} from '@angular/material';
+import {MatCheckboxModule, MatMenuModule, MatToolbarModule} from '@angular/material';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import {LoginComponent} from './core/login/login.component';
 import {JwtInterceptor} from './core/auth/jwt.interceptor';
@@ -53,7 +53,8 @@ import {RealStructureComponent} from './structure-viewer/real-structure/real-str
     BrowserAnimationsModule,
     AngularFontAwesomeModule,
     MatCheckboxModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatMenuModule
 
   ],
   providers: [
