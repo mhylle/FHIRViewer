@@ -5,56 +5,57 @@ import {HomeComponent} from './home/home.component';
 import {StructureViewerComponent} from './structure-viewer/structure-viewer.component';
 import {LoginComponent} from './core/login/login.component';
 import {CapabilityViewerComponent} from './capability-viewer/capability-viewer.component';
-import {StructureDefinitionViewerComponent} from './structure-viewer/structure-definition-viewer/structure-definition-viewer.component';
 import {RealStructureComponent} from './structure-viewer/real-structure/real-structure.component';
+import {AuthGuard} from './core/auth/auth-guard.service';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    component: HomeComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'Home',
     component: HomeComponent,
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'Home/:resource',
     component: HomeComponent,
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'StructureDefinition/:resource',
     component: StructureViewerComponent,
     pathMatch: 'prefix',
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'RealStructureDefinition/:resource',
     component: RealStructureComponent,
     pathMatch: 'prefix',
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'RealStructureDefinition',
     component: RealStructureComponent,
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'StructureDefinition',
     component: StructureViewerComponent,
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'CapabilityStatement/:resource',
     component: CapabilityViewerComponent,
     pathMatch: 'prefix',
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'CapabilityStatement',
     component: CapabilityViewerComponent,
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'login',
