@@ -17,8 +17,8 @@
   <div>{{structure?.url}}</div>
 </div>
 
-<div *ngIf="!structure && configurationService.selectedServer">Select a resource to show the StructureDefinition.</div>
-<div *ngIf="!configurationService.selectedServer">Please select a server to retrieve StructureDefinitions from.</div>
+<div *ngIf="!structure && selectedServer">Select a resource to show the StructureDefinition.</div>
+<div *ngIf="!selectedServer">Please select a server to retrieve StructureDefinitions from.</div>
 
 <div *ngFor="let entry of structure?.entries; let even = even; let odd = odd"
      [ngClass]="{odd: odd, even:even}">

@@ -25,6 +25,7 @@ export class DetailedStructureComponent implements OnInit {
   structure: Structure;
   baseResource: string;
   private $resource: Observable<Structure>;
+  selectedServer: string;
 
   static computeLevel(path: string): number {
     if (path == null) {
@@ -71,7 +72,8 @@ export class DetailedStructureComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.configurationService.serverChanged.subscribe(() => {
+    this.configurationService.serverChanged.subscribe((server) => {
+      this.selectedServer = server;
       this.calculateStructure();
     });
     this.calculateStructure();
