@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "prod": "ng serve --prod --host clud-13783-web",
-    "start": "ng serve --proxy-config proxy.json",
+    "start": "ng serve",
     "build": "ng build",
     "build-prod": "ng build --prod",
     "test": "ng test",

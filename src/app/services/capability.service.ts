@@ -1,9 +1,15 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {Capability} from '../core/model/capability';
 import {catchError} from 'rxjs/operators';
 import {ConfigurationService} from './infrastructure/configuration.service';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +40,11 @@ export class CapabilityService {
     //   throwError('No server selected');
     //   return;
     // }
-    return this.http.get<Capability>(this.configurationService.selectedServer + '/fhir/metadata/' + resource)
+    httpOptions.headers.append('Access-Control-Allow-Origin', '*');
+    httpOptions.headers.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    httpOptions.headers.append('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    httpOptions.headers.append('Access-Control-Allow-Credentials', 'true');
+    return this.http.get<Capability>(this.configurationService.selectedServer + '/fhir/metadata/' + resource, httpOptions)
       .pipe(
         catchError(CapabilityService.handleError)
       );

@@ -1,9 +1,15 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {Structure} from '../core/model/structure';
 import {catchError} from 'rxjs/operators';
 import {ConfigurationService} from './infrastructure/configuration.service';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +36,11 @@ export class StructureService {
   }
 
   getStructure(resource: string): Observable<Structure> {
-    return this.http.get<Structure>(this.configurationService.selectedServer + '/fhir/StructureDefinition/' + resource)
+    httpOptions.headers.append('Access-Control-Allow-Origin', '*');
+    httpOptions.headers.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    httpOptions.headers.append('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    httpOptions.headers.append('Access-Control-Allow-Credentials', 'true');
+    return this.http.get<Structure>(this.configurationService.selectedServer + '/fhir/StructureDefinition/' + resource, httpOptions)
       .pipe(
         catchError(StructureService.handleError)
       );
