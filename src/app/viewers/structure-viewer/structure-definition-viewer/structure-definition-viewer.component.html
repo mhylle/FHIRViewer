@@ -21,17 +21,17 @@
       </div>
       <div *ngIf="entry.type">
         <div class="entry_icon" *ngIf="entry?.type[0].code === 'Reference'"><img
-          src="../../../assets/icon_reference.png"
+          src="../../../../assets/icon_reference.png"
           title="Reference to another resource"></div>
-        <div class="entry_icon" *ngIf="entry?.type[0].code === 'code'"><img src="../../../assets/icon_primitive.png"
+        <div class="entry_icon" *ngIf="entry?.type[0].code === 'code'"><img src="../../../../assets/icon_primitive.png"
                                                                             title="Primitive data type"></div>
         <div class="entry_icon" *ngIf="entry?.type[0].code ==='Extension'"><img
-          src="../../../assets/icon_extension_simple.png"
+          src="../../../../assets/icon_extension_simple.png"
           title="Data type"></div>
-        <div class="entry_icon" *ngIf="entry?.type[0].code ==='data_type'"><img src="../../../assets/icon_datatype.gif"
+        <div class="entry_icon" *ngIf="entry?.type[0].code ==='data_type'"><img src="../../../../assets/icon_datatype.gif"
                                                                                 title="Data type"></div>
         <div class="entry_icon" *ngIf="entry?.type[0].code ==='primitive_data_type'"><img
-          src="../../../assets/icon_primitive.png"
+          src="../../../../assets/icon_primitive.png"
           title="Data type"></div>
       </div>
       <div *ngIf="!entry.type"></div>

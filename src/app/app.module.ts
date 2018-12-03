@@ -10,23 +10,24 @@ import {RepeatPipe} from './core/mh-utils/repeat.pipe';
 
 import {HomeComponent} from './home/home.component';
 
-import {BasicCapabilityComponent} from './capability-viewer/basic-capability/basic-capability.component';
-import {DetailedStructureComponent} from './structure-viewer/detailed-structure/detailed-structure.component';
-import {StructureViewerComponent} from './structure-viewer/structure-viewer.component';
+import {BasicCapabilityComponent} from './viewers/capability-viewer/basic-capability/basic-capability.component';
+import {DetailedStructureComponent} from './viewers/structure-viewer/detailed-structure/detailed-structure.component';
+import {StructureViewerComponent} from './viewers/structure-viewer/structure-viewer.component';
 import {MenuComponent} from './core/menu/menu.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-import {StructureDiagramComponent} from './structure-viewer/structure-diagram/structure-diagram.component';
-import {DiagramElementComponent} from './structure-viewer/structure-diagram/diagram-element/diagram-element.component';
-import {ResourceSelectorComponent} from './resource-selector/resource-selector.component';
+import {StructureDiagramComponent} from './viewers/structure-viewer/structure-diagram/structure-diagram.component';
+import {DiagramElementComponent} from './viewers/structure-viewer/structure-diagram/diagram-element/diagram-element.component';
+import {ResourceSelectorComponent} from './selectors/resource-selector/resource-selector.component';
 import {MatCheckboxModule, MatMenuModule, MatToolbarModule} from '@angular/material';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import {LoginComponent} from './core/login/login.component';
-import {JwtInterceptor} from './core/auth/jwt.interceptor';
-import {CapabilityViewerComponent} from './capability-viewer/capability-viewer.component';
-import {StructureDefinitionViewerComponent} from './structure-viewer/structure-definition-viewer/structure-definition-viewer.component';
-import {RealStructureComponent} from './structure-viewer/real-structure/real-structure.component';
+import {JwtInterceptor} from './core/interceptors/jwt.interceptor';
+import {CapabilityViewerComponent} from './viewers/capability-viewer/capability-viewer.component';
+import {StructureDefinitionViewerComponent} from './viewers/structure-viewer/structure-definition-viewer/structure-definition-viewer.component';
+import {RealStructureComponent} from './viewers/structure-viewer/real-structure/real-structure.component';
 import { MenuItemComponent } from './core/menu/menu-item/menu-item.component';
+import { ServerSelectorComponent } from './selectors/server-selector/server-selector.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { MenuItemComponent } from './core/menu/menu-item/menu-item.component';
     CapabilityViewerComponent,
     StructureDefinitionViewerComponent,
     RealStructureComponent,
-    MenuItemComponent
+    MenuItemComponent,
+    ServerSelectorComponent
   ],
   imports: [
     BrowserModule,

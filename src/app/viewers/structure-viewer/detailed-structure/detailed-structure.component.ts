@@ -1,11 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {StructureService} from '../../services/structure.service';
-import {Entry} from '../../core/model/entry';
-import {Structure} from '../../core/model/structure';
+import {StructureService} from '../../../services/structure.service';
+import {Entry} from '../../../core/model/entry';
+import {Structure} from '../../../core/model/structure';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {switchMap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-import {ConfigurationService} from '../../services/infrastructure/configuration.service';
+import {ConfigurationService} from '../../../services/infrastructure/configuration.service';
 
 @Component({
   selector: 'app-detailed-structure',

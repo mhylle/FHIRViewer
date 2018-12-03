@@ -1,30 +1,22 @@
-<span *ngIf="menuItem.visible && !(menuItem.menuItems && menuItem.menuItems.length >0)" class="menu_item">
-  <a routerLink="/{{menuItem.link}}" *ngIf="menuItem.link">
-    <fa name="{{menuItem.icon}}"></fa>
-    {{menuItem.name}}
-  </a>
-  <span *ngIf="menuItem.action" (click)="menuItem.action()">
-    <fa name="{{menuItem.icon}}"></fa>
-    {{menuItem.name}}
+<span *ngIf="menuItem.visible && !(menuItem.menuItems && menuItem.menuItems.length >0)"
+  ngClass="((menuItem.enabled && menuItem.enabled()) || !menuItem.enabled) : 'menu_item', !((menuItem.enabled && menuItem.enabled()) || !menuItem.enabled) : 'itemDisabled'">
+  <span *ngIf="menuItem.enabled && menuItem.enabled()">
+    <a routerLink="/{{menuItem.link}}" *ngIf="menuItem.link">
+      <fa name="{{menuItem.icon}}"></fa>
+      {{menuItem.name}}
+    </a>
   </span>
-</span>
-<span
-  mat-button [matMenuTriggerFor]="menu" *ngIf="menuItem.menuItems && menuItem.menuItems.length >0 && menuItem.visible" class="menu_item">
-  <fa name="{{menuItem.icon}}"  class="menu_item"></fa>
-  {{menuItem.name}}
-</span>
-<mat-menu #menu="matMenu">
-  <span *ngFor="let subMenu of menuItem.menuItems">
-    <button mat-menu-item>
-      <fa name="check-circle" *ngIf="subMenu.selected" class="selection"></fa>
-      <a routerLink="/{{subMenu.link}}" *ngIf="!subMenu.action">
-        <fa name="{{subMenu.icon}}"></fa>
-        {{subMenu.name}}
+  <span *ngIf="menuItem.enabled && menuItem.enabled()">
+    <span *ngIf="menuItem.action" (click)="menuItem.action()">
+      <a href="#">
+        <fa name="{{menuItem.icon}}"></fa>
+        {{menuItem.name}}
       </a>
-      <span *ngIf="subMenu.action" (click)="subMenu.action()">
-        <fa name="{{subMenu.icon}}"></fa>
-        {{subMenu.name}}
-      </span>
-    </button>
+    </span>
+
   </span>
-</mat-menu>
+  <span *ngIf="menuItem.enabled && !menuItem.enabled()" class="itemDisabled">
+    <fa name="{{menuItem.icon}}"></fa>
+    {{menuItem.name}}
+  </span>
+</span>

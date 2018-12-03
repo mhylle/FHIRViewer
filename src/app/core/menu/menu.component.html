@@ -11,36 +11,6 @@
     <span *ngFor="let item of menuItems">
       <span *ngIf="item.position === 'right'">
         <app-menu-item [menuItem]="item"></app-menu-item>
-        <!--<span mat-button [matMenuTriggerFor]="menu" *ngIf="item.menuItems && item.menuItems.length >0">-->
-          <!--<fa name="{{item.icon}}"></fa>-->
-          <!--{{item.name}}-->
-        <!--</span>-->
-        <!--<mat-menu #menu="matMenu">-->
-          <!--<span *ngFor="let subMenu of item.menuItems">-->
-            <!--<button mat-menu-item>-->
-              <!--<fa name="check-circle" *ngIf="item.selected"></fa>-->
-              <!--<a routerLink="/{{subMenu.link}}" *ngIf="!subMenu.action">-->
-                <!--<fa name="{{subMenu.icon}}"></fa>-->
-                <!--{{subMenu.name}}-->
-              <!--</a>-->
-              <!--<span *ngIf="subMenu.action" (click)="subMenu.action()">-->
-                <!--<fa name="{{subMenu.icon}}"></fa>-->
-                <!--{{subMenu.name}}-->
-              <!--</span>-->
-            <!--</button>-->
-          <!--</span>-->
-        <!--</mat-menu>-->
-
-        <!--<span *ngIf="!item.menuItems || item.menuItems.length === 0">-->
-          <!--<a routerLink="/{{item.link}}" *ngIf="!item.action">-->
-            <!--<fa name="{{item.icon}}"></fa>-->
-            <!--{{item.name}}-->
-          <!--</a>-->
-          <!--<span *ngIf="item.action" (click)="item.action()">-->
-            <!--<fa name="{{item.icon}}"></fa>-->
-            <!--{{item.name}}-->
-          <!--</span>-->
-        <!--</span>-->
       </span>
     </span>
   </span>

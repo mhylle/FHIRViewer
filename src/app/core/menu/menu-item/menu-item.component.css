@@ -19,3 +19,8 @@ button {
   cursor: pointer;
 
 }
+
+.itemDisabled {
+  color: grey;
+  font-size: 0.8em;
+}

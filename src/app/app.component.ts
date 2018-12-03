@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {User} from './core/login/user';
 import {environment} from '../environments/environment';
 import {ConfigurationService} from './services/infrastructure/configuration.service';
+import {isDefined} from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-root',
@@ -26,6 +27,9 @@ export class AppComponent {
     homeMenu.name = 'Home';
     homeMenu.icon = 'home';
     homeMenu.link = 'Home';
+    homeMenu.enabled = () => {
+      return isDefined(this.configurationService.selectedServer);
+    };
     homeMenu.position = 'left';
     this.menuItems.push(homeMenu);
 
@@ -34,6 +38,9 @@ export class AppComponent {
     structureMenu.icon = 'address-card';
     structureMenu.link = 'StructureDefinition';
     structureMenu.position = 'left';
+    structureMenu.enabled = () => {
+      return isDefined(this.configurationService.selectedServer);
+    };
     this.menuItems.push(structureMenu);
 
     // const structureDefinitionMenu = new MenuItem();
@@ -47,12 +54,18 @@ export class AppComponent {
     capabilityMenu.icon = 'book';
     capabilityMenu.link = 'CapabilityStatement';
     capabilityMenu.position = 'left';
+    capabilityMenu.enabled = () => {
+      return isDefined(this.configurationService.selectedServer);
+    };
     this.menuItems.push(capabilityMenu);
 
     const serverMenu = new MenuItem();
     serverMenu.name = this.configurationService.selectedServer != null ? this.configurationService.selectedServer : 'Server';
     serverMenu.icon = 'server';
     serverMenu.link = '';
+    serverMenu.enabled = () => {
+      return isDefined(this.configurationService.selectedServer);
+    };
     serverMenu.menuItems = [];
 
     for (let i = 0; i < environment.resourceServers.length; i++) {
@@ -73,6 +86,9 @@ export class AppComponent {
     loginMenu.icon = 'sign-in';
     loginMenu.visible = !this.loggedIn;
     loginMenu.position = 'right';
+    loginMenu.enabled = () => {
+      return isDefined(this.configurationService.selectedServer);
+    };
 
 
     const logoutMenu = new MenuItem();
@@ -80,7 +96,9 @@ export class AppComponent {
     logoutMenu.icon = 'sign-out';
     logoutMenu.position = 'right';
     logoutMenu.visible = this.loggedIn;
-
+    logoutMenu.enabled = () => {
+      return isDefined(this.configurationService.selectedServer);
+    };
     loginMenu.action = () => {
       this.login(loginMenu, logoutMenu);
     };

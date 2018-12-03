@@ -7,4 +7,5 @@ export class MenuItem {
   visible = true;
   action: () => void;
   menuItems: MenuItem[];
+  enabled: () => boolean;
 }

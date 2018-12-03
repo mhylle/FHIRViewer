@@ -1,0 +1,13 @@
+<div class="serverContainer">
+  <div class="selectionContainer">
+    <div class="serverSelection">
+      <div>
+        <div class="selectionHeader">
+          Please select a server
+        </div>
+      </div>
+      <div *ngFor="let server of availableServers" (click)="selectServer(server)"
+           class="serverListItem">{{server}}</div>
+    </div>
+  </div>
+</div>

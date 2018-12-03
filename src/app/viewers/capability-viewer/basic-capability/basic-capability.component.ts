@@ -1,12 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap} from '@angular/router';
-import {CapabilityService} from '../../services/capability.service';
-import {Capability} from '../../core/model/capability';
-import {Operation} from '../../core/model/operation';
+import {CapabilityService} from '../../../services/capability.service';
+import {Capability} from '../../../core/model/capability';
+import {Operation} from '../../../core/model/operation';
 import {switchMap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {isDefined} from '@angular/compiler/src/util';
-import {ConfigurationService} from '../../services/infrastructure/configuration.service';
+import {ConfigurationService} from '../../../services/infrastructure/configuration.service';
 
 @Component({
   selector: 'app-basic-capability',

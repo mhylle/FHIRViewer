@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {switchMap} from 'rxjs/operators';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {Observable} from 'rxjs';
-import {StructureDefinitionService} from '../../services/structure-definition.service';
+import {StructureDefinitionService} from '../../../services/structure-definition.service';
 import {isDefined} from '@angular/compiler/src/util';
 import StructureDefinition = fhir.StructureDefinition;
 

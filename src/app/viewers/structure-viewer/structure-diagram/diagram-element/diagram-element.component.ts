@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {BackboneElement} from '../../../core/model/backbone-element';
+import {BackboneElement} from '../../../../core/model/backbone-element';
 import {isDefined} from '@angular/compiler/src/util';
 
 @Component({
