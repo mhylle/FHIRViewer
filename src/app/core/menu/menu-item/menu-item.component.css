@@ -1,3 +1,21 @@
+a {
+  text-decoration: none;
+  color: #105581;
+}
+
+button {
+  color: #105581;
+}
 .selection {
   margin-right: 8px;
+}
+
+.menu_item {
+  color: #105581;
+  font-size: 0.8em;
+}
+
+.menu_item:hover {
+  cursor: pointer;
+
 }

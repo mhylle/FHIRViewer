@@ -1,4 +1,4 @@
-<span *ngIf="menuItem.visible && !(menuItem.menuItems && menuItem.menuItems.length >0)">
+<span *ngIf="menuItem.visible && !(menuItem.menuItems && menuItem.menuItems.length >0)" class="menu_item">
   <a routerLink="/{{menuItem.link}}" *ngIf="menuItem.link">
     <fa name="{{menuItem.icon}}"></fa>
     {{menuItem.name}}
@@ -9,8 +9,8 @@
   </span>
 </span>
 <span
-  mat-button [matMenuTriggerFor]="menu" *ngIf="menuItem.menuItems && menuItem.menuItems.length >0 && menuItem.visible">
-  <fa name="{{menuItem.icon}}"></fa>
+  mat-button [matMenuTriggerFor]="menu" *ngIf="menuItem.menuItems && menuItem.menuItems.length >0 && menuItem.visible" class="menu_item">
+  <fa name="{{menuItem.icon}}"  class="menu_item"></fa>
   {{menuItem.name}}
 </span>
 <mat-menu #menu="matMenu">
