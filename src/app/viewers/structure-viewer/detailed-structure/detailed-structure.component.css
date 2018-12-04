@@ -44,8 +44,8 @@
 }
 
 .userList:hover {
-  background-color: lightblue;
-  /*transform: scale(1.01);*/
+  /*background-color: lightblue;*/
+  transform: scale(1.01);
   /*color: white;*/
   /*font-weight: bold;*/
 }
