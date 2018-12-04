@@ -1,0 +1,66 @@
+.cardContainer {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
+
+.cardInnerContainer {
+  position: relative;
+  top: 30%;
+  width: 30%;
+  transform: translateY(-40%) translateX(100%);
+  /*padding: 8px;*/
+  border: 1px solid lightgray;
+
+  -webkit-box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.44);
+  -moz-box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.44);
+  box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.44);
+  transition: all 0.15s ease-in-out;
+}
+
+.cardHeader {
+  background-color: #f5f5f5;
+  font-size: 1.1em;
+  color: #105581;
+  text-align: left;
+  font-style: normal;
+  font-variant-ligatures: normal;
+  font-variant-caps: normal;
+  font-variant-numeric: normal;
+  font-variant-east-asian: normal;
+  font-weight: 500;
+  font-stretch: normal;
+  /*font-size: 20px;*/
+  line-height: 32px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  /*margin-left: 200px;*/
+  border-bottom: 1px solid lightgray;
+  /*margin: 0 0 8px;*/
+  padding: 4px;
+}
+
+.cardContent {
+  text-align: left;
+  margin: 8px;
+}
+
+.card-main {
+
+  margin-bottom: 8px;
+}
+.card-action {
+
+}
+
+.label {
+  float: left;
+  margin-right: 8px;
+}
+
+.input{
+
+}
+
+.form-group {
+  margin-bottom: 8px;
+}
