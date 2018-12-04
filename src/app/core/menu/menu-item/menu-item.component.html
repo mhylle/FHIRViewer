@@ -1,22 +1,23 @@
-<span *ngIf="menuItem.visible && !(menuItem.menuItems && menuItem.menuItems.length >0)"
-  ngClass="((menuItem.enabled && menuItem.enabled()) || !menuItem.enabled) : 'menu_item', !((menuItem.enabled && menuItem.enabled()) || !menuItem.enabled) : 'itemDisabled'">
-  <span *ngIf="menuItem.enabled && menuItem.enabled()">
-    <a routerLink="/{{menuItem.link}}" *ngIf="menuItem.link">
-      <fa name="{{menuItem.icon}}"></fa>
+<span *ngIf="menuItem.visible && !(menuItem.menuItems && menuItem.menuItems.length >0)">
+  <span *ngIf="menuItem.enabled && menuItem.enabled()" class="menu_item_active">
+    <a routerLink="/{{menuItem.link}}" *ngIf="menuItem.link" routerLinkActive="active">
+      <fa name="{{menuItem.icon}}" class="menuIcon"></fa>
       {{menuItem.name}}
     </a>
   </span>
   <span *ngIf="menuItem.enabled && menuItem.enabled()">
-    <span *ngIf="menuItem.action" (click)="menuItem.action()">
+    <span *ngIf="menuItem.action" (click)="menuItem.action()" class="menu_item_active">
       <a href="#">
-        <fa name="{{menuItem.icon}}"></fa>
+        <fa name="{{menuItem.icon}}" class="menuIcon"></fa>
         {{menuItem.name}}
       </a>
     </span>
-
   </span>
-  <span *ngIf="menuItem.enabled && !menuItem.enabled()" class="itemDisabled">
-    <fa name="{{menuItem.icon}}"></fa>
-    {{menuItem.name}}
+  <span *ngIf="menuItem.enabled && !menuItem.enabled()" class="menu_item_disabled">
+    <div>
+      <fa name="{{menuItem.icon}}" class="menuIcon"></fa>
+      {{menuItem.name}}
+    </div>
+    <div class="selection_indicator" *ngIf="menuItem.selected">&nbsp;</div>
   </span>
 </span>

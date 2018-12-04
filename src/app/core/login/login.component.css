@@ -8,7 +8,7 @@
   position: relative;
   top: 30%;
   width: 30%;
-  transform: translateY(-40%) translateX(100%);
+  transform: translateY(100%) translateX(100%);
   /*padding: 8px;*/
   border: 1px solid lightgray;
 
@@ -19,9 +19,9 @@
 }
 
 .cardHeader {
-  background-color: #f5f5f5;
+  background-color: #204e5f;
   font-size: 1.1em;
-  color: #105581;
+  color: white;
   text-align: left;
   font-style: normal;
   font-variant-ligatures: normal;
@@ -36,7 +36,8 @@
   /*margin-left: 200px;*/
   border-bottom: 1px solid lightgray;
   /*margin: 0 0 8px;*/
-  padding: 4px;
+  margin: 0 0 8px;
+  padding: 8px 16px;
 }
 
 .cardContent {

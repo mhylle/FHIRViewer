@@ -24,8 +24,9 @@ export class AppComponent {
     });
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     const homeMenu = new MenuItem();
-    homeMenu.name = 'Home';
+    homeMenu.name = 'HOME';
     homeMenu.icon = 'home';
+    homeMenu.selected = false;
     homeMenu.link = 'Home';
     homeMenu.enabled = () => {
       return isDefined(this.configurationService.selectedServer);
@@ -34,10 +35,11 @@ export class AppComponent {
     this.menuItems.push(homeMenu);
 
     const structureMenu = new MenuItem();
-    structureMenu.name = 'Structure';
+    structureMenu.name = 'STRUCTURE';
     structureMenu.icon = 'address-card';
     structureMenu.link = 'StructureDefinition';
     structureMenu.position = 'left';
+    structureMenu.selected = false;
     structureMenu.enabled = () => {
       return isDefined(this.configurationService.selectedServer);
     };
@@ -50,10 +52,11 @@ export class AppComponent {
     // this.menuItems.push(structureDefinitionMenu);
 
     const capabilityMenu = new MenuItem();
-    capabilityMenu.name = 'Capabilities';
+    capabilityMenu.name = 'CAPABILITIES';
     capabilityMenu.icon = 'book';
     capabilityMenu.link = 'CapabilityStatement';
     capabilityMenu.position = 'left';
+    capabilityMenu.selected = false;
     capabilityMenu.enabled = () => {
       return isDefined(this.configurationService.selectedServer);
     };
@@ -63,6 +66,7 @@ export class AppComponent {
     serverMenu.name = this.configurationService.selectedServer != null ? this.configurationService.selectedServer : 'Server';
     serverMenu.icon = 'server';
     serverMenu.link = '';
+    serverMenu.selected = false;
     serverMenu.enabled = () => {
       return isDefined(this.configurationService.selectedServer);
     };
@@ -82,19 +86,21 @@ export class AppComponent {
     this.menuItems.push(serverMenu);
 
     const loginMenu = new MenuItem();
-    loginMenu.name = 'Login';
+    loginMenu.name = 'LOGIN';
     loginMenu.icon = 'sign-in';
     loginMenu.visible = !this.loggedIn;
     loginMenu.position = 'right';
+    loginMenu.selected = false;
     loginMenu.enabled = () => {
       return isDefined(this.configurationService.selectedServer);
     };
 
 
     const logoutMenu = new MenuItem();
-    logoutMenu.name = 'Logout';
+    logoutMenu.name = 'LOGOUT';
     logoutMenu.icon = 'sign-out';
     logoutMenu.position = 'right';
+    logoutMenu.selected = false;
     logoutMenu.visible = this.loggedIn;
     logoutMenu.enabled = () => {
       return isDefined(this.configurationService.selectedServer);

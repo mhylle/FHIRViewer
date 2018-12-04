@@ -7,9 +7,7 @@
 .selectionContainer {
   width: 100%;
   position: relative;
-  top: 30%;
-  transform: translateY(-50%);
-
+  transform: translateY(100%);
 }
 
 .serverSelection {
@@ -24,9 +22,9 @@
 }
 
 .selectionHeader {
-  background-color: #f5f5f5;
+  background-color: #204e5f;
   font-size: 1.1em;
-  color: #105581;
+  color: white;
   text-align: left;
   font-style: normal;
   font-variant-ligatures: normal;
@@ -39,9 +37,8 @@
   line-height: 32px;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   /*margin-left: 200px;*/
-  border-bottom: 1px solid lightgray;
   margin: 0 0 8px;
-  padding: 4px;
+  padding: 8px 16px;
 }
 
 .serverListItem {

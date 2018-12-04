@@ -1,17 +1,17 @@
 <mat-toolbar class="menuContainer">
-  <span class="leftMenuItems">
-    <span *ngFor="let item of menuItems">
-      <span *ngIf="item.position === 'left'">
-        <app-menu-item [menuItem]="item"></app-menu-item>
-      </span>
-    </span>
-  </span>
+  <div class="leftMenuItems">
+    <!--<div class="innerContainer">-->
+      <div *ngFor="let item of menuItems" class="menuItemContainer">
+        <app-menu-item [menuItem]="item" *ngIf="item.position === 'left'"></app-menu-item>
+      </div>
+    <!--</div>-->
+  </div>
   <span class="spacer"></span>
   <span class="rightMenuItems">
-    <span *ngFor="let item of menuItems">
-      <span *ngIf="item.position === 'right'">
-        <app-menu-item [menuItem]="item"></app-menu-item>
-      </span>
-    </span>
+    <div>
+      <div *ngFor="let item of menuItems">
+        <app-menu-item [menuItem]="item"  *ngIf="item.position === 'right'"></app-menu-item>
+      </div>
+    </div>
   </span>
 </mat-toolbar>

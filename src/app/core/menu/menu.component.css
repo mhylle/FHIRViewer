@@ -5,31 +5,42 @@
 }
 
 .menuContainer {
-  height: 36px;
-  margin-bottom: 8px;
+  margin: 0 auto;
+  width: 80%;
+  background-color: #204e5f;
+
+  /*margin-bottom: 8px;*/
+}
+
+.menuItemContainer {
+  margin: auto 8px;
 }
 
 .menu {
-  border: 1px solid lightgray;
-  background-color: white;
-  border-bottom: 1px solid #9c9c9c;
+  width: 100%;
+  padding-left: 50px;
 }
 
-.context {
-  align-self: end;
-  justify-self: right;
-}
-
-a {
-  text-decoration: none;
-  color: #105581;
-}
-
-a:hover {
-  color: #333333;
-  text-decoration: underline;
-}
-.spacer{
+.spacer {
   flex: 1 1 auto;
+}
 
+.innerContainer {
+  /*margin: auto 0;*/
+}
+
+.leftMenuItems {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 100%;
+  padding-left: 50px;
+}
+
+.rightMenuItems {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding-right: 50px;
 }

@@ -143,4 +143,8 @@ export class DetailedStructureComponent implements OnInit {
       }
     });
   }
+
+  identify(index, item) {
+    return item.name;
+  }
 }

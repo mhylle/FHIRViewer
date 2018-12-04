@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {switchMap} from 'rxjs/operators';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {Observable} from 'rxjs';
@@ -8,7 +8,7 @@ import {Observable} from 'rxjs';
   templateUrl: './resource-selector.component.html',
   styleUrls: ['./resource-selector.component.css']
 })
-export class ResourceSelectorComponent implements OnInit {
+export class ResourceSelectorComponent implements OnInit, OnChanges {
   hideUnused = true;
   hideReadonly = true;
 
@@ -42,6 +42,7 @@ export class ResourceSelectorComponent implements OnInit {
   }
 
   fireResourceChanged() {
+    console.log('resource changed');
     const urlElement = this.route.snapshot.url[0].path;
     this.router.navigate([urlElement, this.selectedResource]);
   }
@@ -52,5 +53,11 @@ export class ResourceSelectorComponent implements OnInit {
 
   fireReadOnlyChanged() {
     this.hideReadOnlyChanged.emit(this.hideReadonly);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('resource changed');
+    const urlElement = this.route.snapshot.url[0].path;
+    this.router.navigate([urlElement, this.selectedResource]);
   }
 }

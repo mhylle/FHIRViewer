@@ -1,26 +1,38 @@
 a {
   text-decoration: none;
-  color: #105581;
+  color: white;
+  /*font-size: 0.8em;*/
 }
 
 button {
-  color: #105581;
+  color: white;
 }
+
+.menuIcon {
+  margin-right: 8px;
+}
+
+.selection_indicator {
+  height: 8px;
+  background-color: #d66b1a;
+}
+
 .selection {
   margin-right: 8px;
 }
 
-.menu_item {
-  color: #105581;
+.menu_item_active {
+  margin: auto 0;
+  height: 100%;
   font-size: 0.8em;
+  /*margin-right: 8px;*/
+  color: white;
 }
 
-.menu_item:hover {
-  cursor: pointer;
-
-}
-
-.itemDisabled {
+.menu_item_disabled {
+  height: 100%;
+  /*margin: auto 0;*/
+  font-size: 0.8em;
+  /*margin-right: 8px;*/
   color: grey;
-  font-size: 0.8em;
 }
