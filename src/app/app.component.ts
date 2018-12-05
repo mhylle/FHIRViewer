@@ -40,7 +40,7 @@ export class AppComponent {
     this.menuItems.push(homeMenu);
 
     const structureMenu = new MenuItem();
-    structureMenu.name = 'STRUCTURE';
+    structureMenu.name = 'STRUCTUREDEFINITION';
     structureMenu.icon = 'address-card';
     structureMenu.link = 'StructureDefinition';
     structureMenu.action = () => {
@@ -52,12 +52,6 @@ export class AppComponent {
       return isDefined(this.configurationService.selectedServer);
     };
     this.menuItems.push(structureMenu);
-
-    // const structureDefinitionMenu = new MenuItem();
-    // structureDefinitionMenu.name = 'StructureDefinition';
-    // structureDefinitionMenu.icon = 'address-card';
-    // structureDefinitionMenu.link = 'RealStructureDefinition';
-    // this.menuItems.push(structureDefinitionMenu);
 
     const capabilityMenu = new MenuItem();
     capabilityMenu.name = 'CAPABILITIES';
@@ -139,6 +133,7 @@ export class AppComponent {
   login(loginMenu: MenuItem, logoutMenu: MenuItem) {
     loginMenu.visible = false;
     logoutMenu.visible = true;
+    // noinspection JSIgnoredPromiseFromCall
     this.router.navigate(['/login']);
   }
 
@@ -146,8 +141,8 @@ export class AppComponent {
     loginMenu.visible = true;
     logoutMenu.visible = false;
     // logoutMenu.visible = false;
-    console.log('logout called in app');
     this.authenticationService.logout();
+    // noinspection JSIgnoredPromiseFromCall
     this.router.navigate(['/login']);
   }
 

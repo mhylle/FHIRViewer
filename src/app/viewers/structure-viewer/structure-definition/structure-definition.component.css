@@ -1,43 +1,47 @@
-.element {
-  display: grid;
-  grid-template-columns: 200px 50px 50px 200px auto;
+.table {
+  -webkit-box-shadow: 2px 2px 4px 1px rgba(0, 0, 0, 0.44);
+  -moz-box-shadow: 2px 2px 4px 1px rgba(0, 0, 0, 0.44);
+  box-shadow: 2px 2px 4px 1px rgba(0, 0, 0, 0.44);
+}
+
+.table_row {
+  border-bottom: 1px solid #dbdbdb;
+  height: 40px;
 }
 
 .header {
-  background: rgb(255,255,255);
-  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 63%, rgba(242,238,232,1) 100%);
-  /*border-top: 1px solid #9c9c9c;*/
-  border-bottom: 1px solid #9c9c9c;
+  background: rgb(255, 255, 255);
+  border-bottom: 1px solid #dbdbdb;
+  color: #a89da4;
+  height: 40px;
 }
 
 .userListHeader {
   display: grid;
-  grid-template-columns: 200px 50px 50px 400px auto;
+  grid-template-columns: 300px 50px 50px 250px auto;
   grid-template-rows: 24px auto;
   align-self: center;
   padding: 4px;
 }
 
 .headerItem {
-  border-right: 1px solid lightgray;
   margin: 4px;
 }
 
 .userList {
   font-size: 0.8em;
   display: grid;
-  grid-template-columns: 200px 50px 50px 400px auto;
-  /*grid-template-rows: 18px auto;*/
+  background-color: white;
+  grid-template-columns: 300px 50px 50px 250px auto;
+  grid-template-rows: 18px;
   align-self: center;
   padding: 4px;
-  transition: all 0.1s ease-in-out;
+  transition: background-color 0.25s linear;
+
 }
 
 .userList:hover {
-  background-color: lightblue;
-  /*transform: scale(1.01);*/
-  /*color: white;*/
-  /*font-weight: bold;*/
+  background-color: #d66b1a;
 }
 
 .hover {
@@ -72,9 +76,7 @@
   width: 20px;
   height: 100%;
   /*background-color: cyan;*/
-
 }
-
 
 .entry {
   display: grid;

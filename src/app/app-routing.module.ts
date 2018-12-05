@@ -5,7 +5,6 @@ import {HomeComponent} from './home/home.component';
 import {StructureViewerComponent} from './viewers/structure-viewer/structure-viewer.component';
 import {LoginComponent} from './core/login/login.component';
 import {CapabilityViewerComponent} from './viewers/capability-viewer/capability-viewer.component';
-import {RealStructureComponent} from './viewers/structure-viewer/real-structure/real-structure.component';
 import {AuthGuard} from './core/auth/auth.guard';
 import {ServerGuard} from './core/interceptors/server.guard';
 import {ServerSelectorComponent} from './selectors/server-selector/server-selector.component';
@@ -30,17 +29,6 @@ const routes: Routes = [
     path: 'StructureDefinition/:resource',
     component: StructureViewerComponent,
     pathMatch: 'prefix',
-    canActivate: [ServerGuard, AuthGuard]
-  },
-  {
-    path: 'RealStructureDefinition/:resource',
-    component: RealStructureComponent,
-    pathMatch: 'prefix',
-    canActivate: [ServerGuard, AuthGuard]
-  },
-  {
-    path: 'RealStructureDefinition',
-    component: RealStructureComponent,
     canActivate: [ServerGuard, AuthGuard]
   },
   {

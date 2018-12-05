@@ -1,4 +1,6 @@
-<app-resource-selector (resourceSelected)="selectResource($event)" (hideReadOnlyChanged)="updateReadOnly($event)" (hideUnusedChanged)="updateUnused($event)"></app-resource-selector>
+<app-resource-selector (resourceSelected)="selectResource($event)" (hideReadOnlyChanged)="updateReadOnly($event)"
+                       (hideUnusedChanged)="updateUnused($event)"></app-resource-selector>
 <div class="container">
-  <app-detailed-structure [hideUnused]="hideUnused" [hideReadonly]="hideReadonly" [resource]="selectedResource"></app-detailed-structure>
+  <app-structure-definition [hideUnused]="hideUnused" [hideReadonly]="hideReadonly"
+                                   [resource]="selectedResource"></app-structure-definition>
 </div>

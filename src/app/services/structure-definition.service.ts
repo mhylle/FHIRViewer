@@ -40,7 +40,7 @@ export class StructureDefinitionService {
     httpOptions.headers.append('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
     httpOptions.headers.append('Access-Control-Allow-Credentials', 'true');
     return this.http.get<StructureDefinition>(
-      this.configurationService.selectedServer + 'fhir/StructureDefinition/' + resource,
+      this.configurationService.selectedServer + '/fhir/StructureDefinition/' + resource,
       httpOptions)
       .pipe(
         catchError(this.handleError)

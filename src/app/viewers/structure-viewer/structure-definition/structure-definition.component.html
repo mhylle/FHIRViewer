@@ -1,0 +1,59 @@
+<div class="table">
+  <div class="header userListHeader">
+    <div class="headerItem">Name</div>
+    <div class="headerItem">Flags</div>
+    <div class="headerItem">Card</div>
+    <div class="headerItem">Type</div>
+    <div class="headerItem">Description</div>
+  </div>
+
+  <div *ngIf="structure">
+    <div *ngFor="let entry of structure.snapshot?.element">
+      <div
+        *ngIf="!(entry.max === '0' && hideUnused) && !(entry.readonly && hideReadonly) &&
+        entry.name !== structure.name && (entry.sliceName || entry.label || entry.path) &&
+!entry.base"
+        class="userList table_row">
+        <div class="entry">
+          <div class="entry_indention">
+            <span *ngFor="let idx of computeLevel(entry.path)|repeat">
+              <span *ngIf="idx === 1" class="outerElement">&nbsp;</span>
+              <span *ngIf="idx === 1">...</span>
+              <span *ngIf="idx > 1">.....</span>
+            </span>
+          </div>
+
+          <div *ngIf="entry.type">
+            <div class="entry_icon"><img src="../../../../assets/icon_{{resolveIcon(entry)}}"
+                                         title="{{resolveIconTitle(entry)}}"></div>
+          </div>
+
+          <div *ngIf="!entry.type"></div>
+          <div class="entry_name" *ngIf="entry.label">{{entry.label}}</div>
+          <div class="entry_name" *ngIf="entry.sliceName && !entry.label">{{entry.sliceName}}</div>
+          <div class="entry_name" *ngIf="!entry.sliceName && !entry.label">{{computeName(entry.path)}}</div>
+        </div>
+        <div class="flags">
+          <span *ngIf="entry.isModifier">?!</span>
+          <span *ngIf="entry.isSummary">Σ</span>
+        </div>
+
+        <div class="card">{{entry.min}}..{{entry.max}}</div>
+        <div class="type">
+          <div *ngIf="entry.type">
+            <span>{{entry.type[0].code}}</span>
+            <span *ngIf="entry.type[0].code === 'Reference' && entry.type[0].targetProfile">(<a
+              routerLink="/RealStructureDefinition/{{stripUrl(entry.type[0].targetProfile)}}">{{stripUrl(entry.type[0].targetProfile)}}</a>)</span>
+            <span *ngIf="entry.type[0].code === 'Reference' && entry.type[0].profile">(<a
+              routerLink="/RealStructureDefinition/{{stripUrl(entry.type[0].profile[0])}}">{{stripUrl(entry.type[0].profile)}}</a>)</span>
+          </div>
+        </div>
+
+        <div *ngIf="!entry.short">{{entry.definition}}</div>
+        <div *ngIf="entry.short">{{entry.short}}
+          <div *ngIf="entry.type">{{entry.type[0].code}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

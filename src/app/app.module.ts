@@ -11,7 +11,6 @@ import {RepeatPipe} from './core/mh-utils/repeat.pipe';
 import {HomeComponent} from './home/home.component';
 
 import {BasicCapabilityComponent} from './viewers/capability-viewer/basic-capability/basic-capability.component';
-import {DetailedStructureComponent} from './viewers/structure-viewer/detailed-structure/detailed-structure.component';
 import {StructureViewerComponent} from './viewers/structure-viewer/structure-viewer.component';
 import {MenuComponent} from './core/menu/menu.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -24,16 +23,14 @@ import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import {LoginComponent} from './core/login/login.component';
 import {JwtInterceptor} from './core/interceptors/jwt.interceptor';
 import {CapabilityViewerComponent} from './viewers/capability-viewer/capability-viewer.component';
-import {StructureDefinitionViewerComponent} from './viewers/structure-viewer/structure-definition-viewer/structure-definition-viewer.component';
-import {RealStructureComponent} from './viewers/structure-viewer/real-structure/real-structure.component';
-import { MenuItemComponent } from './core/menu/menu-item/menu-item.component';
-import { ServerSelectorComponent } from './selectors/server-selector/server-selector.component';
-import { Menu2Component } from './core/menu2/menu2.component';
+import {StructureDefinitionComponent} from './viewers/structure-viewer/structure-definition/structure-definition.component';
+import {MenuItemComponent} from './core/menu/menu-item/menu-item.component';
+import {ServerSelectorComponent} from './selectors/server-selector/server-selector.component';
+import {Menu2Component} from './core/menu2/menu2.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DetailedStructureComponent,
     RepeatPipe,
     HomeComponent,
     BasicCapabilityComponent,
@@ -44,8 +41,7 @@ import { Menu2Component } from './core/menu2/menu2.component';
     ResourceSelectorComponent,
     LoginComponent,
     CapabilityViewerComponent,
-    StructureDefinitionViewerComponent,
-    RealStructureComponent,
+    StructureDefinitionComponent,
     MenuItemComponent,
     ServerSelectorComponent,
     Menu2Component
