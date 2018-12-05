@@ -49,9 +49,9 @@ import {MaterialImportModule} from './material-import/material-import.module';
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule,
     BrowserAnimationsModule,
     AngularFontAwesomeModule,
     MaterialImportModule

@@ -1,16 +1,17 @@
 import {Component} from '@angular/core';
 import {MenuItem} from './core/menu/menu-item';
 import {AuthService} from './core/auth/auth.service';
-import {Router} from '@angular/router';
+import {Router, RouterOutlet} from '@angular/router';
 import {User} from './core/login/user';
 import {environment} from '../environments/environment';
 import {ConfigurationService} from './services/infrastructure/configuration.service';
 import {isDefined} from '@angular/compiler/src/util';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   menuItems: MenuItem[] = [];

@@ -1,17 +1,33 @@
 <mat-toolbar class="menuContainer">
   <div class="leftMenuItems">
     <div class="menu_item">
-      <fa name="home" class="menuIcon"></fa>
-      HOME
-      <div class="selection_indicator"></div>
+      <div class="menu_item_container">
+        <a routerLink="/Home" (click)="selectMenu('home')">
+          <fa name="home" class="menuIcon"></fa>
+          HOME</a>
+      </div>
+      <div class="selection_indicator" *ngIf="selection==='home'"
+           [@slideInLeft]="(selection==='home' && prevSelection === '') ? 'in' : ''"
+           [@slideInRight]="(selection === 'home' && prevSelection === 'structure')? 'in': ''"></div>
     </div>
     <div class="menu_item">
-      <fa name="address-card" class="menuIcon"></fa>
-      STRUCTURE
+      <div class="menu_item_container">
+        <a routerLink="/StructureDefinition" (click)="selectMenu('structure')">
+          <fa name="address-card" class="menuIcon"></fa>
+          STRUCTURE</a>
+      </div>
+      <div class="selection_indicator" *ngIf="selection==='structure'"
+           [@slideInLeft]="(selection==='structure'  && prevSelection === 'home') ? 'in' : ''"
+           [@slideInRight]="(selection === 'structure' && prevSelection === 'capability') ? 'in': ''"></div>
     </div>
     <div class="menu_item">
-      <fa name="book" class="menuIcon"></fa>
-      CAPABILITY
+      <div class="menu_item_container">
+        <a routerLink="/CapabilityStatement" (click)="selectMenu('capability')">
+          <fa name="book" class="menuIcon"></fa>
+          CAPABILITY</a>
+      </div>
+      <div class="selection_indicator" *ngIf="selection==='capability'"
+           [@slideInLeft]="selection==='capability' ? 'in' : ''"></div>
     </div>
   </div>
   <div class="spacer"></div>
