@@ -3,32 +3,32 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 
 export const slideInLeft =
   trigger('slideInLeft', [
-      state('in', style({transform: 'translate3d(0, 0, 0)'})),
+      state('in', style({transform: 'translate(0, 0)'})),
       transition('void => *', [
         style({
-          transform: 'translate3d(-100%, 0, 0)'
+          transform: 'translate(-100%, 0)'
         }),
-        animate('.2s ease-in')
+        animate('.15s ease-in')
       ]),
       transition('* => void', [
-        animate('.2s  ease-out', style({
-          transform: 'translate3d(0, 0, 0)'
+        animate('.15s  ease-out', style({
+          transform: 'translate(0, 0)'
         }))
       ])
     ]
   );
 export const slideInRight =
   trigger('slideInRight', [
-      state('in', style({transform: 'translate3d(0, 0, 0)'})),
+      state('in', style({transform: 'translate(0, 0)'})),
       transition('void => *', [
         style({
-          transform: 'translate3d(100%, 0, 0)'
+          transform: 'translate(100%, 0)'
         }),
-        animate('.2s ease-in')
+        animate('.15s ease-in')
       ]),
       transition('* => void', [
-        animate('.2s  ease-out', style({
-          transform: 'translate3d(0, 0, 0)'
+        animate('.15s  ease-out', style({
+          transform: 'translate(0, 0)'
         }))
       ])
     ]
