@@ -28,6 +28,7 @@ import {StructureDefinitionViewerComponent} from './viewers/structure-viewer/str
 import {RealStructureComponent} from './viewers/structure-viewer/real-structure/real-structure.component';
 import { MenuItemComponent } from './core/menu/menu-item/menu-item.component';
 import { ServerSelectorComponent } from './selectors/server-selector/server-selector.component';
+import { Menu2Component } from './core/menu2/menu2.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { ServerSelectorComponent } from './selectors/server-selector/server-sele
     StructureDefinitionViewerComponent,
     RealStructureComponent,
     MenuItemComponent,
-    ServerSelectorComponent
+    ServerSelectorComponent,
+    Menu2Component
   ],
   imports: [
     BrowserModule,

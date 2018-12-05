@@ -15,6 +15,7 @@ import {isDefined} from '@angular/compiler/src/util';
 export class AppComponent {
   menuItems: MenuItem[] = [];
   currentUser: User;
+  selectedMenuItem: MenuItem;
   loggedIn: boolean;
 
   constructor(private router: Router, private configurationService: ConfigurationService, private authenticationService: AuthService) {
@@ -23,10 +24,14 @@ export class AppComponent {
       this.loggedIn = value;
     });
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+
     const homeMenu = new MenuItem();
     homeMenu.name = 'HOME';
     homeMenu.icon = 'home';
     homeMenu.selected = false;
+    homeMenu.action = () => {
+      this.selectMenu(homeMenu);
+    };
     homeMenu.link = 'Home';
     homeMenu.enabled = () => {
       return isDefined(this.configurationService.selectedServer);
@@ -38,6 +43,9 @@ export class AppComponent {
     structureMenu.name = 'STRUCTURE';
     structureMenu.icon = 'address-card';
     structureMenu.link = 'StructureDefinition';
+    structureMenu.action = () => {
+      this.selectMenu(structureMenu);
+    };
     structureMenu.position = 'left';
     structureMenu.selected = false;
     structureMenu.enabled = () => {
@@ -55,6 +63,9 @@ export class AppComponent {
     capabilityMenu.name = 'CAPABILITIES';
     capabilityMenu.icon = 'book';
     capabilityMenu.link = 'CapabilityStatement';
+    capabilityMenu.action = () => {
+      this.selectMenu(capabilityMenu);
+    };
     capabilityMenu.position = 'left';
     capabilityMenu.selected = false;
     capabilityMenu.enabled = () => {
@@ -140,4 +151,7 @@ export class AppComponent {
     this.router.navigate(['/login']);
   }
 
+  private selectMenu(menuItem: MenuItem) {
+    this.selectedMenuItem = menuItem;
+  }
 }

@@ -1,0 +1,46 @@
+.menuContainer {
+  margin: 0 auto;
+  width: 80%;
+  background-color: #204e5f;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.leftMenuItems {
+  /*position: relative;*/
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 100%;
+  padding-left: 50px;
+}
+
+.rightMenuItems {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding-right: 50px;
+}
+
+.menu_item {
+  /*margin: auto 0;*/
+  height: 100%;
+  font-size: 0.8em;
+  /*margin-right: 8px;*/
+  color: white;
+  margin-top: 16px;
+  margin-botton: 16px;
+  padding-right: 16px;
+}
+
+.selection_indicator {
+  /*position: absolute;*/
+  bottom: 0;
+  left: 0;
+  height: 8px;
+  background-color: #d66b1a;
+}
