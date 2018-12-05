@@ -1,15 +1,15 @@
 <div class="container">
   <div class="information"></div>
   <div class="interaction">
-    <div [ngClass]="{'create': capability.create ,'nocreate': !capability.create}">C</div>
-    <div [ngClass]="{'read': capability.read ,'noread': !capability.read}">R</div>
-    <div [ngClass]="{'update': capability.update ,'noupdate': !capability.update}">U</div>
-    <div [ngClass]="{'delete': capability.delete ,'nodelete': !capability.delete}">D</div>
-    <div [ngClass]="{'vread': capability.vread ,'novread': !capability.vread}">V1</div>
-    <div [ngClass]="{'search_type': capability.search_type ,'nosearch_type': !capability.search_type}">S</div>
+    <div [ngClass]="{'crud_active': capability.create ,'crud_inactive': !capability.create}">C</div>
+    <div [ngClass]="{'crud_active': capability.read ,'crud_inactive': !capability.read}">R</div>
+    <div [ngClass]="{'crud_active': capability.update ,'crud_inactive': !capability.update}">U</div>
+    <div [ngClass]="{'crud_active': capability.delete ,'crud_inactive': !capability.delete}">D</div>
+    <div [ngClass]="{'crud_active': capability.vread ,'crud_inactive': !capability.vread}">V1</div>
+    <div [ngClass]="{'crud_active': capability.search_type ,'crud_inactive': !capability.search_type}">S</div>
   </div>
   <div class="operations">
-    <div class="header">Operations:</div>
+    <div class="header">Operations</div>
     <div *ngFor="let operation of capability?.operations" class="operation">
       <div>Bundle<<a
         routerLink="/StructureDefinition/{{resource}}">{{resource}}</a>> <a href="{{operation.reference}}">{{operation.name}}</a>(period: DateTime, organization: String)</div>

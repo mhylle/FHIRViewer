@@ -18,7 +18,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {StructureDiagramComponent} from './viewers/structure-viewer/structure-diagram/structure-diagram.component';
 import {DiagramElementComponent} from './viewers/structure-viewer/structure-diagram/diagram-element/diagram-element.component';
 import {ResourceSelectorComponent} from './selectors/resource-selector/resource-selector.component';
-import {MatCheckboxModule, MatMenuModule, MatSelectModule, MatTableModule, MatToolbarModule} from '@angular/material';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import {LoginComponent} from './core/login/login.component';
 import {JwtInterceptor} from './core/interceptors/jwt.interceptor';
@@ -27,6 +26,7 @@ import {StructureDefinitionComponent} from './viewers/structure-viewer/structure
 import {MenuItemComponent} from './core/menu/menu-item/menu-item.component';
 import {ServerSelectorComponent} from './selectors/server-selector/server-selector.component';
 import {Menu2Component} from './core/menu2/menu2.component';
+import {MaterialImportModule} from './material-import/material-import.module';
 
 @NgModule({
   declarations: [
@@ -54,12 +54,7 @@ import {Menu2Component} from './core/menu2/menu2.component';
     FormsModule,
     BrowserAnimationsModule,
     AngularFontAwesomeModule,
-    MatCheckboxModule,
-    MatToolbarModule,
-    MatMenuModule,
-    MatSelectModule,
-    MatTableModule
-
+    MaterialImportModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

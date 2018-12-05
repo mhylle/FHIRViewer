@@ -2,5 +2,12 @@
   margin: 8px;
   display: flex;
   flex-direction: row;
+}
 
+.resourceSelection {
+  margin-right: 32px;
+}
+
+.checkbox {
+  margin-right: 32px;
 }

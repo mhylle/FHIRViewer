@@ -1,13 +1,15 @@
 <div class="container">
   <!--<div>Select resource</div>-->
-  <div class="mat-active">
-    <select [(ngModel)]="selectedResource" (change)="fireResourceChanged()">
-      <option *ngFor="let opt of resourceTypes" value="{{opt.name}}">{{opt.label}}</option>
-    </select>
+  <div class="resourceSelection">
+    <mat-select [(ngModel)]="selectedResource" (selectionChange)="fireResourceChanged()" placeholder="Select Resource">
+      <mat-option *ngFor="let opt of resourceTypes" value="{{opt.name}}">{{opt.label}}</mat-option>
+    </mat-select>
   </div>
-  <div class="mat-checkbox">
+  <div class="checkbox">
     <mat-checkbox [(ngModel)]="hideUnused" (change)="fireHideUnusedChanged()">Hide Unused</mat-checkbox>
   </div>
-  <mat-checkbox type="checkbox" [(ngModel)]="hideReadonly" (change)="fireReadOnlyChanged()">Hide Readonly
-  </mat-checkbox>
+  <div class="checkbox">
+    <mat-checkbox type="checkbox" [(ngModel)]="hideReadonly" (change)="fireReadOnlyChanged()">Hide Readonly
+    </mat-checkbox>
+  </div>
 </div>

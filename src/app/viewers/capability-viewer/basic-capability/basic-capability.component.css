@@ -39,60 +39,16 @@
 }
 
 .header {
-  background-color: #e1eff4;
-  border-bottom: 2px solid #9c9c9c;
+  font-size: 1.1em;
 }
 
-.read {
-  border: 2px solid green;
-  border-radius: 50%;
+.crud_active {
+  font-weight: bold;
+  color: #5a976a;
 }
-.noread {
-  border: 2px solid red;
-  border-radius: 50%;
+.crud_inactive {
+  font-weight: bold;
+  color: #b55c64;
 }
-
-.vread {
-  border: 2px solid green;
-  border-radius: 50%;
-}
-.novread {
-  border: 2px solid red;
-  border-radius: 50%;
-}
-.update {
-  border: 2px solid green;
-  border-radius: 50%;
-}
-.noupdate {
-  border: 2px solid red;
-  border-radius: 50%;
-}
-.delete {
-  border: 2px solid green;
-  border-radius: 50%;
-}
-.nodelete {
-  border: 2px solid red;
-  border-radius: 50%;
-}
-.create {
-  border: 2px solid green;
-  border-radius: 50%;
-}
-.nocreate {
-  border: 2px solid red;
-  border-radius: 50%;
-}
-.search_type {
-  border: 2px solid green;
-  border-radius: 50%;
-}
-.nosearch_type {
-  border: 2px solid red;
-  border-radius: 50%;
-}
-
-
 
 
