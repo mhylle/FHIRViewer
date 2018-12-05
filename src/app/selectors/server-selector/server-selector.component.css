@@ -11,17 +11,18 @@
 }
 
 .serverSelection {
-  /*padding: 8px;*/
   border: 1px solid lightgray;
   width: 30%;
   transform: translateX(100%);
-  -webkit-box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.44);
-  -moz-box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.44);
-  box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.44);
+  -webkit-box-shadow: 2px 2px 4px 1px rgba(0, 0, 0, 0.44);
+  -moz-box-shadow: 2px 2px 4px 1px rgba(0, 0, 0, 0.44);
+  box-shadow: 2px 2px 4px 1px rgba(0, 0, 0, 0.44);
   transition: all 0.15s ease-in-out;
 }
 
 .selectionHeader {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
   background-color: #204e5f;
   font-size: 1.1em;
   color: white;
@@ -33,19 +34,18 @@
   font-variant-east-asian: normal;
   font-weight: 500;
   font-stretch: normal;
-  /*font-size: 20px;*/
   line-height: 32px;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  /*margin-left: 200px;*/
-  margin: 0 0 8px;
+
   padding: 8px 16px;
 }
 
 .serverListItem {
-  margin-bottom: 8px;
+  margin: 0px;
+  padding: 8px;
 }
 
 .serverListItem:hover {
-  background-color: #105581;
+  background-color: #d66b1a;
   cursor: pointer;
 }

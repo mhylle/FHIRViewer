@@ -13,12 +13,6 @@
   transform: scale(1.02);
 }
 
-.card-header {
-  text-align: center;
-  background-color: lightblue;
-  margin-bottom: 4px;
-}
-
 .card-content {
   padding: 0 4px 4px 4px;
 }
