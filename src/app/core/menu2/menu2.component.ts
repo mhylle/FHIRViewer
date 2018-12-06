@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {ConfigurationService} from '../../services/infrastructure/configuration.service';
 
 export const slideInLeft =
   trigger('slideInLeft', [
@@ -43,8 +44,10 @@ export const slideInRight =
 export class Menu2Component implements OnInit {
   prevSelection = '';
   selection: string;
+  menuEnabled = false;
 
-  constructor() {
+  constructor(private configurationService: ConfigurationService) {
+    this.configurationService.serverChanged.subscribe((value => this.menuEnabled = value));
   }
 
   ngOnInit() {

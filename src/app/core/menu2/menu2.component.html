@@ -1,30 +1,42 @@
 <mat-toolbar class="menuContainer">
   <div class="leftMenuItems">
     <div class="menu_item">
-      <div class="menu_item_container">
+      <div class="menu_item_container" *ngIf="menuEnabled">
         <a routerLink="/Home" (click)="selectMenu('home')">
           <fa name="home" class="menuIcon"></fa>
           HOME</a>
+      </div>
+      <div class="menu_item_disabled_container" *ngIf="!menuEnabled">
+        <fa name="home" class="menuIcon"></fa>
+        HOME
       </div>
       <div class="selection_indicator" *ngIf="selection==='home'"
            [@slideInLeft]="(selection==='home' && prevSelection === '') ? 'in' : ''"
            [@slideInRight]="(selection === 'home' && prevSelection === 'structure')? 'in': ''"></div>
     </div>
     <div class="menu_item">
-      <div class="menu_item_container">
+      <div class="menu_item_container" *ngIf="menuEnabled">
         <a routerLink="/StructureDefinition" (click)="selectMenu('structure')">
           <fa name="address-card" class="menuIcon"></fa>
           STRUCTURE</a>
+      </div>
+      <div class="menu_item_disabled_container" *ngIf="!menuEnabled">
+        <fa name="address-card" class="menuIcon"></fa>
+        STRUCTURE
       </div>
       <div class="selection_indicator" *ngIf="selection==='structure'"
            [@slideInLeft]="(selection==='structure'  && prevSelection === 'home') ? 'in' : ''"
            [@slideInRight]="(selection === 'structure' && prevSelection === 'capability') ? 'in': ''"></div>
     </div>
     <div class="menu_item">
-      <div class="menu_item_container">
+      <div class="menu_item_container" *ngIf="menuEnabled">
         <a routerLink="/CapabilityStatement" (click)="selectMenu('capability')">
           <fa name="book" class="menuIcon"></fa>
           CAPABILITY</a>
+      </div>
+      <div class="menu_item_disabled_container" *ngIf="!menuEnabled">
+        <fa name="book" class="menuIcon"></fa>
+        CAPABILITY
       </div>
       <div class="selection_indicator" *ngIf="selection==='capability'"
            [@slideInLeft]="selection==='capability' ? 'in' : ''"></div>
@@ -32,9 +44,15 @@
   </div>
   <div class="spacer"></div>
   <div class="rightMenuItems">
-    <div class="menu_item">
-      <fa name="sign-in" class="menuIcon"></fa>
-      LOGIN
+    <div class="menu_item_container" *ngIf="menuEnabled">
+      <a routerLink="/login">
+        <fa name="sign-in" class="menuIcon"></fa>
+        LOGIN
+      </a>
+    </div>
+    <div class="menu_item_disabled_container" *ngIf="!menuEnabled">
+        <fa name="sign-in" class="menuIcon"></fa>
+        LOGIN
     </div>
   </div>
 </mat-toolbar>

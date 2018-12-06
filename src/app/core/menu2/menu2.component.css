@@ -45,6 +45,12 @@ a {
   height: 63%;
   margin: 0 auto;
 }
+
+.menu_item_disabled_container {
+  color: grey;
+  height: 63%;
+  margin: 0 auto;
+}
 .selection_indicator {
   width: 100%;
   margin-top: 0;
