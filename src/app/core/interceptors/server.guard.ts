@@ -16,7 +16,7 @@ export class ServerGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     if (!isDefined(this.configurationService.selectedServer) || this.configurationService.selectedServer === null) {
-      this.router.navigate(['/selectServer', {queryParams: {returnUrl: state.url}}]);
+      this.router.navigate(['/selectServer']);
       return false;
     }
     return true;

@@ -5,8 +5,7 @@
 </div>
 
 <div class="container" *ngIf="selectedResource">
-  <app-structure-diagram [resource]="selectedResource" [hideUnused]="hideUnused"
-                         [hideReadonly]="hideReadonly"></app-structure-diagram>
-  <app-basic-capability [resource]="selectedResource"></app-basic-capability>
+  <app-structure-diagram [resource]="selectedResource" [hideUnused]="hideUnused" [hideReadonly]="hideReadonly"></app-structure-diagram>
+  <app-basic-capability></app-basic-capability>
 </div>
 <app-no-resource-selected *ngIf="!selectedResource"></app-no-resource-selected>

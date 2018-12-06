@@ -12,7 +12,7 @@
     <div class="header">Operations</div>
     <div *ngFor="let operation of capability?.operations" class="operation">
       <div>Bundle<<a
-        routerLink="/StructureDefinition/{{resource}}">{{resource}}</a>> <a href="{{operation.reference}}">{{operation.name}}</a>(period: DateTime, organization: String)</div>
+        routerLink="/StructureDefinition/{{resourceName}}">{{resourceName}}</a>> <a href="{{operation.reference}}">{{operation.name}}</a>(period: DateTime, organization: String)</div>
       <div class="description">{{operation.description}}</div>
     </div>
   </div>

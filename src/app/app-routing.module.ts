@@ -12,8 +12,8 @@ import {ServerSelectorComponent} from './selectors/server-selector/server-select
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
-    canActivate: [ServerGuard, AuthGuard]
+    redirectTo: '/Home',
+    pathMatch: 'full'
   },
   {
     path: 'Home',
@@ -26,25 +26,25 @@ const routes: Routes = [
     canActivate: [ServerGuard, AuthGuard]
   },
   {
+    path: 'StructureDefinition',
+    component: StructureViewerComponent,
+    canActivate: [ServerGuard, AuthGuard]
+  },
+  {
     path: 'StructureDefinition/:resource',
     component: StructureViewerComponent,
     pathMatch: 'prefix',
     canActivate: [ServerGuard, AuthGuard]
   },
   {
-    path: 'StructureDefinition',
-    component: StructureViewerComponent,
+    path: 'CapabilityStatement',
+    component: CapabilityViewerComponent,
     canActivate: [ServerGuard, AuthGuard]
   },
   {
     path: 'CapabilityStatement/:resource',
     component: CapabilityViewerComponent,
     pathMatch: 'prefix',
-    canActivate: [ServerGuard, AuthGuard]
-  },
-  {
-    path: 'CapabilityStatement',
-    component: CapabilityViewerComponent,
     canActivate: [ServerGuard, AuthGuard]
   },
   {
@@ -61,7 +61,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
     enableTracing: false,
-    useHash: true,
     scrollPositionRestoration: 'enabled'
   })],
   exports: [RouterModule]

@@ -1,24 +1,25 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {CapabilityService} from '../../../services/capability.service';
 import {Capability} from '../../../core/model/capability';
 import {Operation} from '../../../core/model/operation';
 import {switchMap} from 'rxjs/operators';
-import {Observable} from 'rxjs';
-import {isDefined} from '@angular/compiler/src/util';
 import {ConfigurationService} from '../../../services/infrastructure/configuration.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-basic-capability',
   templateUrl: './basic-capability.component.html',
   styleUrls: ['./basic-capability.component.css']
 })
-export class BasicCapabilityComponent implements OnInit {
+export class BasicCapabilityComponent implements OnInit, OnChanges {
   capability: Capability = new Capability();
-
-  @Input()
-  resource: string;
   private $resource: Observable<Capability>;
+
+  // @Input()
+  resourceName: string;
+
+  // private $resource: Observable<Capability>;
 
   constructor(private route: ActivatedRoute,
               private capabilityService: CapabilityService,
@@ -26,28 +27,26 @@ export class BasicCapabilityComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.calculateCapabilities();
     this.configurationService.serverChanged.subscribe(() => {
       this.calculateCapabilities();
     });
-    this.calculateCapabilities();
   }
 
   private calculateCapabilities() {
     this.$resource = this.route.paramMap.pipe(
       switchMap((params: ParamMap) => {
-        this.resource = params.get('resource');
-        return this.capabilityService.getCapability(this.resource);
+        this.resourceName = params.get('resource');
+        return this.capabilityService.getCapability(this.resourceName);
       }));
-    if (!isDefined(this.$resource)) {
-      return;
-    }
     this.$resource.subscribe(value => {
+      this.capability = new Capability();
       const rest = value.rest[0];
       for (let i = 0; i < rest.resource.length; i++) {
         const res = rest.resource[i];
-        if (res.profile.reference.split('/')[1] === this.resource) {
-          this.capability = new Capability();
-          this.capability.type = this.resource;
+        const resourceName = res.profile.reference.split('/')[1];
+        if (resourceName === this.resourceName) {
+          this.capability.type = this.resourceName;
           this.capability.profile = res.profile.reference;
           for (let j = 0; j < res.interaction.length; j++) {
             const interaction = res.interaction[j];
@@ -107,8 +106,8 @@ export class BasicCapabilityComponent implements OnInit {
         for (let k = 0; k < rest.operation.length; k++) {
           const op = rest.operation[k];
           const opDef = op.definition.reference.split('/');
-          const searchString = this.resource.substring('Columna'.length, this.resource.length);
-          console.log('see ' + searchString + ' OPdef: ' + opDef[1]);
+          const searchString = this.resourceName.substring('Columna'.length, this.resourceName.length);
+          // console.log('see ' + searchString + ' Opdef: ' + opDef[1]);
           if (opDef[1].startsWith(searchString)) {
             const operation = new Operation();
             operation.name = op.name;
@@ -119,5 +118,9 @@ export class BasicCapabilityComponent implements OnInit {
         }
       }
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.calculateCapabilities();
   }
 }
