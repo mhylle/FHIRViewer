@@ -4,4 +4,4 @@
   <app-structure-definition [hideUnused]="hideUnused" [hideReadonly]="hideReadonly"
                                    [resource]="selectedResource"></app-structure-definition>
 </div>
-<app-no-resource-selected></app-no-resource-selected>
+<app-no-resource-selected  *ngIf="!selectedResource"></app-no-resource-selected>
