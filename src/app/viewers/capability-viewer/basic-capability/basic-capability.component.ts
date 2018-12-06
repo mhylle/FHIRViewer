@@ -36,11 +36,9 @@ export class BasicCapabilityComponent implements OnInit {
     this.$resource = this.route.paramMap.pipe(
       switchMap((params: ParamMap) => {
         this.resource = params.get('resource');
-        console.log('Check capability for: ' + this.resource);
         return this.capabilityService.getCapability(this.resource);
       }));
     if (!isDefined(this.$resource)) {
-      console.log('Got nothing back from service');
       return;
     }
     this.$resource.subscribe(value => {

@@ -1,19 +1,29 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {switchMap} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-capability-viewer',
   templateUrl: './capability-viewer.component.html',
   styleUrls: ['./capability-viewer.component.css']
 })
-export class CapabilityViewerComponent implements OnInit {
+export class CapabilityViewerComponent implements OnInit, OnChanges{
   selectedResource: string;
   hideReadonly = true;
   hideUnused = true;
+  private $selectedResource: Observable<string>;
 
-  constructor() {
+  constructor(private route: ActivatedRoute) {
   }
 
   ngOnInit() {
+    this.$selectedResource = this.route.paramMap.pipe(
+      switchMap((params: ParamMap) => {
+        return params.get('resource');
+      }));
+
+    this.$selectedResource.subscribe(value => this.selectedResource = value);
   }
 
   selectResource(resource: string) {
@@ -26,5 +36,9 @@ export class CapabilityViewerComponent implements OnInit {
 
   updateUnused(hideUnused: boolean) {
     this.hideUnused = hideUnused;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
   }
 }

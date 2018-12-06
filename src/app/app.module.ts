@@ -27,6 +27,7 @@ import {MenuItemComponent} from './core/menu/menu-item/menu-item.component';
 import {ServerSelectorComponent} from './selectors/server-selector/server-selector.component';
 import {Menu2Component} from './core/menu2/menu2.component';
 import {MaterialImportModule} from './material-import/material-import.module';
+import { NoResourceSelectedComponent } from './viewers/no-resource-selected/no-resource-selected.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import {MaterialImportModule} from './material-import/material-import.module';
     StructureDefinitionComponent,
     MenuItemComponent,
     ServerSelectorComponent,
-    Menu2Component
+    Menu2Component,
+    NoResourceSelectedComponent
   ],
   imports: [
     BrowserModule,
