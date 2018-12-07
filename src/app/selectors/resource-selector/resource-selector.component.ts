@@ -18,7 +18,8 @@ export class ResourceSelectorComponent implements OnInit {
     {'name': 'ColumnaIntegrationPatient', 'label': 'ColumnaIntegrationPatient'},
     {'name': 'ColumnaHealthIssue', 'label': 'ColumnaHealthIssue'},
     {'name': 'ColumnaEpisodeOfCare', 'label': 'ColumnaEpisodeOfCare'},
-    {'name': 'ColumnaEncounter', 'label': 'ColumnaEncounter'}
+    {'name': 'ColumnaEncounter', 'label': 'ColumnaEncounter'},
+    {'name': 'ColumnaReferralRequest', 'label': 'ColumnaReferralRequest'}
   ];
 
   selectedResource: string;
