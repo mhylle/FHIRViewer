@@ -43,9 +43,9 @@
           <div *ngIf="entry.type">
             <span>{{entry.type[0].code}}</span>
             <span *ngIf="entry.type[0].code === 'Reference' && entry.type[0].targetProfile">(<a
-              routerLink="/RealStructureDefinition/{{stripUrl(entry.type[0].targetProfile)}}">{{stripUrl(entry.type[0].targetProfile)}}</a>)</span>
+              routerLink="/StructureDefinition/{{stripUrl(entry.type[0].targetProfile)}}">{{stripUrl(entry.type[0].targetProfile)}}</a>)</span>
             <span *ngIf="entry.type[0].code === 'Reference' && entry.type[0].profile">(<a
-              routerLink="/RealStructureDefinition/{{stripUrl(entry.type[0].profile[0])}}">{{stripUrl(entry.type[0].profile)}}</a>)</span>
+              routerLink="/StructureDefinition/{{stripUrl(entry.type[0].profile[0])}}">{{stripUrl(entry.type[0].profile)}}</a>)</span>
           </div>
         </div>
 
