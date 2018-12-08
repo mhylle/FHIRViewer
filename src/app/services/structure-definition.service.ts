@@ -3,7 +3,7 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {ConfigurationService} from './infrastructure/configuration.service';
-import StructureDefinition = fhir.StructureDefinition;
+import Bundle = fhir.Bundle;
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -34,12 +34,12 @@ export class StructureDefinitionService {
       'Something bad happened; please try again later.');
   }
 
-  getStructure(resource: string): Observable<StructureDefinition> {
+  getStructure(resource: string): Observable<any> {
     httpOptions.headers.append('Access-Control-Allow-Origin', '*');
     httpOptions.headers.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     httpOptions.headers.append('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
     httpOptions.headers.append('Access-Control-Allow-Credentials', 'true');
-    return this.http.get<StructureDefinition>(
+    return this.http.get<Bundle>(
       this.configurationService.selectedServer + '/fhir/StructureDefinition/' + resource,
       httpOptions)
       .pipe(

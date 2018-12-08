@@ -3,11 +3,11 @@ import {Structure} from '../../../core/model/structure';
 import {BackboneElement} from '../../../core/model/backbone-element';
 import {CoreElement} from '../../../core/model/coreElement';
 import {isDefined} from '@angular/compiler/src/util';
-import {StructureService} from '../../../services/structure.service';
 import {switchMap} from 'rxjs/operators';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {Observable} from 'rxjs';
 import {ConfigurationService} from '../../../services/infrastructure/configuration.service';
+import {StructureDefinitionService} from '../../../services/structure-definition.service';
 
 @Component({
   selector: 'app-structure-diagram',
@@ -27,11 +27,11 @@ export class StructureDiagramComponent implements OnInit, OnChanges {
   backBoneElements: BackboneElement[];
   structure: Structure;
 
-  private $resource: Observable<Structure>;
+  private $resource: Observable<any>;
 
   constructor(private route: ActivatedRoute,
               private configurationService: ConfigurationService,
-              private structureService: StructureService) {
+              private structureService: StructureDefinitionService) {
   }
 
   ngOnInit() {
@@ -48,11 +48,11 @@ export class StructureDiagramComponent implements OnInit, OnChanges {
       this.backBoneElements = [];
       // this.structure.id = value.id;
       let res: any;
-      if (value.snapshot) {
-        res = value.snapshot;
+      if (value.resource.snapshot) {
+        res = value.resource.snapshot;
       }
-      if (value.differential) {
-        res = value.differential;
+      if (value.resource.differential) {
+        res = value.resource.differential;
       }
       const coreElements: CoreElement[] = [];
       if (res.element) {

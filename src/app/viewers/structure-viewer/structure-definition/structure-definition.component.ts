@@ -4,7 +4,6 @@ import {ActivatedRoute, ParamMap} from '@angular/router';
 import {Observable} from 'rxjs';
 import {StructureDefinitionService} from '../../../services/structure-definition.service';
 import {isDefined} from '@angular/compiler/src/util';
-import StructureDefinition = fhir.StructureDefinition;
 import ElementDefinition = fhir.ElementDefinition;
 
 @Component({
@@ -13,6 +12,9 @@ import ElementDefinition = fhir.ElementDefinition;
   styleUrls: ['./structure-definition.component.css']
 })
 export class StructureDefinitionComponent implements OnInit {
+
+  constructor(private route: ActivatedRoute, private structureService: StructureDefinitionService) {
+  }
   @Input()
   hideUnused = true;
 
@@ -22,11 +24,32 @@ export class StructureDefinitionComponent implements OnInit {
   @Input()
   resource: string;
 
-  structure: StructureDefinition;
+  structure: any;
   baseResource: string;
-  private $resource: Observable<StructureDefinition>;
+  private $resource: Observable<any>;
 
-  constructor(private route: ActivatedRoute, private structureService: StructureDefinitionService) {
+  static checkType(code: string) {
+    switch (code) {
+      case 'boolean':
+      case'integer':
+      case 'string':
+      case 'decimal':
+      case 'uri':
+      case 'base64Binary':
+      case 'instant':
+      case 'date':
+      case 'dateTime':
+      case 'time':
+      case 'code':
+      case 'oid':
+      case 'id':
+      case 'markdown':
+      case 'unsignedInt':
+      case 'positiveInt':
+        return 'primitive_data_type';
+      default:
+        return 'data_type';
+    }
   }
 
   ngOnInit() {
@@ -36,7 +59,9 @@ export class StructureDefinitionComponent implements OnInit {
       }));
     this.$resource.subscribe(value => {
       this.baseResource = JSON.stringify(value);
-      this.structure = value;
+      if (value.resource) {
+        this.structure = value.resource;
+      }
     });
   }
 
@@ -84,7 +109,7 @@ export class StructureDefinitionComponent implements OnInit {
         return 'element.gif';
       }
 
-      if (this.checkType(entry.type[0].code) === 'primitive_data_type') {
+      if (StructureDefinitionComponent.checkType(entry.type[0].code) === 'primitive_data_type') {
         return 'primitive.png';
       }
     }
@@ -104,35 +129,11 @@ export class StructureDefinitionComponent implements OnInit {
         return 'Element';
       }
 
-      if (this.checkType(entry.type[0].code) === 'primitive_data_type') {
+      if (StructureDefinitionComponent.checkType(entry.type[0].code) === 'primitive_data_type') {
         return 'Primitive Data Type';
       }
     }
     return 'Data Type';
-  }
-
-  checkType(code: string) {
-    switch (code) {
-      case 'boolean':
-      case'integer':
-      case 'string':
-      case 'decimal':
-      case 'uri':
-      case 'base64Binary':
-      case 'instant':
-      case 'date':
-      case 'dateTime':
-      case 'time':
-      case 'code':
-      case 'oid':
-      case 'id':
-      case 'markdown':
-      case 'unsignedInt':
-      case 'positiveInt':
-        return 'primitive_data_type';
-      default:
-        return 'data_type';
-    }
   }
 
   // <div class="entry_icon" *ngIf="entry.type === 'Reference' || entry.type[0].code === 'Reference'"><img
