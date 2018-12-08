@@ -14,14 +14,6 @@ export class ResourceSelectorComponent implements OnInit {
   hideReadonly = true;
 
   resourceTypes = [];
-
-// {'name': 'episodeofcare', 'label': 'EpisodeOfCare'},
-// {'name': 'condition', 'label': 'Condition'},
-// {'name': 'ColumnaIntegrationPatient', 'label': 'ColumnaIntegrationPatient'},
-// {'name': 'ColumnaHealthIssue', 'label': 'ColumnaHealthIssue'},
-// {'name': 'ColumnaEpisodeOfCare', 'label': 'ColumnaEpisodeOfCare'},
-// {'name': 'ColumnaEncounter', 'label': 'ColumnaEncounter'},
-// {'name': 'ColumnaReferralRequest', 'label': 'ColumnaReferralRequest'}
   selectedResource: string;
 
   @Output()

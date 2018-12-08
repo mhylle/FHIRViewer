@@ -1,3 +1,24 @@
-<div>
-<div innerHTML="{{serverDescription}}"></div>
+<div class="container">
+  <div>
+    {{configurationService.selectedServer}} has {{resourceTypes.length}} resources.
+    <div class="card">
+      <div class="header userListHeader">
+        <div class="headerItem">Name</div>
+        <div class="headerItem">Action</div>
+        <div class="headerItem">Action</div>
+      </div>
+      <div *ngFor="let resourceType of resourceTypes" class="table_row userList">
+        <div>{{resourceType.label}}</div>
+        <div>
+          <a routerLink="/StructureDefinition/{{resourceType.name}}">StructureDefinition</a>
+        </div>
+        <div>
+          <a routerLink="/CapabilityStatement/{{resourceType.name}}">CapabilityStatement</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="serverDescription">
+    <div innerHTML="{{serverDescription}}" class="card"></div>
+  </div>
 </div>
