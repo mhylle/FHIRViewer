@@ -9,3 +9,33 @@ router-outlet ~ * {
   height: 100%;
   width: 100%;
 }
+
+@media screen and (max-width: 1296px) {
+  .mainContainer {
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-top: 8px;
+    width: 90%;
+    transform: translateX(0);
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .mainContainer {
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-top: 8px;
+    width: 100%;
+    transform: translateX(0);
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .mainContainer {
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-top: 8px;
+    width: 100%;
+    transform: translateX(0);
+  }
+}

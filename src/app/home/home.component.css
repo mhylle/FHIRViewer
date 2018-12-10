@@ -22,6 +22,7 @@
 .bottomMargin {
   margin-bottom: 8px;
 }
+
 .grid_item {
   padding: 8px;
 }
@@ -46,6 +47,7 @@ a {
 .actionItem {
   padding-right: 8px;
 }
+
 .grid {
   display: grid;
   grid-template-columns: auto auto auto;
@@ -78,6 +80,7 @@ a {
   padding-top: 8px;
   padding-bottom: 0px;
 }
+
 .userListHeader {
   display: grid;
   grid-template-columns: 300px 150px 150px;
@@ -95,4 +98,18 @@ a {
   align-self: center;
   padding: 4px;
   transition: background-color 0.25s linear;
+}
+
+@media screen and (max-width: 800px) {
+  .container {
+    display: grid;
+    grid-template-columns: auto;
+    grid-gap: 16px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: auto;
+    grid-gap: 12px;
+  }
 }
