@@ -13,7 +13,12 @@ export class HomeComponent implements OnInit {
   hideReadonly = true;
   hideUnused = true;
   serverDescription: string;
-  private resourceTypes = [];
+  resourceTypes = [];
+
+  layoutMode: string;
+  layoutMode_item: string;
+  layoutMode_header: string;
+  selectedServer: string;
 
   constructor(private configurationService: ConfigurationService,
               private serverInformationService: ServerInformationService,
@@ -21,6 +26,8 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.layoutMode = 'table';
+    this.layoutMode_item = 'table_row userList';
     this.configurationService.serverChanged.subscribe(() => this.retrieveServerInformation());
     this.retrieveServerInformation();
     this.resourceService.bundle.subscribe(value => {
@@ -35,7 +42,20 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  setLayout(layout: string) {
+    this.layoutMode = layout;
+    if (layout === 'grid') {
+      this.layoutMode_item = 'card';
+      this.layoutMode_header = 'cardHeader';
+    }
+    if (layout === 'table') {
+      this.layoutMode_item = 'table_row userList';
+      this.layoutMode_header = '';
+    }
+  }
+
   private retrieveServerInformation() {
+    this.selectedServer = this.configurationService.selectedServer;
     this.serverInformationService.getServerDescription().subscribe(value => {
       if (value != null) {
         this.serverDescription = value.description;

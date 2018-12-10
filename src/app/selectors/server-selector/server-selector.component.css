@@ -41,11 +41,11 @@
 }
 
 .serverListItem {
-  margin: 0px;
+  margin: 0;
   padding: 8px;
 }
 
 .serverListItem:hover {
-  background-color: #d66b1a;
+  background-color: lightgray;
   cursor: pointer;
 }
