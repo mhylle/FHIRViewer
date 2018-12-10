@@ -1,3 +1,4 @@
+import Bundle = fhir.Bundle;
 import { TestBed } from '@angular/core/testing';
 
 import { StructureDefinitionService } from './structure-definition.service';
