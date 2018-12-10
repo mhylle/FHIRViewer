@@ -12,7 +12,7 @@ import {HomeComponent} from './home/home.component';
 
 import {BasicCapabilityComponent} from './viewers/capability-viewer/basic-capability/basic-capability.component';
 import {StructureViewerComponent} from './viewers/structure-viewer/structure-viewer.component';
-import {MenuComponent} from './core/menu/menu.component';
+
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {StructureDiagramComponent} from './viewers/structure-viewer/structure-diagram/structure-diagram.component';
@@ -23,11 +23,11 @@ import {LoginComponent} from './core/login/login.component';
 import {JwtInterceptor} from './core/interceptors/jwt.interceptor';
 import {CapabilityViewerComponent} from './viewers/capability-viewer/capability-viewer.component';
 import {StructureDefinitionComponent} from './viewers/structure-viewer/structure-definition/structure-definition.component';
-import {MenuItemComponent} from './core/menu/menu-item/menu-item.component';
 import {ServerSelectorComponent} from './selectors/server-selector/server-selector.component';
 import {Menu2Component} from './core/menu2/menu2.component';
 import {MaterialImportModule} from './material-import/material-import.module';
-import { NoResourceSelectedComponent } from './viewers/no-resource-selected/no-resource-selected.component';
+import {NoResourceSelectedComponent} from './viewers/no-resource-selected/no-resource-selected.component';
+import {CookieService} from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -36,14 +36,12 @@ import { NoResourceSelectedComponent } from './viewers/no-resource-selected/no-r
     HomeComponent,
     BasicCapabilityComponent,
     StructureViewerComponent,
-    MenuComponent,
     StructureDiagramComponent,
     DiagramElementComponent,
     ResourceSelectorComponent,
     LoginComponent,
     CapabilityViewerComponent,
     StructureDefinitionComponent,
-    MenuItemComponent,
     ServerSelectorComponent,
     Menu2Component,
     NoResourceSelectedComponent
@@ -60,6 +58,7 @@ import { NoResourceSelectedComponent } from './viewers/no-resource-selected/no-r
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    CookieService
     // {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]

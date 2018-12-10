@@ -2,7 +2,7 @@
   <div class="leftMenuItems">
     <div class="menu_item">
       <div class="menu_item_container" *ngIf="menuEnabled">
-        <a routerLink="/Home" (click)="selectMenu('home')">
+        <a (click)="selectMenu('home','')" routerLink="/Home">
           <fa name="home" class="menuIcon"></fa>
           HOME</a>
       </div>
@@ -16,7 +16,7 @@
     </div>
     <div class="menu_item">
       <div class="menu_item_container" *ngIf="menuEnabled">
-        <a routerLink="/StructureDefinition" (click)="selectMenu('structure')">
+        <a (click)="selectMenu('structure', '')" routerLink="/StructureDefinition">
           <fa name="address-card" class="menuIcon"></fa>
           STRUCTURE</a>
       </div>
@@ -30,7 +30,7 @@
     </div>
     <div class="menu_item">
       <div class="menu_item_container" *ngIf="menuEnabled">
-        <a routerLink="/CapabilityStatement" (click)="selectMenu('capability')">
+        <a (click)="selectMenu('capability', '')" routerLink="/CapabilityStatement">
           <fa name="book" class="menuIcon"></fa>
           CAPABILITY</a>
       </div>
@@ -44,15 +44,34 @@
   </div>
   <div class="spacer"></div>
   <div class="rightMenuItems">
-    <div class="menu_item_container" *ngIf="menuEnabled">
-      <a routerLink="/login">
-        <fa name="sign-in" class="menuIcon"></fa>
-        LOGIN
-      </a>
+    <div class="menu_item">
+      <div *ngIf="menuEnabled" class="menu_item_container">
+        <div [matMenuTriggerFor]="serverSelectMenu" class="button_menu_item">
+          <fa class="menuIcon" name="server"></fa>
+          SERVERS <span *ngIf="selectedServer">({{selectedServer}})</span>
+        </div>
+      </div>
+      <mat-menu #serverSelectMenu="matMenu">
+        <button (click)="selectMenu('server', server)" *ngFor="let server of availableServers" mat-menu-item>
+          <span *ngIf="server === selectedServer" class="selection"><fa name="check-circle"></fa></span>{{server}}
+        </button>
+      </mat-menu>
+      <div *ngIf="!menuEnabled" class="menu_item_disabled_container">
+        <fa class="menuIcon" name="server"></fa>
+        SERVER
+      </div>
     </div>
-    <div class="menu_item_disabled_container" *ngIf="!menuEnabled">
-        <fa name="sign-in" class="menuIcon"></fa>
+    <div class="menu_item">
+      <div *ngIf="menuEnabled" class="menu_item_container">
+        <a routerLink="/login">
+          <fa class="menuIcon" name="sign-in"></fa>
+          LOGIN
+        </a>
+      </div>
+      <div *ngIf="!menuEnabled" class="menu_item_disabled_container">
+        <fa class="menuIcon" name="sign-in"></fa>
         LOGIN
+      </div>
     </div>
   </div>
 </mat-toolbar>

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {ConfigurationService} from '../../services/infrastructure/configuration.service';
+import {isDefined} from '@angular/compiler/src/util';
 
 export const slideInLeft =
   trigger('slideInLeft', [
@@ -44,18 +45,31 @@ export const slideInRight =
 export class Menu2Component implements OnInit {
   prevSelection = '';
   selection: string;
+  selectedServer: string;
   menuEnabled = false;
+  availableServers: string[];
 
   constructor(private configurationService: ConfigurationService) {
+    this.availableServers = ConfigurationService.availableServers;
     this.configurationService.serverChanged.subscribe((value => this.menuEnabled = value));
   }
 
   ngOnInit() {
+    this.menuEnabled = (isDefined(this.configurationService.selectedServer)
+      && this.configurationService.selectedServer != null
+      && this.configurationService.selectedServer !== '');
+    if (this.menuEnabled) {
+      this.selectedServer = this.configurationService.selectedServer;
+    }
   }
 
-  selectMenu(name: string) {
+  selectMenu(name: string, server: string) {
     this.prevSelection = this.selection;
     this.selection = name;
+    this.selectedServer = server;
+    console.log('selection: ' + this.selection);
+    if (server) {
+      this.configurationService.changeServer(server);
+    }
   }
-
 }

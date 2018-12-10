@@ -15,6 +15,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(catchError(err => {
       if (err.status === 401) {
         this.authService.logout();
+        // noinspection JSIgnoredPromiseFromCall
         this.router.navigate(['/login']);
       }
       const error = err.error.message || err.statusText;

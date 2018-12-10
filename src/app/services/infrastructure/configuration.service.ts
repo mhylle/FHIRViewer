@@ -1,17 +1,27 @@
 import {EventEmitter, Injectable} from '@angular/core';
+import {CookieService} from 'ngx-cookie-service';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConfigurationService {
-  selectedServer: string;
+
   serverChanged: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor() {
+  constructor(private cookieService: CookieService) {
+  }
+
+  static get availableServers() {
+    return environment.resourceServers;
+  }
+
+  get selectedServer() {
+    return this.cookieService.get('selectedServer');
   }
 
   changeServer(server: string) {
-    this.selectedServer = server;
+    this.cookieService.set('selectedServer', server);
     this.serverChanged.emit(server);
   }
 }

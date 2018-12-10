@@ -4,6 +4,11 @@ a {
   /*font-size: 0.8em;*/
 }
 
+/*button {*/
+/*text-decoration: none;*/
+/*color: white;*/
+/*}*/
+
 .menuContainer {
   margin: 0 auto;
   width: 80%;
@@ -25,22 +30,28 @@ a {
 .rightMenuItems {
   position: relative;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   height: 100%;
   padding-right: 50px;
 }
 
+.selection {
+  margin-right: 8px;
+}
+
+.button_menu_item:hover {
+  cursor: pointer;
+}
+
 .menu_item {
-  /*margin: auto 0;*/
   height: 100%;
   font-size: 0.8em;
-  /*margin-right: 8px;*/
   color: white;
   padding-top: 16px;
-  /*padding-bottom: 16px;*/
   padding-right: 16px;
 }
+
 .menu_item_container {
   height: 63%;
   margin: 0 auto;

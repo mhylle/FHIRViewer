@@ -17,6 +17,7 @@ export class AuthGuard implements CanActivate {
       return true;
     }
 
+    // noinspection JSIgnoredPromiseFromCall
     this.router.navigate(['/login', {queryParams: {returnUrl: state.url}}]);
     return false;
   }

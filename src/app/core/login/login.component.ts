@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   ) {
     // redirect to home if already logged in
     if (this.authenticationService.currentUserValue) {
+      // noinspection JSIgnoredPromiseFromCall
       this.router.navigate(['/']);
     }
   }
@@ -54,12 +55,12 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(this.f.username.value, this.f.password.value)
       .pipe(first())
       .subscribe(
-        data => {
+        () => {
+          // noinspection JSIgnoredPromiseFromCall
           this.router.navigate([this.returnUrl]);
         },
-        error => {
+        () => {
           this.loading = false;
         });
   }
-
 }

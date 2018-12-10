@@ -15,7 +15,10 @@ export class ServerGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    if (!isDefined(this.configurationService.selectedServer) || this.configurationService.selectedServer === null) {
+    if (!isDefined(this.configurationService.selectedServer)
+      || this.configurationService.selectedServer === null
+      || this.configurationService.selectedServer === '') {
+      // noinspection JSIgnoredPromiseFromCall
       this.router.navigate(['/selectServer']);
       return false;
     }

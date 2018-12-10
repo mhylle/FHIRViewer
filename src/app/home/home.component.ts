@@ -64,16 +64,4 @@ export class HomeComponent implements OnInit {
       }
     });
   }
-
-  selectResource(resource: string) {
-    this.selectedResource = resource;
-  }
-
-  updateReadOnly(hideReadOnly: boolean) {
-    this.hideReadonly = hideReadOnly;
-  }
-
-  updateUnused(hideUnused: boolean) {
-    this.hideUnused = hideUnused;
-  }
 }

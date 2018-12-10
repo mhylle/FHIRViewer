@@ -59,5 +59,4 @@ export class ResourceSelectorComponent implements OnInit {
   fireReadOnlyChanged() {
     this.hideReadOnlyChanged.emit(this.hideReadonly);
   }
-
 }

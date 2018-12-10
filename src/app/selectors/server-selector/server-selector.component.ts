@@ -21,7 +21,7 @@ export class ServerSelectorComponent implements OnInit {
 
   selectServer(server: string) {
     this.configurationService.changeServer(server);
+    // noinspection JSIgnoredPromiseFromCall
     this.router.navigate(['/login']);
   }
-
 }

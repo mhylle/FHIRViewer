@@ -32,8 +32,4 @@ export class DiagramElementComponent implements OnInit {
     }
     return referenceUrl.split('/').pop();
   }
-
-  selectResource(resource: string) {
-    this.resourceSelected.emit(resource);
-  }
 }
