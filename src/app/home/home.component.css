@@ -19,6 +19,9 @@
   box-shadow: 2px 2px 4px 4px rgba(0, 0, 0, 0.44);
 }
 
+.bottomMargin {
+  margin-bottom: 8px;
+}
 .grid_item {
   padding: 8px;
 }
@@ -27,6 +30,22 @@
 
 }
 
+a {
+  color: #204e5f;
+}
+
+.cardActions {
+  text-align: right;
+
+}
+
+.linkIcon {
+  /*padding-right: 8px;*/
+}
+
+.actionItem {
+  padding-right: 8px;
+}
 .grid {
   display: grid;
   grid-template-columns: auto auto auto;

@@ -1,9 +1,6 @@
 <div class="container">
   <div>
-    <div>
-      {{selectedServer}} has {{resourceTypes.length}} resources.
-    </div>
-    <div>
+    <div class="bottomMargin">
       <button (click)="setLayout('table')">
         <fa name="list-ul"></fa>
       </button>
@@ -11,20 +8,30 @@
         <fa name="th"></fa>
       </button>
     </div>
+    <div class="bottomMargin">
+      {{selectedServer}} has {{resourceTypes.length}} resources.
+    </div>
     <div [ngClass]="layoutMode">
       <div *ngIf="layoutMode==='table'" class="header userListHeader">
         <div class="headerItem">Name</div>
-        <div class="headerItem">Action</div>
         <div class="headerItem">Action</div>
       </div>
       <div *ngFor="let resourceType of resourceTypes" [ngClass]="layoutMode_item">
         <div [ngClass]="layoutMode_header">{{resourceType.label}}</div>
         <div *ngIf="layoutMode === 'grid'">Short description of the element coming soon.</div>
-        <div>
-          <a routerLink="/StructureDefinition/{{resourceType.name}}">StructureDefinition</a>
-        </div>
-        <div>
-          <a routerLink="/CapabilityStatement/{{resourceType.name}}">CapabilityStatement</a>
+        <div [ngClass]="layoutMode_actions">
+          <span class="actionItem">
+          <a routerLink="/StructureDefinition/{{resourceType.name}}">
+            <fa *ngIf="layoutMode === 'grid'" class="linkIcon" name="address-card"></fa>
+            <span *ngIf="layoutMode==='table'">StructureDefinition</span>
+          </a>
+        </span>
+          <span class="actionItem">
+          <a routerLink="/CapabilityStatement/{{resourceType.name}}">
+            <fa *ngIf="layoutMode === 'grid'" class="linkIcon" name="book"></fa>
+            <span *ngIf="layoutMode==='table'">CapabilityStatement</span>
+          </a>
+        </span>
         </div>
       </div>
     </div>

@@ -24,7 +24,7 @@ import {JwtInterceptor} from './core/interceptors/jwt.interceptor';
 import {CapabilityViewerComponent} from './viewers/capability-viewer/capability-viewer.component';
 import {StructureDefinitionComponent} from './viewers/structure-viewer/structure-definition/structure-definition.component';
 import {ServerSelectorComponent} from './selectors/server-selector/server-selector.component';
-import {Menu2Component} from './core/menu2/menu2.component';
+import {MenuComponent} from './core/menu/menu.component';
 import {MaterialImportModule} from './material-import/material-import.module';
 import {NoResourceSelectedComponent} from './viewers/no-resource-selected/no-resource-selected.component';
 import {CookieService} from 'ngx-cookie-service';
@@ -43,7 +43,7 @@ import {CookieService} from 'ngx-cookie-service';
     CapabilityViewerComponent,
     StructureDefinitionComponent,
     ServerSelectorComponent,
-    Menu2Component,
+    MenuComponent,
     NoResourceSelectedComponent
   ],
   imports: [

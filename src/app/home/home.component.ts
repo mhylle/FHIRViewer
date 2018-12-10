@@ -9,7 +9,6 @@ import {ResourceService} from '../services/resource.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  selectedResource: string;
   hideReadonly = true;
   hideUnused = true;
   serverDescription: string;
@@ -18,6 +17,7 @@ export class HomeComponent implements OnInit {
   layoutMode: string;
   layoutMode_item: string;
   layoutMode_header: string;
+  layoutMode_actions: string;
   selectedServer: string;
 
   constructor(private configurationService: ConfigurationService,
@@ -47,10 +47,12 @@ export class HomeComponent implements OnInit {
     if (layout === 'grid') {
       this.layoutMode_item = 'card';
       this.layoutMode_header = 'cardHeader';
+      this.layoutMode_actions = 'cardActions';
     }
     if (layout === 'table') {
       this.layoutMode_item = 'table_row userList';
       this.layoutMode_header = '';
+      this.layoutMode_actions = '';
     }
   }
 

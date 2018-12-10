@@ -1,9 +1,9 @@
-import { TestBed, async } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AppComponent } from './app.component';
-import {Menu2Component} from "./core/menu2/menu2.component";
-import {AngularFontAwesomeModule} from "angular-font-awesome";
-import {MaterialImportModule} from "./material-import/material-import.module";
+import {async, TestBed} from '@angular/core/testing';
+import {RouterTestingModule} from '@angular/router/testing';
+import {AppComponent} from './app.component';
+import {AngularFontAwesomeModule} from 'angular-font-awesome';
+import {MaterialImportModule} from './material-import/material-import.module';
+import {MenuComponent} from './core/menu/menu.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -15,7 +15,7 @@ describe('AppComponent', () => {
       ],
       declarations: [
         AppComponent,
-        Menu2Component
+        MenuComponent
       ],
     }).compileComponents();
   }));

@@ -37,12 +37,12 @@ export const slideInRight =
   );
 
 @Component({
-  selector: 'app-menu2',
-  templateUrl: './menu2.component.html',
-  styleUrls: ['./menu2.component.css'],
+  selector: 'app-menu',
+  templateUrl: './menu.component.html',
+  styleUrls: ['./menu.component.css'],
   animations: [slideInLeft, slideInRight]
 })
-export class Menu2Component implements OnInit {
+export class MenuComponent implements OnInit {
   prevSelection = '';
   selection: string;
   selectedServer: string;
