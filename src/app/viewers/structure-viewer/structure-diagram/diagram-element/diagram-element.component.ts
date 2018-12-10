@@ -26,10 +26,14 @@ export class DiagramElementComponent implements OnInit {
   ngOnInit() {
   }
 
-  stripUrl(referenceUrl: string) {
-    if (!isDefined(referenceUrl) || referenceUrl === null || referenceUrl === '') {
+  stripUrl(referenceUrl: any) {
+    if (!isDefined(referenceUrl) || referenceUrl === '') {
       return '';
     }
-    return referenceUrl.split('/').pop();
+    if (referenceUrl instanceof Array) {
+      return referenceUrl[0].split('/').pop();
+    }
+
+    return referenceUrl.split('/').pop().trim();
   }
 }

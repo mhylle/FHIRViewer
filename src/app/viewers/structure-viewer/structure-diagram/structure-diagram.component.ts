@@ -1,5 +1,4 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {Structure} from '../../../core/model/structure';
 import {BackboneElement} from '../../../core/model/backbone-element';
 import {CoreElement} from '../../../core/model/coreElement';
 import {isDefined} from '@angular/compiler/src/util';
@@ -25,7 +24,7 @@ export class StructureDiagramComponent implements OnInit, OnChanges {
   hideReadonly: boolean;
   resourceDescription: string;
   backBoneElements: BackboneElement[];
-  structure: Structure;
+  structure: any;
 
   private $resource: Observable<any>;
 
@@ -46,12 +45,10 @@ export class StructureDiagramComponent implements OnInit, OnChanges {
       }));
     this.$resource.subscribe(value => {
       this.backBoneElements = [];
-      // this.structure.id = value.id;
       let res: any;
       if (value.resource.snapshot) {
         res = value.resource.snapshot;
-      }
-      if (value.resource.differential) {
+      } else if (value.resource.differential) {
         res = value.resource.differential;
       }
       const coreElements: CoreElement[] = [];
@@ -60,13 +57,20 @@ export class StructureDiagramComponent implements OnInit, OnChanges {
           const elm = res.element[i];
           const coreElement = new CoreElement();
           coreElement.path = elm.path;
-          coreElement.name = elm.sliceName;
+          if (elm.sliceName !== '') {
+            coreElement.name = elm.sliceName;
+          } else if (elm.id) {
+            coreElement.name = elm.id;
+          }
+
           coreElement.min = elm.min;
           coreElement.max = elm.max;
           if (elm.type) {
             coreElement.type = elm.type[0].code;
-            if (elm.type[0].profile) {
+            if (elm.type[0].profile && elm.type[0].profile instanceof Array) {
               coreElement.profile = elm.type[0].profile[0];
+            } else if (elm.type[0].profile) {
+              coreElement.profile = elm.type[0].profile;
             }
           }
           if (elm.constraint) {
