@@ -1,11 +1,15 @@
 <div class="container">
   <div>
     <div class="bottomMargin">
-      <button (click)="setLayout('table')">
-        <fa name="list-ul"></fa>
+      <button (click)="setLayout('table')" mat-icon-button>
+        <mat-icon>
+          <fa name="list-alt"></fa>
+        </mat-icon>
       </button>
-      <button (click)="setLayout('grid')">
-        <fa name="th"></fa>
+      <button (click)="setLayout('grid')" mat-icon-button>
+        <mat-icon>
+          <fa name="th"></fa>
+        </mat-icon>
       </button>
     </div>
     <div class="bottomMargin">
