@@ -1,6 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { DiagramElementComponent } from './diagram-element.component';
+import {DiagramElementComponent} from './diagram-element.component';
+import {CookieService} from 'ngx-cookie-service';
+import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('DiagramElementComponent', () => {
   let component: DiagramElementComponent;
@@ -8,9 +11,11 @@ describe('DiagramElementComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DiagramElementComponent ]
+      imports: [RouterTestingModule, HttpClientTestingModule],
+      declarations: [DiagramElementComponent],
+      providers: [CookieService]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

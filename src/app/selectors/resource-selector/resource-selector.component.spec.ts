@@ -1,6 +1,12 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ResourceSelectorComponent } from './resource-selector.component';
+import {ResourceSelectorComponent} from './resource-selector.component';
+import {RouterTestingModule} from '@angular/router/testing';
+import {FormsModule} from '@angular/forms';
+import {BrowserModule} from '@angular/platform-browser';
+import {MaterialImportModule} from '../../material-import/material-import.module';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {CookieService} from 'ngx-cookie-service';
 
 describe('ResourceSelectorComponent', () => {
   let component: ResourceSelectorComponent;
@@ -8,9 +14,11 @@ describe('ResourceSelectorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ResourceSelectorComponent ]
+      imports: [BrowserModule, FormsModule, RouterTestingModule, HttpClientTestingModule, MaterialImportModule],
+      declarations: [ResourceSelectorComponent],
+      providers: [CookieService]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

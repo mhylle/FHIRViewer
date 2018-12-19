@@ -29,6 +29,7 @@ import {MaterialImportModule} from './material-import/material-import.module';
 import {NoResourceSelectedComponent} from './viewers/no-resource-selected/no-resource-selected.component';
 import {CookieService} from 'ngx-cookie-service';
 import {SvgDiagramComponent} from './viewers/structure-viewer/structure-diagram/svg-diagram/svg-diagram.component';
+import {MhUtilsModule} from './core/mh-utils/mh-utils.module';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import {SvgDiagramComponent} from './viewers/structure-viewer/structure-diagram/
     HttpClientModule,
     BrowserAnimationsModule,
     AngularFontAwesomeModule,
-    MaterialImportModule
+    MaterialImportModule,
+    MhUtilsModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

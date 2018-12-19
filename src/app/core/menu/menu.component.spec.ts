@@ -1,6 +1,9 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {MenuComponent} from './menu.component';
+import {AngularFontAwesomeModule} from 'angular-font-awesome';
+import {MaterialImportModule} from '../../material-import/material-import.module';
+import {CookieService} from 'ngx-cookie-service';
 
 describe('MenuComponent', () => {
   let component: MenuComponent;
@@ -8,7 +11,9 @@ describe('MenuComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [MenuComponent]
+      imports: [AngularFontAwesomeModule, MaterialImportModule],
+      declarations: [MenuComponent],
+      providers: [CookieService]
     })
     .compileComponents();
   }));
