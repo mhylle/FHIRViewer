@@ -83,7 +83,7 @@ a {
 
 .userListHeader {
   display: grid;
-  grid-template-columns: 300px 150px 150px;
+  grid-template-columns: auto 150px 150px;
   grid-template-rows: 24px auto;
   align-self: center;
   padding: 4px;
@@ -93,14 +93,14 @@ a {
   font-size: 0.8em;
   display: grid;
   background-color: white;
-  grid-template-columns: 300px 150px 150px;
+  grid-template-columns: auto 150px 150px;
   grid-template-rows: 18px;
   align-self: center;
   padding: 4px;
   transition: background-color 0.25s linear;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 960px) {
   .container {
     display: grid;
     grid-template-columns: auto;

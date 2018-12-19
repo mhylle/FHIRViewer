@@ -4,6 +4,7 @@ import {ActivatedRoute, ParamMap} from '@angular/router';
 import {Observable} from 'rxjs';
 import {StructureDefinitionService} from '../../../services/structure-definition.service';
 import {isDefined} from '@angular/compiler/src/util';
+import {BreakpointObserver} from '@angular/cdk/layout';
 import ElementDefinition = fhir.ElementDefinition;
 
 @Component({
@@ -12,9 +13,18 @@ import ElementDefinition = fhir.ElementDefinition;
   styleUrls: ['./structure-definition.component.css']
 })
 export class StructureDefinitionComponent implements OnInit {
+  private typeVisible: boolean;
 
-  constructor(private route: ActivatedRoute, private structureService: StructureDefinitionService) {
+  constructor(private route: ActivatedRoute,
+              private breakpointObserver: BreakpointObserver,
+              private structureService: StructureDefinitionService) {
+    breakpointObserver.observe([
+      '(min-width: 800px)'
+    ]).subscribe(result => {
+      this.typeVisible = result.matches;
+    });
   }
+
   @Input()
   hideUnused = true;
 

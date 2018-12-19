@@ -1,10 +1,10 @@
 <div class="card">
   <div class="header userListHeader">
-    <div class="headerItem">Name</div>
-    <div class="headerItem">Flags</div>
-    <div class="headerItem">Card</div>
-    <div class="headerItem">Type</div>
-    <div class="headerItem">Description</div>
+    <div class="headerItem name">Name</div>
+    <div class="headerItem flags">Flags</div>
+    <div class="headerItem cardinality">Card</div>
+    <div *ngIf="typeVisible" class="headerItem type">Type</div>
+    <div class="headerItem description">Description</div>
   </div>
 
   <div *ngIf="structure">
@@ -27,7 +27,6 @@
             <div class="entry_icon"><img src="../../../../assets/icon_{{resolveIcon(entry)}}"
                                          title="{{resolveIconTitle(entry)}}"></div>
           </div>
-
           <div *ngIf="!entry.type"></div>
           <div class="entry_name" *ngIf="entry.label">{{entry.label}}</div>
           <div class="entry_name" *ngIf="entry.sliceName && !entry.label">{{entry.sliceName}}</div>
@@ -37,9 +36,8 @@
           <span *ngIf="entry.isModifier">?!</span>
           <span *ngIf="entry.isSummary">Σ</span>
         </div>
-
         <div class="cardinality">{{entry.min}}..{{entry.max}}</div>
-        <div class="type">
+        <div *ngIf="typeVisible" class="type">
           <div *ngIf="entry.type">
             <span>{{entry.type[0].code}}</span>
             <span *ngIf="entry.type[0].code === 'Reference' && entry.type[0].targetProfile">(<a
@@ -48,7 +46,6 @@
               routerLink="/StructureDefinition/{{stripUrl(entry.type[0].profile)}}">{{stripUrl(entry.type[0].profile)}}</a>)</span>
           </div>
         </div>
-
         <div *ngIf="!entry.short">{{entry.definition}}</div>
         <div *ngIf="entry.short">{{entry.short}}
           <div *ngIf="entry.type">{{entry.type[0].code}}</div>

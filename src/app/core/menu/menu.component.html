@@ -41,6 +41,20 @@
       <div class="selection_indicator" *ngIf="selection==='capability'"
            [@slideInLeft]="selection==='capability' ? 'in' : ''"></div>
     </div>
+    <div class="menu_item">
+      <div *ngIf="menuEnabled" class="menu_item_container">
+        <a (click)="selectMenu('raphael', '')" routerLink="/SVG">
+          <fa class="menuIcon" name="book"></fa>
+          SVG
+        </a>
+      </div>
+      <div *ngIf="!menuEnabled" class="menu_item_disabled_container">
+        <fa class="menuIcon" name="book"></fa>
+        RAPHAEL
+      </div>
+      <div *ngIf="selection==='capability'" [@slideInLeft]="selection==='capability' ? 'in' : ''"
+        class="selection_indicator"></div>
+    </div>
   </div>
   <div class="spacer"></div>
   <div class="rightMenuItems">

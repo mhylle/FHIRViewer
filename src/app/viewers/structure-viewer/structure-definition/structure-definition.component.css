@@ -102,3 +102,24 @@
   justify-self: start;
   text-align: left;
 }
+
+@media screen and (max-width: 800px) {
+  .userListHeader {
+    display: grid;
+    grid-template-columns: 300px 50px 50px auto;
+    grid-template-rows: 24px auto;
+    align-self: center;
+    padding: 4px;
+  }
+
+  .userList {
+    font-size: 0.8em;
+    display: grid;
+    background-color: white;
+    grid-template-columns: 300px 50px 50px auto;
+    grid-template-rows: 18px;
+    align-self: center;
+    padding: 4px;
+    transition: background-color 0.25s linear;
+  }
+}

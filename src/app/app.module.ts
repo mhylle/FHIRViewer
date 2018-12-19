@@ -28,6 +28,7 @@ import {MenuComponent} from './core/menu/menu.component';
 import {MaterialImportModule} from './material-import/material-import.module';
 import {NoResourceSelectedComponent} from './viewers/no-resource-selected/no-resource-selected.component';
 import {CookieService} from 'ngx-cookie-service';
+import {SvgDiagramComponent} from './viewers/structure-viewer/structure-diagram/svg-diagram/svg-diagram.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import {CookieService} from 'ngx-cookie-service';
     StructureDefinitionComponent,
     ServerSelectorComponent,
     MenuComponent,
-    NoResourceSelectedComponent
+    NoResourceSelectedComponent,
+    SvgDiagramComponent
   ],
   imports: [
     BrowserModule,
