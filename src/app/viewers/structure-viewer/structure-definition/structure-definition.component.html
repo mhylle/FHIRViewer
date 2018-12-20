@@ -3,8 +3,8 @@
     <div class="headerItem name">Name</div>
     <div class="headerItem flags">Flags</div>
     <div class="headerItem cardinality">Card</div>
-    <div *ngIf="typeVisible" class="headerItem type">Type</div>
-    <div class="headerItem description">Description</div>
+    <div class="headerItem type">Type</div>
+    <div *ngIf="descriptionVisible" class="headerItem description">Description</div>
   </div>
 
   <div *ngIf="structure">
@@ -37,7 +37,7 @@
           <span *ngIf="entry.isSummary">Σ</span>
         </div>
         <div class="cardinality">{{entry.min}}..{{entry.max}}</div>
-        <div *ngIf="typeVisible" class="type">
+        <div class="type">
           <div *ngIf="entry.type">
             <span>{{entry.type[0].code}}</span>
             <span *ngIf="entry.type[0].code === 'Reference' && entry.type[0].targetProfile">(<a
@@ -46,8 +46,8 @@
               routerLink="/StructureDefinition/{{stripUrl(entry.type[0].profile)}}">{{stripUrl(entry.type[0].profile)}}</a>)</span>
           </div>
         </div>
-        <div *ngIf="!entry.short">{{entry.definition}}</div>
-        <div *ngIf="entry.short">{{entry.short}}
+        <div *ngIf="!entry.short && descriptionVisible">{{entry.definition}}</div>
+        <div *ngIf="entry.short && descriptionVisible">{{entry.short}}
           <div *ngIf="entry.type">{{entry.type[0].code}}</div>
         </div>
       </div>

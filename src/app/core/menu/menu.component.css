@@ -73,12 +73,11 @@ a {
 }
 
 
-@media screen and (max-width: 1224px) {
+@media screen and (max-width: 1050px) {
   .menuContainer {
     margin: 0 auto;
     width: 100%;
     background-color: #204e5f;
-    font-size: 0.9em;
   }
 
 

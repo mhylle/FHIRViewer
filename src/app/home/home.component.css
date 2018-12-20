@@ -100,6 +100,20 @@ a {
   transition: background-color 0.25s linear;
 }
 
+@media screen and (max-width: 1600px) {
+  .container {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    grid-gap: 16px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 12px;
+  }
+}
+
 @media screen and (max-width: 960px) {
   .container {
     display: grid;
