@@ -13,7 +13,7 @@ import ElementDefinition = fhir.ElementDefinition;
   styleUrls: ['./structure-definition.component.css']
 })
 export class StructureDefinitionComponent implements OnInit {
-  private typeVisible: boolean;
+  typeVisible: boolean;
 
   constructor(private route: ActivatedRoute,
               private breakpointObserver: BreakpointObserver,
