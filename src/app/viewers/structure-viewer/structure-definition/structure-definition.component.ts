@@ -13,15 +13,15 @@ import ElementDefinition = fhir.ElementDefinition;
   styleUrls: ['./structure-definition.component.css']
 })
 export class StructureDefinitionComponent implements OnInit {
-  typeVisible: boolean;
+  descriptionVisible: boolean;
 
   constructor(private route: ActivatedRoute,
               private breakpointObserver: BreakpointObserver,
               private structureService: StructureDefinitionService) {
     breakpointObserver.observe([
-      '(min-width: 800px)'
+      '(min-width: 850px)'
     ]).subscribe(result => {
-      this.typeVisible = result.matches;
+      this.descriptionVisible = result.matches;
     });
   }
 

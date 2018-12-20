@@ -22,7 +22,8 @@
       </div>
       <div *ngFor="let resourceType of resourceTypes" [ngClass]="layoutMode_item">
         <div [ngClass]="layoutMode_header">{{resourceType.label}}</div>
-        <div *ngIf="layoutMode === 'grid'">Short description of the element coming soon.</div>
+        <div *ngIf="layoutMode === 'grid'"><span *ngIf="!resourceType.short">Short description of the element coming soon.</span><span
+          *ngIf="resourceType.short">{{resourceType.short}}</span></div>
         <div [ngClass]="layoutMode_actions">
           <span class="actionItem">
           <a routerLink="/StructureDefinition/{{resourceType.name}}">
