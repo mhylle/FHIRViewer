@@ -6,7 +6,6 @@ import {AppComponent} from './app.component';
 
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {RepeatPipe} from './core/mh-utils/repeat.pipe';
 
 import {HomeComponent} from './home/home.component';
 
@@ -34,7 +33,6 @@ import {MhUtilsModule} from './core/mh-utils/mh-utils.module';
 @NgModule({
   declarations: [
     AppComponent,
-    RepeatPipe,
     HomeComponent,
     BasicCapabilityComponent,
     StructureViewerComponent,
