@@ -1,4 +1,4 @@
-<div class="card">
+<div *ngIf="backboneElement" class="card">
   <div class="card-header">{{backboneElement.name}} (DomainResource)</div>
   <div class="card-content">
     <div *ngFor="let item of backboneElement.items;">
