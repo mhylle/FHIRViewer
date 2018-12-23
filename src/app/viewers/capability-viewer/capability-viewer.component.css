@@ -1,11 +1,15 @@
 .container {
+
+}
+
+.capabilityContainer {
   display: grid;
   grid-template-columns: auto auto;
   margin: 8px;
 }
 
 @media screen and (max-width: 1100px) {
-  .container {
+  .capabilityContainer {
     display: grid;
     grid-template-columns: auto;
     margin: 8px;
