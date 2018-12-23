@@ -29,6 +29,7 @@ import {NoResourceSelectedComponent} from './viewers/no-resource-selected/no-res
 import {CookieService} from 'ngx-cookie-service';
 import {SvgDiagramComponent} from './viewers/structure-viewer/structure-diagram/svg-diagram/svg-diagram.component';
 import {MhUtilsModule} from './core/mh-utils/mh-utils.module';
+import {ResourceInformationComponent} from './viewers/capability-viewer/resource-information/resource-information.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import {MhUtilsModule} from './core/mh-utils/mh-utils.module';
     ServerSelectorComponent,
     MenuComponent,
     NoResourceSelectedComponent,
-    SvgDiagramComponent
+    SvgDiagramComponent,
+    ResourceInformationComponent
   ],
   imports: [
     BrowserModule,

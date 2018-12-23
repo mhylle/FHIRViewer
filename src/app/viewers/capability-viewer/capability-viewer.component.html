@@ -1,7 +1,13 @@
 <app-resource-selector (resourceSelected)="selectResource($event)" (hideReadOnlyChanged)="updateReadOnly($event)"
                        (hideUnusedChanged)="updateUnused($event)"></app-resource-selector>
 <div class="container" *ngIf="selectedResource">
-  <app-structure-diagram [resource]="selectedResource" [hideUnused]="hideUnused" [hideReadonly]="hideReadonly"></app-structure-diagram>
-  <app-basic-capability></app-basic-capability>
+  <div class="descriptionContainer">
+    <app-resource-information [resource]="selectedResource"></app-resource-information>
+  </div>
+  <div class="capabilityContainer">
+    <app-structure-diagram [resource]="selectedResource" [hideUnused]="hideUnused"
+                           [hideReadonly]="hideReadonly"></app-structure-diagram>
+    <app-basic-capability></app-basic-capability>
+  </div>
 </div>
 <app-no-resource-selected *ngIf="!selectedResource"></app-no-resource-selected>
