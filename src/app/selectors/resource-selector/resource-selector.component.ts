@@ -3,6 +3,7 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
 import {ResourceService} from '../../services/resource.service';
+import {ContextService} from "../../services/infrastructure/context.service";
 
 @Component({
   selector: 'app-resource-selector',
@@ -25,7 +26,10 @@ export class ResourceSelectorComponent implements OnInit {
 
   private $resource: Observable<string>;
 
-  constructor(private router: Router, private route: ActivatedRoute, private resourceService: ResourceService) {
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private resourceService: ResourceService,
+              private contextService: ContextService) {
   }
 
   ngOnInit() {
@@ -48,6 +52,7 @@ export class ResourceSelectorComponent implements OnInit {
   fireResourceChanged() {
     const urlElement = this.route.snapshot.url[0].path;
     console.log('urlElement: ' + urlElement + ' SelectedResource: ' + this.selectedResource);
+    this.contextService.currentResource = this.selectedResource;
     // noinspection JSIgnoredPromiseFromCall
     this.router.navigate([urlElement, this.selectedResource]);
   }

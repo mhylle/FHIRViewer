@@ -16,7 +16,7 @@
     </div>
     <div class="menu_item">
       <div class="menu_item_container" *ngIf="menuEnabled">
-        <a (click)="selectMenu('structure', '')" routerLink="/StructureDefinition">
+        <a (click)="selectMenu('structure', '')" routerLink="/StructureDefinition/{{selectedResource}}">
           <fa name="address-card" class="menuIcon"></fa>
           STRUCTURE</a>
       </div>
@@ -30,7 +30,7 @@
     </div>
     <div class="menu_item">
       <div class="menu_item_container" *ngIf="menuEnabled">
-        <a (click)="selectMenu('capability', '')" routerLink="/CapabilityStatement">
+        <a (click)="selectMenu('capability', '')" routerLink="/CapabilityStatement/{{selectedResource}}">
           <fa name="book" class="menuIcon"></fa>
           CAPABILITY</a>
       </div>
