@@ -1,9 +1,9 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
 import {ResourceService} from '../../services/resource.service';
 import {ContextService} from "../../services/infrastructure/context.service";
+import {Component, EventEmitter, OnInit, Output} from "@angular/core";
 
 @Component({
   selector: 'app-resource-selector',
@@ -17,8 +17,6 @@ export class ResourceSelectorComponent implements OnInit {
   resourceTypes = [];
   selectedResource: string;
 
-  @Output()
-  resourceSelected: EventEmitter<string> = new EventEmitter<string>();
   @Output()
   hideUnusedChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output()

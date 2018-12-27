@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap} from '@angular/router';
-import {switchMap} from 'rxjs/operators';
-import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-structure-viewer',
@@ -12,22 +10,12 @@ export class StructureViewerComponent implements OnInit {
   selectedResource: string;
   hideReadonly = true;
   hideUnused = true;
-  private $selectedResource: Observable<string>;
 
   constructor(private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.$selectedResource = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => {
-        return params.get('resource');
-      }));
-
-    this.$selectedResource.subscribe(value => this.selectedResource = value);
-  }
-
-  selectResource(resource: string) {
-    this.selectedResource = resource;
+    this.route.paramMap.subscribe((params: ParamMap) => this.selectedResource = params.get('resource'));
   }
 
   updateReadOnly(hideReadOnly: boolean) {

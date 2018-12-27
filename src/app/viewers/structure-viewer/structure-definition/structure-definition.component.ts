@@ -3,7 +3,6 @@ import {switchMap} from 'rxjs/operators';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {Observable} from 'rxjs';
 import {StructureDefinitionService} from '../../../services/structure-definition.service';
-import {isDefined} from '@angular/compiler/src/util';
 import {BreakpointObserver} from '@angular/cdk/layout';
 import ElementDefinition = fhir.ElementDefinition;
 import StructureDefinition = fhir.StructureDefinition;
@@ -89,7 +88,7 @@ export class StructureDefinitionComponent implements OnInit {
   }
 
   computeName(path: string): string {
-    if (!isDefined(path) || path === null) {
+    if (path == null) {
       return;
     }
     if (!path.match(/\./g)) {
@@ -101,7 +100,7 @@ export class StructureDefinitionComponent implements OnInit {
   }
 
   stripUrl(referenceUrl: any) {
-    if (!isDefined(referenceUrl) || referenceUrl === '') {
+    if (referenceUrl == '') {
       return '';
     }
     if (referenceUrl instanceof Array) {

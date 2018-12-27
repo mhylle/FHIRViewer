@@ -2,7 +2,6 @@ import {EventEmitter, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {isDefined} from '@angular/compiler/src/util';
 import {ConfigurationService} from '../../services/infrastructure/configuration.service';
 
 @Injectable({
@@ -38,7 +37,7 @@ export class AuthService {
           localStorage.setItem('currentToken', assignedToken);
           this.currentUserSubject.next(token);
         }
-        this.loginChanged.emit(isDefined(token));
+        this.loginChanged.emit(token == null);
         return token;
       }));
   }

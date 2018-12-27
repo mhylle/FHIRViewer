@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {BackboneElement} from '../../../../core/model/backbone-element';
-import {isDefined} from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-diagram-element',
@@ -27,7 +26,7 @@ export class DiagramElementComponent implements OnInit {
   }
 
   stripUrl(referenceUrl: any) {
-    if (!isDefined(referenceUrl) || referenceUrl === '') {
+    if (referenceUrl == '') {
       return '';
     }
     if (referenceUrl instanceof Array) {

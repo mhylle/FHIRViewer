@@ -1,7 +1,6 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {BackboneElement} from '../../../core/model/backbone-element';
 import {CoreElement} from '../../../core/model/coreElement';
-import {isDefined} from '@angular/compiler/src/util';
 import {switchMap} from 'rxjs/operators';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {Observable} from 'rxjs';
@@ -94,12 +93,12 @@ export class StructureDiagramComponent implements OnInit, OnChanges {
       this.backBoneElements.push(parentElement);
       for (let i = 0; i < coreElements.length; i++) {
         const coreElement = coreElements[i];
-        if (!isDefined(coreElement.path) || coreElement.path === null) {
-          if (!isDefined(coreElement.name) || coreElement.name === null) {
+        if (coreElement.path == null) {
+          if (!coreElement.name == null) {
             parentElement.description = coreElement.definition;
             this.resourceDescription = coreElement.definition;
           }
-        } else if (!isDefined(coreElement.name) || coreElement.name === null) {
+        } else if (coreElement.name == null) {
           parentElement.name = coreElement.path;
           parentElement.path = coreElement.path;
         } else if (coreElement.type === 'BackboneElement') {

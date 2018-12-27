@@ -1,6 +1,6 @@
-import {EventEmitter, Injectable} from '@angular/core';
 import {CookieService} from 'ngx-cookie-service';
 import {environment} from '../../../environments/environment';
+import {EventEmitter, Injectable} from "@angular/core";
 
 @Injectable({
   providedIn: 'root'

@@ -32,7 +32,6 @@ export class HomeComponent implements OnInit {
     this.retrieveServerInformation();
     this.resourceService.bundle.subscribe(value => {
       for (let i = 0; i < value.entry.length; i++) {
-
         const entryElement = value.entry[i];
         if (entryElement.resource.id.startsWith('Columna')) {
           this.resourceTypes.push({

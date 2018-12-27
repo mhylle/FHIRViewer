@@ -1,10 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {ConfigurationService} from '../../services/infrastructure/configuration.service';
-import {isDefined} from '@angular/compiler/src/util';
-import {ActivatedRoute, ParamMap} from "@angular/router";
-import {switchMap} from "rxjs/operators";
-import {Observable} from "rxjs";
+import {ActivatedRoute} from "@angular/router";
 import {ContextService} from "../../services/infrastructure/context.service";
 import {User} from "../login/user";
 
@@ -55,7 +52,6 @@ export class MenuComponent implements OnInit {
   menuEnabled = false;
   availableServers: string[];
   selectedUser: User;
-  private $selectedResource: Observable<string>;
 
   constructor(private route: ActivatedRoute, private configurationService: ConfigurationService, private contextService: ContextService) {
     this.availableServers = ConfigurationService.availableServers;
@@ -63,27 +59,8 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.menuEnabled = (isDefined(this.configurationService.selectedServer)
-      && this.configurationService.selectedServer != null
-      && this.configurationService.selectedServer !== '');
-    if (this.menuEnabled) {
-      this.selectedServer = this.configurationService.selectedServer;
-    }
-    if (this.route.snapshot.paramMap.get('resource') != null) {
-      this.$selectedResource.subscribe(value => {
-        console.log(value);
-        this.selectedResource = value;
-      });
-    }
-    this.$selectedResource = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => {
-        console.log('route pipe');
-        return params.get('resource');
-      }));
-    this.$selectedResource.subscribe(value => {
-      console.log(value);
-      this.selectedResource = value
-    });
+    this.verifyMenuEnabled();
+
     this.contextService.resourceChanged.subscribe(value => {
       console.log('selectedResource: ' + value);
       this.selectedResource = value
@@ -92,6 +69,13 @@ export class MenuComponent implements OnInit {
       console.log('selectedUser: ' + value);
       this.selectedUser = value
     });
+  }
+
+  private verifyMenuEnabled() {
+    this.menuEnabled = (this.configurationService.selectedServer != null && this.configurationService.selectedServer !== '');
+    if (this.menuEnabled) {
+      this.selectedServer = this.configurationService.selectedServer;
+    }
   }
 
   selectMenu(name: string, server: string) {

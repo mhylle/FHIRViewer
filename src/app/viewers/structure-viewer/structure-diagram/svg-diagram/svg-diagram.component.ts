@@ -3,7 +3,6 @@ import {switchMap} from 'rxjs/operators';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {CoreElement} from '../../../../core/model/coreElement';
 import {BackboneElement} from '../../../../core/model/backbone-element';
-import {isDefined} from '@angular/compiler/src/util';
 import {Observable} from 'rxjs';
 import {ConfigurationService} from '../../../../services/infrastructure/configuration.service';
 import {StructureDefinitionService} from '../../../../services/structure-definition.service';
@@ -109,12 +108,12 @@ export class SvgDiagramComponent implements OnInit, AfterViewInit {
       this.backBoneElements.push(parentElement);
       for (let i = 0; i < coreElements.length; i++) {
         const coreElement = coreElements[i];
-        if (!isDefined(coreElement.path) || coreElement.path === null) {
-          if (!isDefined(coreElement.name) || coreElement.name === null) {
+        if (coreElement.path == null) {
+          if (coreElement.name == null) {
             parentElement.description = coreElement.definition;
             this.resourceDescription = coreElement.definition;
           }
-        } else if (!isDefined(coreElement.name) || coreElement.name === null) {
+        } else if (coreElement.name == null) {
           parentElement.name = coreElement.path;
           parentElement.path = coreElement.path;
         } else if (coreElement.type === 'BackboneElement') {
@@ -174,7 +173,7 @@ export class SvgDiagramComponent implements OnInit, AfterViewInit {
     let counter = 0;
     for (let j = 0; j < backBoneElement.items.length; j++) {
       const item = backBoneElement.items[j];
-      if (isDefined(item) && item !== null && item.name !== null && item.name !== '') {
+      if (item != null && item.name !== null && item.name !== '') {
         if (item.max === '0') {
           continue;
         }
