@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {ConfigurationService} from '../../services/infrastructure/configuration.service';
 import {StructureDefinitionService} from '../../services/structure-definition.service';
 import {isDefined} from '@angular/compiler/src/util';
+import {ContextService} from "../../services/infrastructure/context.service";
 
 
 @Component({
@@ -21,7 +22,8 @@ export class CapabilityViewerComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private configurationService: ConfigurationService,
-              private structureService: StructureDefinitionService) {
+              private structureService: StructureDefinitionService,
+              private contextService: ContextService) {
   }
 
   ngOnInit() {
@@ -30,11 +32,12 @@ export class CapabilityViewerComponent implements OnInit {
         return params.get('resource');
       }));
     this.configurationService.serverChanged.subscribe(() => this.updateDescription());
-    if (this.route.snapshot.paramMap.get('resource') != null) {
-      this.$selectedResource.subscribe(value => {
-        this.selectedResource = value;
-      });
-    }
+    this.contextService.resourceChanged.subscribe(value => this.selectedResource = value);
+    // if (this.route.snapshot.paramMap.get('resource') != null) {
+    //   this.$selectedResource.subscribe(value => {
+    //     this.selectedResource = value;
+    //   });
+    // }
   }
 
   updateDescription() {

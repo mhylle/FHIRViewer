@@ -9,8 +9,8 @@ export class ContextService {
   private selectedResource: string;
   private selectedUser: User;
   private resource = new Subject<string>();
-  resourceChanged = this.resource.asObservable();
   private user = new Subject<User>();
+  resourceChanged = this.resource.asObservable();
   userChanged = this.user.asObservable();
 
   constructor() {

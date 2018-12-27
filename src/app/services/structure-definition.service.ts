@@ -46,4 +46,12 @@ export class StructureDefinitionService {
     //   catchError(StructureDefinitionService.handleError)
     // );
   }
+
+  save(structureDefinition: fhir.StructureDefinition) {
+    httpOptions.headers.append('Access-Control-Allow-Origin', '*');
+    httpOptions.headers.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    httpOptions.headers.append('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    httpOptions.headers.append('Access-Control-Allow-Credentials', 'true');
+    return this.http.post<string>(this.configurationService.selectedServer + '/fhir/StructureDefinition', structureDefinition);
+  }
 }

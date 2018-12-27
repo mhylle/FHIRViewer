@@ -6,6 +6,7 @@ import {StructureDefinitionService} from '../../../services/structure-definition
 import {isDefined} from '@angular/compiler/src/util';
 import {BreakpointObserver} from '@angular/cdk/layout';
 import ElementDefinition = fhir.ElementDefinition;
+import StructureDefinition = fhir.StructureDefinition;
 
 @Component({
   selector: 'app-structure-definition',
@@ -14,6 +15,7 @@ import ElementDefinition = fhir.ElementDefinition;
 })
 export class StructureDefinitionComponent implements OnInit {
   descriptionVisible: boolean;
+  json: string;
 
   constructor(private route: ActivatedRoute,
               private breakpointObserver: BreakpointObserver,
@@ -25,6 +27,7 @@ export class StructureDefinitionComponent implements OnInit {
     });
   }
 
+  structureDefinition: StructureDefinition;
   @Input()
   hideUnused = true;
 
@@ -35,6 +38,7 @@ export class StructureDefinitionComponent implements OnInit {
   resource: string;
 
   structure: any;
+  private result: string;
   baseResource: string;
   private $resource: Observable<any>;
 
@@ -70,6 +74,7 @@ export class StructureDefinitionComponent implements OnInit {
     this.$resource.subscribe(value => {
       this.baseResource = JSON.stringify(value);
       if (value.resource) {
+        this.structureDefinition = value.resource;
         this.structure = value.resource;
       }
     });
@@ -165,4 +170,7 @@ export class StructureDefinitionComponent implements OnInit {
   //                  *ngIf="entry.type === 'primitive_data_type' || entry.type[0].code ==='primitive_data_type'"><img
   //               src="../../../../assets/icon_primitive.png"
   //               title="Data type"></div>
+  showJson() {
+    this.structureService.save(this.structureDefinition).subscribe(value => this.result = value);
+  }
 }
