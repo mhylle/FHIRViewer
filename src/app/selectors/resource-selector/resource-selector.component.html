@@ -1,5 +1,4 @@
 <div class="container">
-  <!--<div>Select resource</div>-->
   <div class="resourceSelection">
     <select [(ngModel)]="selectedResource" (change)="fireResourceChanged()" placeholder="Select Resource">
       <option *ngFor="let opt of resourceTypes" value="{{opt.name}}">{{opt.label}}</option>
