@@ -59,6 +59,10 @@ const routes: Routes = [
     component: MxGraphDiagramComponent
   },
   {
+    path: 'MX/:resource',
+    component: MxGraphDiagramComponent
+  },
+  {
     path: 'Joint',
     component: SvgDiagramComponent
   },

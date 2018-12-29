@@ -32,6 +32,7 @@ import {MhUtilsModule} from './core/mh-utils/mh-utils.module';
 import {ResourceInformationComponent} from './viewers/capability-viewer/resource-information/resource-information.component';
 import {DiagramContentComponent} from './viewers/structure-viewer/structure-diagram/svg-diagram/diagram-content/diagram-content.component';
 import {MxGraphDiagramComponent} from './viewers/structure-viewer/structure-diagram/mx-graph-diagram/mx-graph-diagram.component';
+import {ResourceDiagramComponent} from './viewers/structure-viewer/structure-diagram/mx-graph-diagram/diagram/resource-diagram/resource-diagram.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import {MxGraphDiagramComponent} from './viewers/structure-viewer/structure-diag
     SvgDiagramComponent,
     ResourceInformationComponent,
     DiagramContentComponent,
-    MxGraphDiagramComponent
+    MxGraphDiagramComponent,
+    ResourceDiagramComponent
   ],
   imports: [
     BrowserModule,
