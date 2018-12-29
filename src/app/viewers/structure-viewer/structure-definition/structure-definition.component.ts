@@ -4,6 +4,7 @@ import {ActivatedRoute, ParamMap} from '@angular/router';
 import {Observable} from 'rxjs';
 import {StructureDefinitionService} from '../../../services/structure-definition.service';
 import {BreakpointObserver} from '@angular/cdk/layout';
+import {StringUtils} from "../../../core/utils/string-utils";
 import ElementDefinition = fhir.ElementDefinition;
 import StructureDefinition = fhir.StructureDefinition;
 
@@ -80,34 +81,15 @@ export class StructureDefinitionComponent implements OnInit {
   }
 
   computeLevel(path: string): number {
-    if (path == null) {
-      return 0;
-    }
-    const match = path.match(/\./g);
-    return (match || []).length;
+    return StringUtils.computeLevel(path);
   }
 
   computeName(path: string): string {
-    if (path == null) {
-      return;
-    }
-    if (!path.match(/\./g)) {
-      return path;
-    }
-
-    const finalDotPosition = path.lastIndexOf('.');
-    return path.substring(finalDotPosition + 1, path.length);
+    return StringUtils.computeName(path);
   }
 
   stripUrl(referenceUrl: any) {
-    if (referenceUrl == '') {
-      return '';
-    }
-    if (referenceUrl instanceof Array) {
-      return referenceUrl[0].split('/').pop();
-    }
-
-    return referenceUrl.split('/').pop().trim();
+    return StringUtils.stripUrl(referenceUrl);
   }
 
   resolveIcon(entry: ElementDefinition) {
@@ -150,25 +132,6 @@ export class StructureDefinitionComponent implements OnInit {
     return 'Data Type';
   }
 
-  // <div class="entry_icon" *ngIf="entry.type === 'Reference' || entry.type[0].code === 'Reference'"><img
-  //               src="../../../../assets/icon_reference.png"
-  //               title="Reference to another resource"></div>
-  //             <div class="entry_icon" *ngIf="entry.type === 'code' || entry.type[0].code === 'code'"><img
-  //               src="../../../../assets/icon_primitive.png"
-  //               title="Primitive data type"></div>
-  //             <div class="entry_icon" *ngIf="entry.type === 'Extension' || entry.type[0].code ==='Extension'"><img
-  //               src="../../../../assets/icon_extension_simple.png"
-  //               title="Data type"></div>
-  //             <div class="entry_icon" *ngIf="entry.type === 'data_type' || entry.type[0].code ==='data_type'"><img
-  //               src="../../../../assets/icon_datatype.gif"
-  //               title="Data type"></div>
-  //             <div class="entry_icon" *ngIf="entry.type === 'BackboneElement' || entry.type[0].code ==='BackboneElement'"><img
-  //               src="../../../../assets/icon_element.gif"
-  //               title="Element"></div>
-  //             <div class="entry_icon"
-  //                  *ngIf="entry.type === 'primitive_data_type' || entry.type[0].code ==='primitive_data_type'"><img
-  //               src="../../../../assets/icon_primitive.png"
-  //               title="Data type"></div>
   showJson() {
     this.structureService.save(this.structureDefinition).subscribe(value => this.result = value);
   }

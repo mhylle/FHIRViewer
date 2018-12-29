@@ -7,6 +7,7 @@ import {StructureDefinitionService} from "../../../../../../services/structure-d
 import {switchMap} from "rxjs/operators";
 import {DiagramNodeElement} from "../DiagramNodeElement";
 import {DiagramConnection} from "../DiagramConnection";
+import {StringUtils} from "../../../../../../core/utils/string-utils";
 import StructureDefinition = fhir.StructureDefinition;
 
 @Component({
@@ -86,24 +87,7 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit {
     });
   }
 
-  computeLevel(path: string): number {
-    if (path == null) {
-      return 0;
-    }
-    const match = path.match(/\./g);
-    return (match || []).length;
-  }
 
-  stripUrl(referenceUrl: any) {
-    if (referenceUrl == '') {
-      return '';
-    }
-    if (referenceUrl instanceof Array) {
-      return referenceUrl[0].split('/').pop();
-    }
-
-    return referenceUrl.split('/').pop().trim();
-  }
 
   calculateChildren(path: string, diagramNode: DiagramNode) {
     if (this.structureDefinition.snapshot) {
@@ -112,8 +96,8 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit {
       console.log('now adding elements to ' + path);
       for (let i = 0; i < elementDefinitions.length; i++) {
         const elementDefinition = elementDefinitions[i];
-        let elementLevel = this.computeLevel(elementDefinition.path);
-        let pathLevel = this.computeLevel(path);
+        let elementLevel = StringUtils.computeLevel(elementDefinition.path);
+        let pathLevel = StringUtils.computeLevel(path);
         // cannot use startswith as we may have a deeper level. So we need to be one level below the path and not more
         // MISSING: do the lower level
         if ((elementLevel == 1 && pathLevel === 0) || (elementLevel - pathLevel) === 1 && elementDefinition.path.startsWith(path) && elementDefinition.path != diagramNode.path) {
@@ -147,10 +131,6 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit {
     this.createGraph();
   }
 
-  test() {
-    console.log('test');
-  }
-
   private createGraph() {
 
     this.graph.removeCells(this.graph.getChildVertices(this.graph.getDefaultParent()), true);
@@ -162,14 +142,6 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit {
       this.graph.getModel().beginUpdate();
       this.graph.setHtmlLabels(true);
 
-      // const e1 = graph.insertEdge(parent, null, 'diagnosis [0..*]', v1, v2, 'strokeColor=black');
-      // const e2 = graph.insertEdge(parent, null, 'hospitalization', v1, v3, 'strokeColor=black');
-      // const e3 = graph.insertEdge(parent, null, 'location', v1, v4, 'strokeColor=black');
-      //
-      // graph.updateCellSize(v1, false);
-      // graph.updateCellSize(v2, false);
-      // graph.updateCellSize(v3, false);
-      // graph.updateCellSize(v4, false);
       const vertices: Map<string, any> = new Map<string, any>();
 
       this.nodes.forEach((value) => {
@@ -181,7 +153,7 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit {
             if (element.max != null && element.max != "0") {
               template += '<div style="' + this.elementStyle + '">' + element.name + ':' + element.type + '[' + element.min + '...' + element.max + ']';
               if (element.type === 'Reference') {
-                template += '<a routerLink="/CapabilityStatement/' + this.stripUrl(element.profile) + '" (click)="this.test()">' + this.stripUrl(element.profile) + '</a>';
+                template += '<a routerLink="/CapabilityStatement/' + StringUtils.stripUrl(element.profile) + '" (click)="this.test()">' + StringUtils.stripUrl(element.profile) + '</a>';
               }
               template += '</div>';
             }
@@ -189,7 +161,6 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit {
           let vertex = this.graph.insertVertex(parent, null, template, 0, 0, 100, 150, 'ROUNDED;strokeColor=black;fillColor=white;margin:0', false);
           this.graph.updateCellSize(vertex, false);
           vertices.set(value.title, vertex);
-          // const e1 = graph.insertEdge(parent, null, 'diagnosis [0..*]', v1, v2, 'strokeColor=black');
         }
       });
       this.nodes.forEach(value => {
@@ -198,77 +169,17 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit {
           const source = vertices.get(connection.source.title);
           const target = vertices.get(connection.target.title);
           let label = connection.label + '[' + connection.sourceCardinality + '...' + connection.targetCardinality + ']';
-          this.graph.insertEdge(parent, null, label, source, target, 'strokeColor=black');
+          this.graph.insertEdge(parent, null, label, source, target, 'defaultEdge;rounded=1;strokeColor=black;fontColor=black;startArrow=diamond');
         }
       });
     } finally {
+      let stylesheet = this.graph.getStylesheet();
+
+      // this.graph.setStylesheet();
       this.graph.getModel().endUpdate();
       this.graph.setEnabled(false);
       new mxHierarchicalLayout(this.graph).execute(this.graph.getDefaultParent());
     }
-    // let encounterTemplate: string;
-    // encounterTemplate = '<div style="margin-bottom: 4px;">';
-    // encounterTemplate += '<div style="' + this.headerStyle + '">ENCOUNTER</div>';
-    // encounterTemplate += '<div style="' + this.elementStyle + '">bookedAppointment: Extension [0..*]</div>';
-    // encounterTemplate += '<div style="' + this.elementStyle + '">bookingPathway: Extension [0..1]</div>';
-    // encounterTemplate += '<div style="' + this.elementStyle + '">team: Extension [0..1]</div>';
-    // encounterTemplate += '<div style="' + this.elementStyle + '">episodeOfCare: Reference [0..1]<a routerLink="/CapabilityStatement/ColumnaEpisodeOfCare" (click)="this.test()">ColumnaEpisodeOfCare</a></div>';
-    // encounterTemplate += '</div>';
-    //
-    // let diagnosisTemplate: string;
-    // diagnosisTemplate = '<div style="margin-bottom: 4px;">';
-    // diagnosisTemplate += '<div style="' + this.headerStyle + '">DIAGNOSIS</div>';
-    // diagnosisTemplate += '<div style="' + this.elementStyle + '">diagnosisCode: Extension [1..1]</div>';
-    // diagnosisTemplate += '<div style="' + this.elementStyle + '">supplementaryAdministrativeCode: Extension [0..*]</div>';
-    // diagnosisTemplate += '<div style="' + this.elementStyle + '">closeDiagnosisWithAttachedPeriod: Extension [0..1]</div>';
-    // diagnosisTemplate += '<div style="' + this.elementStyle + '">laterDisproved: Extension [0..1]</div>';
-    // diagnosisTemplate += '<div style="' + this.elementStyle + '">supplementaryClinicalCodesForReporting: Extension [0..*]</div>';
-    // diagnosisTemplate += '<div style="' + this.elementStyle + '" (click)="test()">condition: Reference [1..1]<a routerLink="/CapabilityStatement/ColumnaDiagnosis" (click)="this.test()">ColumnaDiagnosis</a></div>';
-    // diagnosisTemplate += '<div style="' + this.elementStyle + '">role: CodeableConcept [1..1]</div>';
-    // diagnosisTemplate += '</div>';
-    //
-    // let hospitalizationTemplate: string;
-    // hospitalizationTemplate = '<div style="margin-bottom: 4px;">';
-    // hospitalizationTemplate += '<div style="' + this.headerStyle + '">HOSPITALIZATION</div>';
-    // hospitalizationTemplate += '<div style="' + this.elementStyle + '">encounterWard: Extension [0..1]</div>';
-    // hospitalizationTemplate += '<div style="' + this.elementStyle + '">expectedDischarge: Extension [0..1]</div>';
-    // hospitalizationTemplate += '<div style="' + this.elementStyle + '">municipalityCare: Extension [0..1]</div>';
-    // hospitalizationTemplate += '</div>';
-    //
-    // let locationTemplate: string;
-    // locationTemplate = '<div style="margin-bottom: 4px;">';
-    // locationTemplate += '<div style="' + this.headerStyle + '">LOCATION</div>';
-    // locationTemplate += '<div style="' + this.elementStyle + '">dayRate: Extension [0..1]</div>';
-    // locationTemplate += '<div style="' + this.elementStyle + '">outpatientVisitRate: Extension [0..1]</div>';
-    // locationTemplate += '<div style="' + this.elementStyle + '">location: Reference [1..1]<a routerLink="/CapabilityStatement/ColumnaLocation">ColumnaLocation</a></div>';
-    // locationTemplate += '<div style="' + this.elementStyle + '">period: Period[1..1]</div>';
-    // locationTemplate += '</div>';
-
-    let v1;
-    // try {
-    //   const parent = graph.getDefaultParent();
-    //   graph.getModel().beginUpdate();
-    //   graph.setHtmlLabels(true);
-    //   v1 = graph.insertVertex(parent, null, encounterTemplate, 0, 0, 100, 150, 'ROUNDED;strokeColor=black;fillColor=white;margin:0', false);
-    //   const v2 = graph.insertVertex(parent, null, diagnosisTemplate, 0, 0, 100, 150, 'ROUNDED;strokeColor=black;fillColor=white', false);
-    //   const v3 = graph.insertVertex(parent, null, hospitalizationTemplate, 0, 0, 100, 150, 'ROUNDED;strokeColor=black;fillColor=white', false);
-    //   const v4 = graph.insertVertex(parent, null, locationTemplate, 0, 0, 100, 150, 'ROUNDED;strokeColor=black;fillColor=white', false);
-    //   const e1 = graph.insertEdge(parent, null, 'diagnosis [0..*]', v1, v2, 'strokeColor=black');
-    //   const e2 = graph.insertEdge(parent, null, 'hospitalization', v1, v3, 'strokeColor=black');
-    //   const e3 = graph.insertEdge(parent, null, 'location', v1, v4, 'strokeColor=black');
-    //
-    //   graph.updateCellSize(v1, false);
-    //   graph.updateCellSize(v2, false);
-    //   graph.updateCellSize(v3, false);
-    //   graph.updateCellSize(v4, false);
-    //
-    // } finally {
-    //   graph.getModel().endUpdate();
-    //   let allEdges = graph.getAllEdges([v1]);
-    //   console.log(allEdges);
-    //   graph.setEnabled(false);
-    //   new mxHierarchicalLayout(graph).execute(graph.getDefaultParent());
-    // }
   }
 
 }

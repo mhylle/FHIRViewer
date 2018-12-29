@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {BackboneElement} from '../../../../core/model/backbone-element';
+import {StringUtils} from "../../../../core/utils/string-utils";
 
 @Component({
   selector: 'app-diagram-element',
@@ -26,13 +27,6 @@ export class DiagramElementComponent implements OnInit {
   }
 
   stripUrl(referenceUrl: any) {
-    if (referenceUrl == '') {
-      return '';
-    }
-    if (referenceUrl instanceof Array) {
-      return referenceUrl[0].split('/').pop();
-    }
-
-    return referenceUrl.split('/').pop().trim();
+    return StringUtils.stripUrl(referenceUrl);
   }
 }
