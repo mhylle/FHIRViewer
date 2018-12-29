@@ -27,10 +27,8 @@ import {MenuComponent} from './core/menu/menu.component';
 import {MaterialImportModule} from './material-import/material-import.module';
 import {NoResourceSelectedComponent} from './viewers/no-resource-selected/no-resource-selected.component';
 import {CookieService} from 'ngx-cookie-service';
-import {SvgDiagramComponent} from './viewers/structure-viewer/structure-diagram/svg-diagram/svg-diagram.component';
 import {MhUtilsModule} from './core/mh-utils/mh-utils.module';
 import {ResourceInformationComponent} from './viewers/capability-viewer/resource-information/resource-information.component';
-import {DiagramContentComponent} from './viewers/structure-viewer/structure-diagram/svg-diagram/diagram-content/diagram-content.component';
 import {MxGraphDiagramComponent} from './viewers/structure-viewer/structure-diagram/mx-graph-diagram/mx-graph-diagram.component';
 import {ResourceDiagramComponent} from './viewers/structure-viewer/structure-diagram/mx-graph-diagram/diagram/resource-diagram/resource-diagram.component';
 
@@ -49,9 +47,7 @@ import {ResourceDiagramComponent} from './viewers/structure-viewer/structure-dia
     ServerSelectorComponent,
     MenuComponent,
     NoResourceSelectedComponent,
-    SvgDiagramComponent,
     ResourceInformationComponent,
-    DiagramContentComponent,
     MxGraphDiagramComponent,
     ResourceDiagramComponent
   ],

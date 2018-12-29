@@ -4,85 +4,46 @@
       <div class="menu_item_container" *ngIf="menuEnabled">
         <a (click)="selectMenu('home','')" routerLink="/Home">
           <fa name="home" class="menuIcon"></fa>
-          HOME</a>
+          HOME
+        </a>
       </div>
       <div class="menu_item_disabled_container" *ngIf="!menuEnabled">
         <fa name="home" class="menuIcon"></fa>
         HOME
       </div>
       <div class="selection_indicator" *ngIf="selection==='home'"
-           [@slideInLeft]="(selection==='home' && prevSelection === '') ? 'in' : ''"
-           [@slideInRight]="(selection === 'home' && prevSelection === 'structure')? 'in': ''"></div>
+        [@slideInLeft]="(selection==='home' && prevSelection === '') ? 'in' : ''"
+        [@slideInRight]="(selection === 'home' && prevSelection === 'structure')? 'in': ''"></div>
     </div>
     <div class="menu_item">
       <div class="menu_item_container" *ngIf="menuEnabled">
         <a (click)="selectMenu('structure', '')" routerLink="/StructureDefinition/{{selectedResource}}">
           <fa name="address-card" class="menuIcon"></fa>
-          STRUCTURE</a>
+          STRUCTURE
+        </a>
       </div>
       <div class="menu_item_disabled_container" *ngIf="!menuEnabled">
         <fa name="address-card" class="menuIcon"></fa>
         STRUCTURE
       </div>
       <div class="selection_indicator" *ngIf="selection==='structure'"
-           [@slideInLeft]="(selection==='structure'  && prevSelection === 'home') ? 'in' : ''"
-           [@slideInRight]="(selection === 'structure' && prevSelection === 'capability') ? 'in': ''"></div>
+        [@slideInLeft]="(selection==='structure'  && prevSelection === 'home') ? 'in' : ''"
+        [@slideInRight]="(selection === 'structure' && prevSelection === 'capability') ? 'in': ''"></div>
     </div>
     <div class="menu_item">
       <div class="menu_item_container" *ngIf="menuEnabled">
         <a (click)="selectMenu('capability', '')" routerLink="/CapabilityStatement/{{selectedResource}}">
           <fa name="book" class="menuIcon"></fa>
-          CAPABILITY</a>
+          CAPABILITY
+        </a>
       </div>
       <div class="menu_item_disabled_container" *ngIf="!menuEnabled">
         <fa name="book" class="menuIcon"></fa>
         CAPABILITY
       </div>
       <div class="selection_indicator" *ngIf="selection==='capability'"
-           [@slideInLeft]="selection==='capability' ? 'in' : ''"></div>
+        [@slideInLeft]="selection==='capability' ? 'in' : ''"></div>
     </div>
-    <div class="menu_item">
-      <div *ngIf="menuEnabled" class="menu_item_container">
-        <a (click)="selectMenu('UML', '')" routerLink="/MX">
-          <fa class="menuIcon" name="book"></fa>
-          MX
-        </a>
-      </div>
-      <div *ngIf="!menuEnabled" class="menu_item_disabled_container">
-        <fa class="menuIcon" name="book"></fa>
-        MX
-      </div>
-      <!--<div class="selection_indicator" *ngIf="selection==='capability'"-->
-      <!--[@slideInLeft]="selection==='capability' ? 'in' : ''"></div>-->
-    </div>
-    <div class="menu_item">
-      <div *ngIf="menuEnabled" class="menu_item_container">
-        <a (click)="selectMenu('UML', '')" routerLink="/Joint">
-          <fa class="menuIcon" name="book"></fa>
-          Joint
-        </a>
-      </div>
-      <div *ngIf="!menuEnabled" class="menu_item_disabled_container">
-        <fa class="menuIcon" name="book"></fa>
-        joint
-      </div>
-      <!--<div class="selection_indicator" *ngIf="selection==='capability'"-->
-      <!--[@slideInLeft]="selection==='capability' ? 'in' : ''"></div>-->
-    </div>
-    <!--<div class="menu_item">-->
-    <!--<div *ngIf="menuEnabled" class="menu_item_container">-->
-    <!--<a (click)="selectMenu('raphael', '')" routerLink="/SVG">-->
-    <!--<fa class="menuIcon" name="book"></fa>-->
-    <!--SVG-->
-    <!--</a>-->
-    <!--</div>-->
-    <!--<div *ngIf="!menuEnabled" class="menu_item_disabled_container">-->
-    <!--<fa class="menuIcon" name="book"></fa>-->
-    <!--RAPHAEL-->
-    <!--</div>-->
-    <!--<div *ngIf="selection==='capability'" [@slideInLeft]="selection==='capability' ? 'in' : ''"-->
-    <!--class="selection_indicator"></div>-->
-    <!--</div>-->
   </div>
   <div class="spacer"></div>
   <div class="rightMenuItems">
@@ -90,12 +51,16 @@
       <div *ngIf="menuEnabled" class="menu_item_container">
         <div [matMenuTriggerFor]="serverSelectMenu" class="button_menu_item">
           <fa class="menuIcon" name="server"></fa>
-          SERVERS <span *ngIf="selectedServer">({{selectedServer}})</span>
+          SERVERS
+          <span *ngIf="selectedServer">({{selectedServer}})</span>
         </div>
       </div>
       <mat-menu #serverSelectMenu="matMenu">
         <button (click)="selectMenu('server', server)" *ngFor="let server of availableServers" mat-menu-item>
-          <span *ngIf="server === selectedServer" class="selection"><fa name="check-circle"></fa></span>{{server}}
+          <span *ngIf="server === selectedServer" class="selection">
+            <fa name="check-circle"></fa>
+          </span>
+          {{server}}
         </button>
       </mat-menu>
       <div *ngIf="!menuEnabled" class="menu_item_disabled_container">

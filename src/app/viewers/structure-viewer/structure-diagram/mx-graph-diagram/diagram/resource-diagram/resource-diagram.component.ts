@@ -21,6 +21,7 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit {
   graph: mxGraph;
   private headerStyle = "font-size: 1.2em; font-weight: bold; color: white;background-color: #204e5f; height: 100%; padding-bottom: 8px;padding-top: 8px;margin:0";
   private elementStyle = "margin-left: 4px; margin-right: 4px;text-align: left; color: black";
+  private edgeStyle = 'defaultEdge;rounded=1;strokeColor=black;fontColor=black;startArrow=diamond';
   private $resource: Observable<any>;
   private nodes: Map<string, DiagramNode>;
 
@@ -88,7 +89,6 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit {
   }
 
 
-
   calculateChildren(path: string, diagramNode: DiagramNode) {
     if (this.structureDefinition.snapshot) {
       let elementDefinitions = this.structureDefinition.snapshot.element;
@@ -132,7 +132,8 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit {
   }
 
   private createGraph() {
-
+    const vertices: Map<string, any> = new Map<string, any>();
+    let insertEdge: any;
     this.graph.removeCells(this.graph.getChildVertices(this.graph.getDefaultParent()), true);
     if (this.nodes == null) {
       return;
@@ -142,7 +143,7 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit {
       this.graph.getModel().beginUpdate();
       this.graph.setHtmlLabels(true);
 
-      const vertices: Map<string, any> = new Map<string, any>();
+      // const vertices: Map<string, any> = new Map<string, any>();
 
       this.nodes.forEach((value) => {
         if (value.max != null && value.max != "0") {
@@ -158,7 +159,8 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit {
               template += '</div>';
             }
           }
-          let vertex = this.graph.insertVertex(parent, null, template, 0, 0, 100, 150, 'ROUNDED;strokeColor=black;fillColor=white;margin:0', false);
+          template += '</div>';
+          let vertex = this.graph.insertVertex(parent, null, template, 0, 0, 100, 150, 'strokeColor=black;fillColor=white;margin:0', false);
           this.graph.updateCellSize(vertex, false);
           vertices.set(value.title, vertex);
         }
@@ -169,16 +171,15 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit {
           const source = vertices.get(connection.source.title);
           const target = vertices.get(connection.target.title);
           let label = connection.label + '[' + connection.sourceCardinality + '...' + connection.targetCardinality + ']';
-          this.graph.insertEdge(parent, null, label, source, target, 'defaultEdge;rounded=1;strokeColor=black;fontColor=black;startArrow=diamond');
+          insertEdge = this.graph.insertEdge(parent, 'path', label, source, target, this.edgeStyle);
         }
       });
     } finally {
-      let stylesheet = this.graph.getStylesheet();
-
-      // this.graph.setStylesheet();
-      this.graph.getModel().endUpdate();
       this.graph.setEnabled(false);
-      new mxHierarchicalLayout(this.graph).execute(this.graph.getDefaultParent());
+      let layout: mxHierarchicalLayout = new mxHierarchicalLayout(this.graph);
+
+      layout.execute(this.graph.getDefaultParent());
+      this.graph.getModel().endUpdate();
     }
   }
 
