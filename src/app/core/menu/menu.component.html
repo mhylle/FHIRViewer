@@ -41,6 +41,34 @@
       <div class="selection_indicator" *ngIf="selection==='capability'"
            [@slideInLeft]="selection==='capability' ? 'in' : ''"></div>
     </div>
+    <div class="menu_item">
+      <div *ngIf="menuEnabled" class="menu_item_container">
+        <a (click)="selectMenu('UML', '')" routerLink="/MX">
+          <fa class="menuIcon" name="book"></fa>
+          MX
+        </a>
+      </div>
+      <div *ngIf="!menuEnabled" class="menu_item_disabled_container">
+        <fa class="menuIcon" name="book"></fa>
+        MX
+      </div>
+      <!--<div class="selection_indicator" *ngIf="selection==='capability'"-->
+      <!--[@slideInLeft]="selection==='capability' ? 'in' : ''"></div>-->
+    </div>
+    <div class="menu_item">
+      <div *ngIf="menuEnabled" class="menu_item_container">
+        <a (click)="selectMenu('UML', '')" routerLink="/Joint">
+          <fa class="menuIcon" name="book"></fa>
+          Joint
+        </a>
+      </div>
+      <div *ngIf="!menuEnabled" class="menu_item_disabled_container">
+        <fa class="menuIcon" name="book"></fa>
+        joint
+      </div>
+      <!--<div class="selection_indicator" *ngIf="selection==='capability'"-->
+      <!--[@slideInLeft]="selection==='capability' ? 'in' : ''"></div>-->
+    </div>
     <!--<div class="menu_item">-->
     <!--<div *ngIf="menuEnabled" class="menu_item_container">-->
     <!--<a (click)="selectMenu('raphael', '')" routerLink="/SVG">-->

@@ -9,6 +9,7 @@ import {AuthGuard} from './core/auth/auth.guard';
 import {ServerGuard} from './core/interceptors/server.guard';
 import {ServerSelectorComponent} from './selectors/server-selector/server-selector.component';
 import {SvgDiagramComponent} from './viewers/structure-viewer/structure-diagram/svg-diagram/svg-diagram.component';
+import {MxGraphDiagramComponent} from "./viewers/structure-viewer/structure-diagram/mx-graph-diagram/mx-graph-diagram.component";
 
 const routes: Routes = [
   {
@@ -54,7 +55,11 @@ const routes: Routes = [
     canActivate: [ServerGuard]
   },
   {
-    path: 'SVG',
+    path: 'MX',
+    component: MxGraphDiagramComponent
+  },
+  {
+    path: 'Joint',
     component: SvgDiagramComponent
   },
   {
