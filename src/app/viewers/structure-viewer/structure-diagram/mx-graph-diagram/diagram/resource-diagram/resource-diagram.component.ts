@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Observable} from "rxjs";
 import {DiagramNode} from "../DiagramNode";
-import {ActivatedRoute, ParamMap} from "@angular/router";
+import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {ConfigurationService} from "../../../../../../services/infrastructure/configuration.service";
 import {StructureDefinitionService} from "../../../../../../services/structure-definition.service";
 import {switchMap} from "rxjs/operators";
@@ -9,6 +9,12 @@ import {DiagramNodeElement} from "../DiagramNodeElement";
 import {DiagramConnection} from "../DiagramConnection";
 import {StringUtils} from "../../../../../../core/utils/string-utils";
 import StructureDefinition = fhir.StructureDefinition;
+
+declare var mxUtils: any;
+declare var mxGraphModel: any;
+declare var mxCodecRegistry: any;
+declare var mxEvent: any;
+declare var mxUndoManager: any;
 
 @Component({
   selector: 'app-resource-diagram',
@@ -20,12 +26,13 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit {
   structureDefinition: StructureDefinition;
   graph: mxGraph;
   private headerStyle = "font-size: 1.2em; font-weight: bold; color: white;background-color: #204e5f; height: 100%; padding-bottom: 8px;padding-top: 8px;margin:0";
-  private elementStyle = "margin-left: 4px; margin-right: 4px;text-align: left; color: black";
+  private elementStyle = "margin-left: 4px; margin-right: 4px;text-align: left; color: black; background-color: white;html=1;autosize=1;resizable=0;";
   private edgeStyle = 'defaultEdge;rounded=1;strokeColor=black;fontColor=black;startArrow=diamond';
   private $resource: Observable<any>;
   private nodes: Map<string, DiagramNode>;
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private configurationService: ConfigurationService,
               private structureService: StructureDefinitionService) {
   }
@@ -133,7 +140,6 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit {
 
   private createGraph() {
     const vertices: Map<string, any> = new Map<string, any>();
-    let insertEdge: any;
     this.graph.removeCells(this.graph.getChildVertices(this.graph.getDefaultParent()), true);
     if (this.nodes == null) {
       return;
@@ -171,7 +177,7 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit {
           const source = vertices.get(connection.source.title);
           const target = vertices.get(connection.target.title);
           let label = connection.label + '[' + connection.sourceCardinality + '...' + connection.targetCardinality + ']';
-          insertEdge = this.graph.insertEdge(parent, 'path', label, source, target, this.edgeStyle);
+          this.graph.insertEdge(parent, 'path', label, source, target, this.edgeStyle);
         }
       });
     } finally {
