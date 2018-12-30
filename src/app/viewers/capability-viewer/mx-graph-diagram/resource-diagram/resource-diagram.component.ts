@@ -1,13 +1,13 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Observable} from "rxjs";
-import {DiagramNode} from "../DiagramNode";
+import {DiagramNode} from "../model/DiagramNode";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
-import {ConfigurationService} from "../../../../../../services/infrastructure/configuration.service";
-import {StructureDefinitionService} from "../../../../../../services/structure-definition.service";
 import {switchMap} from "rxjs/operators";
-import {DiagramNodeElement} from "../DiagramNodeElement";
-import {DiagramConnection} from "../DiagramConnection";
-import {StringUtils} from "../../../../../../core/utils/string-utils";
+import {DiagramNodeElement} from "../model/DiagramNodeElement";
+import {DiagramConnection} from "../model/DiagramConnection";
+import {ConfigurationService} from "../../../../services/infrastructure/configuration.service";
+import {StructureDefinitionService} from "../../../../services/structure-definition.service";
+import {StringUtils} from "../../../../core/utils/string-utils";
 import StructureDefinition = fhir.StructureDefinition;
 
 declare var mxUtils: any;

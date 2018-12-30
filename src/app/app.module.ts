@@ -14,8 +14,6 @@ import {StructureViewerComponent} from './viewers/structure-viewer/structure-vie
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-import {StructureDiagramComponent} from './viewers/structure-viewer/structure-diagram/structure-diagram.component';
-import {DiagramElementComponent} from './viewers/structure-viewer/structure-diagram/diagram-element/diagram-element.component';
 import {ResourceSelectorComponent} from './selectors/resource-selector/resource-selector.component';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import {LoginComponent} from './core/login/login.component';
@@ -29,8 +27,8 @@ import {NoResourceSelectedComponent} from './viewers/no-resource-selected/no-res
 import {CookieService} from 'ngx-cookie-service';
 import {MhUtilsModule} from './core/mh-utils/mh-utils.module';
 import {ResourceInformationComponent} from './viewers/capability-viewer/resource-information/resource-information.component';
-import {MxGraphDiagramComponent} from './viewers/structure-viewer/structure-diagram/mx-graph-diagram/mx-graph-diagram.component';
-import {ResourceDiagramComponent} from './viewers/structure-viewer/structure-diagram/mx-graph-diagram/diagram/resource-diagram/resource-diagram.component';
+import {ResourceDiagramComponent} from "./viewers/capability-viewer/mx-graph-diagram/resource-diagram/resource-diagram.component";
+import {MxGraphDiagramComponent} from "./viewers/capability-viewer/mx-graph-diagram/mx-graph-diagram.component";
 
 @NgModule({
   declarations: [
@@ -38,8 +36,6 @@ import {ResourceDiagramComponent} from './viewers/structure-viewer/structure-dia
     HomeComponent,
     BasicCapabilityComponent,
     StructureViewerComponent,
-    StructureDiagramComponent,
-    DiagramElementComponent,
     ResourceSelectorComponent,
     LoginComponent,
     CapabilityViewerComponent,
