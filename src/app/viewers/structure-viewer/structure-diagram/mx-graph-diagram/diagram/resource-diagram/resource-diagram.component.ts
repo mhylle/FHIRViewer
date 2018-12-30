@@ -78,7 +78,6 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit {
               diagramNode.max = elementDefinition.max;
               diagramNode.short = elementDefinition.short;
               diagramNode.path = elementDefinition.path;
-              console.log('adding element: ' + elementDefinition.path + ' new size: ' + this.nodes.size);
               this.nodes.set(elementDefinition.path, diagramNode);
               this.calculateChildren(elementDefinition.path, diagramNode);
             } else {
@@ -90,7 +89,6 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit {
           }
         }
       }
-      console.log(this.nodes);
       this.createGraph();
     });
   }
@@ -100,7 +98,7 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit {
     if (this.structureDefinition.snapshot) {
       let elementDefinitions = this.structureDefinition.snapshot.element;
       diagramNode.elements = [];
-      console.log('now adding elements to ' + path);
+
       for (let i = 0; i < elementDefinitions.length; i++) {
         const elementDefinition = elementDefinitions[i];
         let elementLevel = StringUtils.computeLevel(elementDefinition.path);

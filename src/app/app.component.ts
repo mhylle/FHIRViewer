@@ -16,7 +16,6 @@ export class AppComponent {
 
   constructor(private router: Router, private configurationService: ConfigurationService, private authenticationService: AuthService) {
     this.authenticationService.loginChanged.subscribe(value => {
-      console.log(value);
       this.loggedIn = value;
     });
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);

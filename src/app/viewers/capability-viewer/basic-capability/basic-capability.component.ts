@@ -107,7 +107,6 @@ export class BasicCapabilityComponent implements OnInit, OnChanges {
           const op = rest.operation[k];
           const opDef = op.definition.reference.split('/');
           const searchString = this.resourceName.substring('Columna'.length, this.resourceName.length);
-          // console.log('see ' + searchString + ' Opdef: ' + opDef[1]);
           if (opDef[1].startsWith(searchString)) {
             const operation = new Operation();
             operation.name = op.name;
