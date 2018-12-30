@@ -149,8 +149,6 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit {
       this.graph.getModel().beginUpdate();
       this.graph.setHtmlLabels(true);
 
-      // const vertices: Map<string, any> = new Map<string, any>();
-
       this.nodes.forEach((value) => {
         if (value.max != null && value.max != "0") {
           let template = '<div style="margin-bottom: 4px;">';
@@ -160,14 +158,16 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit {
             if (element.max != null && element.max != "0") {
               template += '<div style="' + this.elementStyle + '">' + element.name + ':' + element.type + '[' + element.min + '...' + element.max + ']';
               if (element.type === 'Reference') {
-                template += '<a routerLink="/CapabilityStatement/' + StringUtils.stripUrl(element.profile) + '" (click)="this.test()">' + StringUtils.stripUrl(element.profile) + '</a>';
+                template += '<a href="/CapabilityStatement/' + StringUtils.stripUrl(element.profile) + '">' + StringUtils.stripUrl(element.profile) + '</a>';
               }
               template += '</div>';
             }
           }
           template += '</div>';
           let vertex = this.graph.insertVertex(parent, null, template, 0, 0, 100, 150, 'strokeColor=black;fillColor=white;margin:0', false);
+
           this.graph.updateCellSize(vertex, false);
+          this.graph.refresh(vertex);
           vertices.set(value.title, vertex);
         }
       });
@@ -186,7 +186,7 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit {
 
       layout.execute(this.graph.getDefaultParent());
       this.graph.getModel().endUpdate();
+
     }
   }
-
 }
