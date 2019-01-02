@@ -48,7 +48,6 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit {
         return this.structureService.getStructure(params.get('resource'));
       }));
 
-
     this.$resource.subscribe(value => {
       this.nodes = new Map<string, DiagramNode>();
       this.structureDefinition = value.resource;
@@ -93,7 +92,6 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit {
     });
   }
 
-
   calculateChildren(path: string, diagramNode: DiagramNode) {
     if (this.structureDefinition.snapshot) {
       let elementDefinitions = this.structureDefinition.snapshot.element;
@@ -113,8 +111,8 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit {
               diagramNodeElement.name = elementDefinition.sliceName;
               diagramNodeElement.min = elementDefinition.min;
               diagramNodeElement.max = elementDefinition.max;
-
               diagramNodeElement.type = elementDefinitionType.code;
+
               if (elementDefinitionType.profile) {
                 diagramNodeElement.profile = elementDefinitionType.profile;
               }
@@ -130,10 +128,13 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit {
     }
   }
 
-
   ngAfterViewInit() {
     this.graph = new mxGraph(this.graphContainer.nativeElement);
     this.createGraph();
+  }
+
+  test() {
+    console.log('test');
   }
 
   private createGraph() {
@@ -164,8 +165,9 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit {
           template += '</div>';
           let vertex = this.graph.insertVertex(parent, null, template, 0, 0, 100, 150, 'strokeColor=black;fillColor=white;margin:0', false);
 
+          // this.graph.addCell(value, parent,  1,'strokeColor=black;fillColor=white;margin:0', false);
+          // this.createElement();
           this.graph.updateCellSize(vertex, false);
-          this.graph.refresh(vertex);
           vertices.set(value.title, vertex);
         }
       });
@@ -178,6 +180,7 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit {
           this.graph.insertEdge(parent, 'path', label, source, target, this.edgeStyle);
         }
       });
+
     } finally {
       this.graph.setEnabled(false);
       let layout: mxHierarchicalLayout = new mxHierarchicalLayout(this.graph);
@@ -186,5 +189,38 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit {
       this.graph.getModel().endUpdate();
 
     }
+
+  }
+
+  private createElement() {
+    const hdrStyle = this.headerStyle;
+    const elmStyle = this.elementStyle;
+    this.graph.getLabel = function (cell) {
+      if (this.isHtmlLabel(cell)) {
+        let label = '';
+        console.log(cell.value);
+
+        if (cell.value) {
+          label += '<div style="margin-bottom: 4px" class="structureElement">';
+          label += '<div title="' + cell.value.short + '" style="' + hdrStyle + '">' + cell.value.title + '</div>';
+          if (cell.value.elements) {
+            for (let i = 0; i < cell.value.elements.length; i++) {
+              const element = cell.value.elements[i];
+              label += '<div style="' + elmStyle + '" class="structureElement">' + element.name + ':' + element.type + '[' + element.min + '...' + element.max + ']';
+              if (element.type === 'Reference') {
+                label += '<a href="/CapabilityStatement/' + StringUtils.stripUrl(element.profile) + '">' + StringUtils.stripUrl(element.profile) + '</a>';
+              }
+              label += '</div>';
+            }
+          }
+          label += '</div>';
+        }
+        // + mxUtils.htmlEntities(cell.value.name, false) + ': ' +
+        // mxUtils.htmlEntities(cell.value.type, false);
+        return label;
+      }
+
+      return mxGraph.prototype.getLabel.apply(this, arguments); // "supercall"
+    };
   }
 }

@@ -1,6 +1,9 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ResourceDiagramComponent} from './resource-diagram.component';
+import {RouterTestingModule} from "@angular/router/testing";
+import {CookieService} from "ngx-cookie-service";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 describe('ResourceDiagramComponent', () => {
   let component: ResourceDiagramComponent;
@@ -8,7 +11,9 @@ describe('ResourceDiagramComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ResourceDiagramComponent]
+      imports: [RouterTestingModule, HttpClientTestingModule],
+      declarations: [ResourceDiagramComponent],
+      providers: [CookieService]
     })
       .compileComponents();
   }));
