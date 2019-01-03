@@ -11,9 +11,37 @@
   <div class="operations">
     <div class="header">Operations</div>
     <div *ngFor="let operation of capability?.operations" class="operation">
-      <div>Bundle<<a
-        routerLink="/StructureDefinition/{{resourceName}}">{{resourceName}}</a>> <a href="{{operation.reference}}">{{operation.name}}</a>(period: DateTime, organization: String)</div>
+      <div class="operationName">{{operation.name}}
+        <span *ngIf="operation.inParameters">(</span><span *ngFor="let param of operation.inParameters; index as idx">
+          <span>{{param.name}}:{{param.type}}<span *ngIf="idx < operation.inParameters.length-1">, </span></span>
+        </span>
+        <span *ngIf="operation.parameters">)</span>
+      </div>
       <div class="description">{{operation.description}}</div>
+      <div class="parameterDescriptions">
+        <div class="expander">
+          <span (click)="toggleParameter(operation)" *ngIf="!parameterShowing(operation)"><fa name="chevron-down"></fa></span>
+          <span (click)="toggleParameter(operation)" *ngIf="parameterShowing(operation)"><fa
+            name="chevron-up"></fa></span>
+        </div>
+        <div *ngIf="parameterShowing(operation)" [@slideIn]>
+          <div class="returnValue">
+            <div class="simpleHeader">Returns:</div>
+            <div class="simpleContent">Bundle<<a
+              routerLink="/StructureDefinition/{{resourceName}}">{{resourceName}}</a>>
+            </div>
+          </div>
+          <div class="simpleHeader">Parameters:</div>
+          <div *ngFor="let param of operation.parameters">
+            <ul *ngIf="param.use == 'in'">
+              <li>{{param.name}}: <span innerHTML="{{param.documentation}}"></span><span *ngIf="param.min === 1"> The parameter is mandatory.</span><span
+                *ngIf="param.min ===0"> The parameter is optional.</span></li>
+            </ul>
+          </div>
+          <div class="simpleHeader">Example:</div>
+          <div class="simpleContent">{{operation.example}}</div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

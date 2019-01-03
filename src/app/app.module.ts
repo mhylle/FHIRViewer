@@ -14,8 +14,6 @@ import {StructureViewerComponent} from './viewers/structure-viewer/structure-vie
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-import {StructureDiagramComponent} from './viewers/structure-viewer/structure-diagram/structure-diagram.component';
-import {DiagramElementComponent} from './viewers/structure-viewer/structure-diagram/diagram-element/diagram-element.component';
 import {ResourceSelectorComponent} from './selectors/resource-selector/resource-selector.component';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import {LoginComponent} from './core/login/login.component';
@@ -27,9 +25,10 @@ import {MenuComponent} from './core/menu/menu.component';
 import {MaterialImportModule} from './material-import/material-import.module';
 import {NoResourceSelectedComponent} from './viewers/no-resource-selected/no-resource-selected.component';
 import {CookieService} from 'ngx-cookie-service';
-import {SvgDiagramComponent} from './viewers/structure-viewer/structure-diagram/svg-diagram/svg-diagram.component';
 import {MhUtilsModule} from './core/mh-utils/mh-utils.module';
 import {ResourceInformationComponent} from './viewers/capability-viewer/resource-information/resource-information.component';
+import {ResourceDiagramComponent} from "./viewers/capability-viewer/mx-graph-diagram/resource-diagram/resource-diagram.component";
+import {MxGraphDiagramComponent} from "./viewers/capability-viewer/mx-graph-diagram/mx-graph-diagram.component";
 
 @NgModule({
   declarations: [
@@ -37,8 +36,6 @@ import {ResourceInformationComponent} from './viewers/capability-viewer/resource
     HomeComponent,
     BasicCapabilityComponent,
     StructureViewerComponent,
-    StructureDiagramComponent,
-    DiagramElementComponent,
     ResourceSelectorComponent,
     LoginComponent,
     CapabilityViewerComponent,
@@ -46,8 +43,9 @@ import {ResourceInformationComponent} from './viewers/capability-viewer/resource
     ServerSelectorComponent,
     MenuComponent,
     NoResourceSelectedComponent,
-    SvgDiagramComponent,
-    ResourceInformationComponent
+    ResourceInformationComponent,
+    MxGraphDiagramComponent,
+    ResourceDiagramComponent
   ],
   imports: [
     BrowserModule,

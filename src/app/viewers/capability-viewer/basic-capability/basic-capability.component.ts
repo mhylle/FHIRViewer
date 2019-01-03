@@ -6,16 +6,34 @@ import {Operation} from '../../../core/model/operation';
 import {switchMap} from 'rxjs/operators';
 import {ConfigurationService} from '../../../services/infrastructure/configuration.service';
 import {Observable} from 'rxjs';
+import {animate, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'app-basic-capability',
   templateUrl: './basic-capability.component.html',
-  styleUrls: ['./basic-capability.component.css']
+  styleUrls: ['./basic-capability.component.css'],
+  animations: [
+    trigger(
+      'slideIn', [
+        state('*', style({'overflow-y': 'hidden'})),
+        state('void', style({'overflow-y': 'hidden'})),
+        transition('* => void', [
+          style({height: '*'}),
+          animate(200, style({height: 0}))
+        ]),
+        transition('void => *', [
+          style({height: '0'}),
+          animate(200, style({height: '*'}))
+        ])
+      ]
+    )
+  ]
 })
 export class BasicCapabilityComponent implements OnInit, OnChanges {
   capability: Capability = new Capability();
   private $resource: Observable<Capability>;
 
+  private shownOperations: Map<Operation, boolean> = new Map<Operation, boolean>();
   // @Input()
   resourceName: string;
 
@@ -31,6 +49,26 @@ export class BasicCapabilityComponent implements OnInit, OnChanges {
     this.configurationService.serverChanged.subscribe(() => {
       this.calculateCapabilities();
     });
+  }
+
+  parameterShowing(operation: Operation) {
+    if (this.shownOperations.has(operation)) {
+      return this.shownOperations.get(operation);
+    } else {
+      return false;
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.calculateCapabilities();
+  }
+
+  toggleParameter(operation: Operation) {
+    if (this.shownOperations.has(operation)) {
+      this.shownOperations.set(operation, !this.shownOperations.get(operation));
+    } else {
+      this.shownOperations.set(operation, true);
+    }
   }
 
   private calculateCapabilities() {
@@ -107,20 +145,36 @@ export class BasicCapabilityComponent implements OnInit, OnChanges {
           const op = rest.operation[k];
           const opDef = op.definition.reference.split('/');
           const searchString = this.resourceName.substring('Columna'.length, this.resourceName.length);
-          // console.log('see ' + searchString + ' Opdef: ' + opDef[1]);
           if (opDef[1].startsWith(searchString)) {
-            const operation = new Operation();
-            operation.name = op.name;
-            operation.reference = op.definition.reference;
-            operation.description = op.definition.description;
-            this.capability.operations.push(operation);
+            console.log('now looking up operation: ' + op.name);
+            this.capabilityService.getOperation(op.name, searchString).subscribe(
+              value => {
+                console.log('result for operation: ' + op.name);
+                const operation = new Operation();
+                operation.name = value.code;
+                if (value.resource) {
+                  operation.reference = value.resource[0];
+                }
+                operation.inParameters = [];
+                for (let i = 0; i < value.parameter.length; i++) {
+                  if (value.parameter[i].use === 'in') {
+                    operation.inParameters.push(value.parameter[i]);
+                  }
+                }
+                operation.parameters = value.parameter;
+                operation.description = value.description;
+                operation.example = value.text.div;
+                this.capability.operations.push(operation);
+                for (let i = 0; i < operation.parameters.length; i++) {
+                  const parm = operation.parameters[i];
+                  console.log('Name: ' + parm.name);
+
+                }
+              }
+            );
           }
         }
       }
     });
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    this.calculateCapabilities();
   }
 }

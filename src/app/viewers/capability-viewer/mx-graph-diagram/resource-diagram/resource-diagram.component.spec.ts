@@ -1,26 +1,25 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {StructureDiagramComponent} from './structure-diagram.component';
-import {DiagramElementComponent} from "./diagram-element/diagram-element.component";
+import {ResourceDiagramComponent} from './resource-diagram.component';
 import {RouterTestingModule} from "@angular/router/testing";
 import {CookieService} from "ngx-cookie-service";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 
-describe('StructureDiagramComponent', () => {
-  let component: StructureDiagramComponent;
-  let fixture: ComponentFixture<StructureDiagramComponent>;
+describe('ResourceDiagramComponent', () => {
+  let component: ResourceDiagramComponent;
+  let fixture: ComponentFixture<ResourceDiagramComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, HttpClientTestingModule],
-      declarations: [StructureDiagramComponent, DiagramElementComponent],
+      declarations: [ResourceDiagramComponent],
       providers: [CookieService]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(StructureDiagramComponent);
+    fixture = TestBed.createComponent(ResourceDiagramComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

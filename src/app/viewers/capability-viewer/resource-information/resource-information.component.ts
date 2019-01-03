@@ -21,7 +21,6 @@ export class ResourceInformationComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('init');
     this.$resource = this.route.paramMap.pipe(
       switchMap((params: ParamMap) => {
         return this.structureService.getStructure(params.get('resource'));

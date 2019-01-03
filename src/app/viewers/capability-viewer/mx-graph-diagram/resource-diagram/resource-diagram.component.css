@@ -1,0 +1,23 @@
+.flow {
+  stroke-width: 10px;
+  stroke: #C0392B;
+  stroke-dasharray: 8;
+  animation: dash 0.5s linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -16;
+  }
+}
+
+.structureElement {
+  background-color: #C0392B;
+  fill: #C0392B;
+}
+
+.structureElement:hover {
+  background-color: #5a976a;
+  fill: #5a976a;
+}

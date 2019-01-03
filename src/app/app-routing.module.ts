@@ -8,7 +8,6 @@ import {CapabilityViewerComponent} from './viewers/capability-viewer/capability-
 import {AuthGuard} from './core/auth/auth.guard';
 import {ServerGuard} from './core/interceptors/server.guard';
 import {ServerSelectorComponent} from './selectors/server-selector/server-selector.component';
-import {SvgDiagramComponent} from './viewers/structure-viewer/structure-diagram/svg-diagram/svg-diagram.component';
 
 const routes: Routes = [
   {
@@ -52,10 +51,6 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent,
     canActivate: [ServerGuard]
-  },
-  {
-    path: 'SVG',
-    component: SvgDiagramComponent
   },
   {
     path: 'selectServer',

@@ -62,11 +62,9 @@ export class MenuComponent implements OnInit {
     this.verifyMenuEnabled();
 
     this.contextService.resourceChanged.subscribe(value => {
-      console.log('selectedResource: ' + value);
       this.selectedResource = value
     });
     this.contextService.userChanged.subscribe(value => {
-      console.log('selectedUser: ' + value);
       this.selectedUser = value
     });
   }
