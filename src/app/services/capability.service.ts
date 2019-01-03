@@ -4,6 +4,7 @@ import {Observable, throwError} from 'rxjs';
 import {Capability} from '../core/model/capability';
 import {catchError} from 'rxjs/operators';
 import {ConfigurationService} from './infrastructure/configuration.service';
+import OperationDefinition = fhir.OperationDefinition;
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -17,6 +18,7 @@ const httpOptions = {
 export class CapabilityService {
 
   constructor(private http: HttpClient, private configurationService: ConfigurationService) {
+
   }
 
   private static handleError(error: HttpErrorResponse) {
@@ -36,15 +38,22 @@ export class CapabilityService {
   }
 
   getCapability(resource: string): Observable<Capability> {
-    // if (this.configurationService.selectedServer === '') {
-    //   throwError('No server selected');
-    //   return;
-    // }
     httpOptions.headers.append('Access-Control-Allow-Origin', '*');
     httpOptions.headers.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     httpOptions.headers.append('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
     httpOptions.headers.append('Access-Control-Allow-Credentials', 'true');
     return this.http.get<Capability>(this.configurationService.selectedServer + '/fhir/metadata/' + resource, httpOptions)
+      .pipe(
+        catchError(CapabilityService.handleError)
+      );
+  }
+
+  getOperation(operation: string, resource: string): Observable<OperationDefinition> {
+    httpOptions.headers.append('Access-Control-Allow-Origin', '*');
+    httpOptions.headers.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    httpOptions.headers.append('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    httpOptions.headers.append('Access-Control-Allow-Credentials', 'true');
+    return this.http.get<OperationDefinition>(this.configurationService.selectedServer + '/fhir/operationDefinition/' + resource + '/' + operation, httpOptions)
       .pipe(
         catchError(CapabilityService.handleError)
       );

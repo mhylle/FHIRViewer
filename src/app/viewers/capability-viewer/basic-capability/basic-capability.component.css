@@ -26,11 +26,14 @@
 .operation {
   margin: 4px;
   font-size: 0.8em;
-
+  border: 1px solid lightgray;
+  border-radius: 3px;
 }
 
 .operation .description {
   padding-left: 24px;
+  padding-top: 8px;
+  padding-bottom: 4px;
 }
 
 .keyValue {
@@ -51,4 +54,38 @@
   color: #b55c64;
 }
 
+.expander {
+  text-align: center;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#adadad+1,ffffff+100 */
+  background: #ffffff; /* Old browsers */
+  background: -moz-linear-gradient(top, #ffffff 0%, rgba(32, 78, 95, 0.39) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #ffffff 0%, rgba(32, 78, 95, 0.39) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #ffffff 0%, rgba(32, 78, 95, 0.39) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#204e5f', GradientType=0); /* IE6-9 */
+}
 
+.parameterDescriptions {
+}
+
+.simpleHeader {
+  font-weight: bold;
+}
+
+.simpleContent {
+  margin-left: 16px;
+}
+
+.returnValue {
+  margin-bottom: 8px;
+}
+
+.operationName {
+  /*background-color: rgba(32, 77, 92, 0.15);*/
+  padding: 8px;
+  border-bottom: 1px solid lightgray;
+  /*font-weight: bold;*/
+  /*color: #2b2b2b;*/
+  /*margin: 4px;*/
+  /*background-color: #204e5f;*/
+  /*color: white;*/
+}
