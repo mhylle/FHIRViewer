@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {ConfigurationService} from '../../services/infrastructure/configuration.service';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, NavigationStart, Router} from "@angular/router";
 import {ContextService} from "../../services/infrastructure/context.service";
 import {User} from "../login/user";
 
@@ -53,12 +53,22 @@ export class MenuComponent implements OnInit {
   availableServers: string[];
   selectedUser: User;
 
-  constructor(private route: ActivatedRoute, private configurationService: ConfigurationService, private contextService: ContextService) {
+  constructor(private router: Router, private route: ActivatedRoute, private configurationService: ConfigurationService, private contextService: ContextService) {
     this.availableServers = ConfigurationService.availableServers;
     this.configurationService.serverChanged.subscribe((value => this.menuEnabled = value));
   }
 
   ngOnInit() {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationStart) {
+        // this will not work unless the context url is also the root url. Fix later.
+        let url = event.url;
+        let baseUrlName = url.split('/');
+        if (baseUrlName[1] != null && baseUrlName[1] != "") {
+          this.selectMenu(baseUrlName[1], "");
+        }
+      }
+    });
     this.verifyMenuEnabled();
 
     this.contextService.resourceChanged.subscribe(value => {

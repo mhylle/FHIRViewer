@@ -30,14 +30,11 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
   ]
 })
 export class BasicCapabilityComponent implements OnInit, OnChanges {
-  capability: Capability = new Capability();
   private $resource: Observable<Capability>;
-
   private shownOperations: Map<Operation, boolean> = new Map<Operation, boolean>();
-  // @Input()
-  resourceName: string;
 
-  // private $resource: Observable<Capability>;
+  capability: Capability = new Capability();
+  resourceName: string;
 
   constructor(private route: ActivatedRoute,
               private capabilityService: CapabilityService,
@@ -146,10 +143,8 @@ export class BasicCapabilityComponent implements OnInit, OnChanges {
           const opDef = op.definition.reference.split('/');
           const searchString = this.resourceName.substring('Columna'.length, this.resourceName.length);
           if (opDef[1].startsWith(searchString)) {
-            console.log('now looking up operation: ' + op.name);
             this.capabilityService.getOperation(op.name, searchString).subscribe(
               value => {
-                console.log('result for operation: ' + op.name);
                 const operation = new Operation();
                 operation.name = value.code;
                 if (value.resource) {
@@ -165,11 +160,6 @@ export class BasicCapabilityComponent implements OnInit, OnChanges {
                 operation.description = value.description;
                 operation.example = value.text.div;
                 this.capability.operations.push(operation);
-                for (let i = 0; i < operation.parameters.length; i++) {
-                  const parm = operation.parameters[i];
-                  console.log('Name: ' + parm.name);
-
-                }
               }
             );
           }

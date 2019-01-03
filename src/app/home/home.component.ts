@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ServerInformationService} from '../services/server-information.service';
 import {ConfigurationService} from '../services/infrastructure/configuration.service';
 import {ResourceService} from '../services/resource.service';
+import {ContextService} from "../services/infrastructure/context.service";
 
 @Component({
   selector: 'app-home',
@@ -22,7 +23,8 @@ export class HomeComponent implements OnInit {
 
   constructor(private configurationService: ConfigurationService,
               private serverInformationService: ServerInformationService,
-              private resourceService: ResourceService) {
+              private resourceService: ResourceService,
+              private contextService: ContextService) {
   }
 
   ngOnInit() {
@@ -57,6 +59,10 @@ export class HomeComponent implements OnInit {
       this.layoutMode_header = '';
       this.layoutMode_actions = '';
     }
+  }
+
+  setContext(resourceName: string) {
+    this.contextService.currentResource = resourceName;
   }
 
   private retrieveServerInformation() {

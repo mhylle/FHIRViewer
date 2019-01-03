@@ -2,7 +2,7 @@
   <div class="leftMenuItems">
     <div class="menu_item">
       <div class="menu_item_container" *ngIf="menuEnabled">
-        <a (click)="selectMenu('home','')" routerLink="/Home">
+        <a (click)="selectMenu('Home','')" routerLink="/Home">
           <fa name="home" class="menuIcon"></fa>
           HOME
         </a>
@@ -11,13 +11,13 @@
         <fa name="home" class="menuIcon"></fa>
         HOME
       </div>
-      <div class="selection_indicator" *ngIf="selection==='home'"
-        [@slideInLeft]="(selection==='home' && prevSelection === '') ? 'in' : ''"
-        [@slideInRight]="(selection === 'home' && prevSelection === 'structure')? 'in': ''"></div>
+      <div *ngIf="selection==='Home'" [@slideInLeft]="(selection==='Home' && prevSelection === '') ? 'in' : ''"
+        [@slideInRight]="(selection === 'Home' && prevSelection === 'StructureDefinition')? 'in': ''"
+        class="selection_indicator"></div>
     </div>
     <div class="menu_item">
       <div class="menu_item_container" *ngIf="menuEnabled">
-        <a (click)="selectMenu('structure', '')" routerLink="/StructureDefinition/{{selectedResource}}">
+        <a (click)="selectMenu('StructureDefinition', '')" routerLink="/StructureDefinition/{{selectedResource}}">
           <fa name="address-card" class="menuIcon"></fa>
           STRUCTURE
         </a>
@@ -26,13 +26,13 @@
         <fa name="address-card" class="menuIcon"></fa>
         STRUCTURE
       </div>
-      <div class="selection_indicator" *ngIf="selection==='structure'"
-        [@slideInLeft]="(selection==='structure'  && prevSelection === 'home') ? 'in' : ''"
-        [@slideInRight]="(selection === 'structure' && prevSelection === 'capability') ? 'in': ''"></div>
+      <div *ngIf="selection==='StructureDefinition'" [@slideInLeft]="(selection==='StructureDefinition'  && prevSelection === 'home') ? 'in' : ''"
+        [@slideInRight]="(selection === 'StructureDefinition' && prevSelection === 'capability') ? 'in': ''"
+        class="selection_indicator"></div>
     </div>
     <div class="menu_item">
       <div class="menu_item_container" *ngIf="menuEnabled">
-        <a (click)="selectMenu('capability', '')" routerLink="/CapabilityStatement/{{selectedResource}}">
+        <a (click)="selectMenu('CapabilityStatement', '')" routerLink="/CapabilityStatement/{{selectedResource}}">
           <fa name="book" class="menuIcon"></fa>
           CAPABILITY
         </a>
@@ -41,8 +41,8 @@
         <fa name="book" class="menuIcon"></fa>
         CAPABILITY
       </div>
-      <div class="selection_indicator" *ngIf="selection==='capability'"
-        [@slideInLeft]="selection==='capability' ? 'in' : ''"></div>
+      <div *ngIf="selection==='CapabilityStatement'" [@slideInLeft]="selection==='CapabilityStatement' ? 'in' : ''"
+        class="selection_indicator"></div>
     </div>
   </div>
   <div class="spacer"></div>

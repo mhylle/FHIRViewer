@@ -26,13 +26,13 @@
           *ngIf="resourceType.short">{{resourceType.short}}</span></div>
         <div [ngClass]="layoutMode_actions">
           <span class="actionItem">
-          <a routerLink="/StructureDefinition/{{resourceType.name}}">
+          <a (click)="setContext(resourceType.name)" routerLink="/StructureDefinition/{{resourceType.name}}">
             <fa *ngIf="layoutMode === 'grid'" class="linkIcon" name="address-card"></fa>
             <span *ngIf="layoutMode==='table'">StructureDefinition</span>
           </a>
         </span>
           <span class="actionItem">
-          <a routerLink="/CapabilityStatement/{{resourceType.name}}">
+          <a (click)="setContext(resourceType.name)" routerLink="/CapabilityStatement/{{resourceType.name}}">
             <fa *ngIf="layoutMode === 'grid'" class="linkIcon" name="book"></fa>
             <span *ngIf="layoutMode==='table'">CapabilityStatement</span>
           </a>

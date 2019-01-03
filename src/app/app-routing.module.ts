@@ -18,43 +18,51 @@ const routes: Routes = [
   {
     path: 'Home',
     component: HomeComponent,
-    canActivate: [ServerGuard, AuthGuard]
+    canActivate: [ServerGuard, AuthGuard],
+    data: {routeName: 'Home'}
   },
   {
     path: 'Home/:resource',
     component: HomeComponent,
-    canActivate: [ServerGuard, AuthGuard]
+    canActivate: [ServerGuard, AuthGuard],
+    data: {routeName: 'Home'}
   },
   {
     path: 'StructureDefinition',
     component: StructureViewerComponent,
-    canActivate: [ServerGuard, AuthGuard]
+    canActivate: [ServerGuard, AuthGuard],
+    data: {routeName: 'StructureDefinition'}
   },
   {
     path: 'StructureDefinition/:resource',
     component: StructureViewerComponent,
     pathMatch: 'prefix',
-    canActivate: [ServerGuard, AuthGuard]
+    canActivate: [ServerGuard, AuthGuard],
+    data: {routeName: 'StructureDefinition'}
   },
   {
     path: 'CapabilityStatement',
     component: CapabilityViewerComponent,
-    canActivate: [ServerGuard, AuthGuard]
+    canActivate: [ServerGuard, AuthGuard],
+    data: {routeName: 'CapabilityStatement'}
   },
   {
     path: 'CapabilityStatement/:resource',
     component: CapabilityViewerComponent,
     pathMatch: 'prefix',
-    canActivate: [ServerGuard, AuthGuard]
+    canActivate: [ServerGuard, AuthGuard],
+    data: {routeName: 'CapabilityStatement'}
   },
   {
     path: 'login',
     component: LoginComponent,
-    canActivate: [ServerGuard]
+    canActivate: [ServerGuard],
+    data: {'routeName': 'Login'}
   },
   {
     path: 'selectServer',
-    component: ServerSelectorComponent
+    component: ServerSelectorComponent,
+    data: {routeName: 'ServerSelector'}
   }
 ];
 
