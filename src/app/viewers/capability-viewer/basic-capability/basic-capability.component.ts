@@ -69,13 +69,14 @@ export class BasicCapabilityComponent implements OnInit, OnChanges {
   }
 
   private calculateCapabilities() {
+
     this.$resource = this.route.paramMap.pipe(
       switchMap((params: ParamMap) => {
         this.resourceName = params.get('resource');
+        this.capability = new Capability();
         return this.capabilityService.getCapability(this.resourceName);
       }));
     this.$resource.subscribe(value => {
-      this.capability = new Capability();
       const rest = value.rest[0];
       for (let i = 0; i < rest.resource.length; i++) {
         const res = rest.resource[i];
