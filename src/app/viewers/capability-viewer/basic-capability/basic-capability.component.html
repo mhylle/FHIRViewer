@@ -20,12 +20,13 @@
       </div>
       <div class="description">{{operation.description}}</div>
       <div class="parameterDescriptions">
-        <div (click)="toggleParameter(operation)" class="expander">
+        <div (click)="toggleParameter(operation)" class="expander"
+             title="Expand to show more information about the parameters, contract to hide it.">
           <span *ngIf="!parameterShowing(operation)"><fa name="chevron-down"></fa></span>
           <span *ngIf="parameterShowing(operation)"><fa
             name="chevron-up"></fa></span>
         </div>
-        <div *ngIf="parameterShowing(operation)" [@slideIn]>
+        <div *ngIf="parameterShowing(operation)" [@slideIn] class="parameterDescription">
           <div class="returnValue">
             <div class="simpleHeader">Returns:</div>
             <div class="simpleContent">Bundle<<a

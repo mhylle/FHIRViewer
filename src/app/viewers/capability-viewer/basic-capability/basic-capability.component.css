@@ -26,7 +26,8 @@
 .operation {
   margin: 4px;
   font-size: 0.8em;
-  border: 1px solid lightgray;
+  border: 1px solid #717171;
+
   border-radius: 3px;
 }
 
@@ -74,7 +75,8 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#204e5f', GradientType=0); /* IE6-9 */
 }
 
-.parameterDescriptions {
+.parameterDescription {
+  margin-top: 8px;
 }
 
 .simpleHeader {
@@ -90,12 +92,6 @@
 }
 
 .operationName {
-  /*background-color: rgba(32, 77, 92, 0.15);*/
   padding: 8px;
   border-bottom: 1px solid lightgray;
-  /*font-weight: bold;*/
-  /*color: #2b2b2b;*/
-  /*margin: 4px;*/
-  /*background-color: #204e5f;*/
-  /*color: white;*/
 }
