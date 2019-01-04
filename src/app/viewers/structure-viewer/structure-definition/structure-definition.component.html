@@ -8,9 +8,6 @@
   </div>
 
   <div *ngIf="structure">
-    <div>
-      <button (click)="showJson()">Show JSON</button>
-    </div>
     <div *ngFor="let entry of structure.snapshot?.element">
       <div
         *ngIf="!(entry.max === '0' && hideUnused) && !(isReadOnly(entry.constraint) && hideReadonly) &&
@@ -52,9 +49,7 @@
           </div>
         </div>
         <div *ngIf="!entry.short && descriptionVisible">{{entry.definition}}</div>
-        <div *ngIf="entry.short && descriptionVisible">{{entry.short}}
-          <div *ngIf="entry.type">{{entry.type[0].code}}</div>
-        </div>
+        <div *ngIf="entry.short && descriptionVisible">{{entry.short}}</div>
       </div>
     </div>
   </div>

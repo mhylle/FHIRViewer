@@ -142,10 +142,7 @@ export class StructureDefinitionComponent implements OnInit {
   }
 
   isReadOnly(constraint: fhir.ElementDefinitionConstraint[]) {
-    if (ModelUtils) {
-      return ModelUtils.isReadOnly(constraint);
-    }
-    return false;
+    return ModelUtils.isReadOnly(constraint);
   }
 
   setContext(resourceName: string) {
