@@ -25,13 +25,13 @@
         <div *ngIf="layoutMode === 'grid'"><span *ngIf="!resourceType.short">Short description of the element coming soon.</span><span
           *ngIf="resourceType.short">{{resourceType.short}}</span></div>
         <div [ngClass]="layoutMode_actions">
-          <span class="actionItem">
+          <span class="actionItem" title="Display the structure definition for {{resourceType.name}}">
           <a (click)="setContext(resourceType.name)" routerLink="/StructureDefinition/{{resourceType.name}}">
             <fa *ngIf="layoutMode === 'grid'" class="linkIcon" name="address-card"></fa>
             <span *ngIf="layoutMode==='table'">StructureDefinition</span>
           </a>
         </span>
-          <span class="actionItem">
+          <span class="actionItem" title="Display the capability statement for {{resourceType.name}}">
           <a (click)="setContext(resourceType.name)" routerLink="/CapabilityStatement/{{resourceType.name}}">
             <fa *ngIf="layoutMode === 'grid'" class="linkIcon" name="book"></fa>
             <span *ngIf="layoutMode==='table'">CapabilityStatement</span>
