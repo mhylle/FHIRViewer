@@ -13,7 +13,7 @@
     </div>
     <div *ngFor="let entry of structure.snapshot?.element">
       <div
-        *ngIf="!(entry.max === '0' && hideUnused) && !(entry.readonly && hideReadonly) &&
+        *ngIf="!(entry.max === '0' && hideUnused) && !(isReadOnly(entry.constraint) && hideReadonly) &&
         entry.name !== structure.name && (entry.sliceName || entry.label || entry.path) &&
 !entry.base"
         class="userList table_row">

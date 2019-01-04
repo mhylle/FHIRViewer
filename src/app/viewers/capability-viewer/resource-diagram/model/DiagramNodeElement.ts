@@ -4,4 +4,5 @@ export class DiagramNodeElement {
   max: string;
   type: fhir.uri;
   profile: fhir.uri;
+  readOnly: boolean;
 }

@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {StructureDefinitionService} from '../../../services/structure-definition.service';
 import {BreakpointObserver} from '@angular/cdk/layout';
 import {StringUtils} from "../../../core/utils/string-utils";
+import {ModelUtils} from "../../../core/utils/model-utils";
 import ElementDefinition = fhir.ElementDefinition;
 import StructureDefinition = fhir.StructureDefinition;
 
@@ -134,5 +135,12 @@ export class StructureDefinitionComponent implements OnInit {
 
   showJson() {
     this.structureService.save(this.structureDefinition).subscribe(value => this.result = value);
+  }
+
+  isReadOnly(constraint: fhir.ElementDefinitionConstraint[]) {
+    if (ModelUtils) {
+      return ModelUtils.isReadOnly(constraint);
+    }
+    return false;
   }
 }

@@ -10,4 +10,5 @@ export class DiagramNode {
   path: string;
   connection: DiagramConnection;
   elements: DiagramNodeElement[];
+  readOnly: boolean;
 }

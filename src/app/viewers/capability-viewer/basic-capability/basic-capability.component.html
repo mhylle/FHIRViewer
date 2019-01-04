@@ -10,6 +10,7 @@
   </div>
   <div class="operations">
     <div class="header">Operations</div>
+    <div *ngIf="!capability?.operations">There are no operations are associated with this resource.</div>
     <div *ngFor="let operation of capability?.operations" class="operation">
       <div class="operationName">{{operation.name}}
         <span *ngIf="operation.inParameters">(</span><span *ngFor="let param of operation.inParameters; index as idx">
@@ -19,9 +20,9 @@
       </div>
       <div class="description">{{operation.description}}</div>
       <div class="parameterDescriptions">
-        <div class="expander">
-          <span (click)="toggleParameter(operation)" *ngIf="!parameterShowing(operation)"><fa name="chevron-down"></fa></span>
-          <span (click)="toggleParameter(operation)" *ngIf="parameterShowing(operation)"><fa
+        <div (click)="toggleParameter(operation)" class="expander">
+          <span *ngIf="!parameterShowing(operation)"><fa name="chevron-down"></fa></span>
+          <span *ngIf="parameterShowing(operation)"><fa
             name="chevron-up"></fa></span>
         </div>
         <div *ngIf="parameterShowing(operation)" [@slideIn]>
