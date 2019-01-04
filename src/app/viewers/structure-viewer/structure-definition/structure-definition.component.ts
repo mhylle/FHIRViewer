@@ -6,6 +6,7 @@ import {StructureDefinitionService} from '../../../services/structure-definition
 import {BreakpointObserver} from '@angular/cdk/layout';
 import {StringUtils} from "../../../core/utils/string-utils";
 import {ModelUtils} from "../../../core/utils/model-utils";
+import {ContextService} from "../../../services/infrastructure/context.service";
 import ElementDefinition = fhir.ElementDefinition;
 import StructureDefinition = fhir.StructureDefinition;
 
@@ -20,7 +21,8 @@ export class StructureDefinitionComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private breakpointObserver: BreakpointObserver,
-              private structureService: StructureDefinitionService) {
+              private structureService: StructureDefinitionService,
+              private contextService: ContextService) {
     breakpointObserver.observe([
       '(min-width: 850px)'
     ]).subscribe(result => {
@@ -70,7 +72,9 @@ export class StructureDefinitionComponent implements OnInit {
   ngOnInit() {
     this.$resource = this.route.paramMap.pipe(
       switchMap((params: ParamMap) => {
-        return this.structureService.getStructure(params.get('resource'));
+        let currentResource = params.get('resource');
+        this.contextService.currentResource = currentResource;
+        return this.structureService.getStructure(currentResource);
       }));
     this.$resource.subscribe(value => {
       this.baseResource = JSON.stringify(value);
@@ -142,5 +146,9 @@ export class StructureDefinitionComponent implements OnInit {
       return ModelUtils.isReadOnly(constraint);
     }
     return false;
+  }
+
+  setContext(resourceName: string) {
+    this.contextService.currentResource = resourceName;
   }
 }

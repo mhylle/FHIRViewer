@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {ConfigurationService} from '../../services/infrastructure/configuration.service';
 import {StructureDefinitionService} from '../../services/structure-definition.service';
+import {ContextService} from "../../services/infrastructure/context.service";
 
 
 @Component({
@@ -18,11 +19,15 @@ export class CapabilityViewerComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private configurationService: ConfigurationService,
-              private structureService: StructureDefinitionService) {
+              private structureService: StructureDefinitionService,
+              private contextService: ContextService) {
   }
 
   ngOnInit() {
-    this.route.paramMap.subscribe((params: ParamMap) => this.selectedResource = params.get('resource'));
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.selectedResource = params.get('resource');
+      this.contextService.currentResource = this.selectedResource;
+    });
     this.configurationService.serverChanged.subscribe(() => this.updateDescription());
 
   }

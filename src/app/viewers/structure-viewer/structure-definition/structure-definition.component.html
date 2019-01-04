@@ -44,8 +44,10 @@
           <div *ngIf="entry.type">
             <span>{{entry.type[0].code}}</span>
             <span *ngIf="entry.type[0].code === 'Reference' && entry.type[0].targetProfile">(<a
+              (click)="setContext(stripUrl(entry.type[0].targetProfile))"
               routerLink="/StructureDefinition/{{stripUrl(entry.type[0].targetProfile)}}">{{stripUrl(entry.type[0].targetProfile)}}</a>)</span>
             <span *ngIf="entry.type[0].code === 'Reference' && entry.type[0].profile">(<a
+              (click)="setContext(stripUrl(entry.type[0].profile))"
               routerLink="/StructureDefinition/{{stripUrl(entry.type[0].profile)}}">{{stripUrl(entry.type[0].profile)}}</a>)</span>
           </div>
         </div>
