@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {ConfigurationService} from './infrastructure/configuration.service';
+import {ConfigurationService} from '../infrastructure/configuration.service';
 import Bundle = fhir.Bundle;
 
 const httpOptions = {

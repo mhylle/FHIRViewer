@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, of, throwError} from 'rxjs';
-import {Capability} from '../core/model/capability';
+import {Capability} from '../../core/model/capability';
 import {catchError} from 'rxjs/operators';
-import {ConfigurationService} from './infrastructure/configuration.service';
+import {ConfigurationService} from '../infrastructure/configuration.service';
 import OperationDefinition = fhir.OperationDefinition;
 
 const httpOptions = {

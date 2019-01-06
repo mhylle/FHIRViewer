@@ -11,6 +11,12 @@
   <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
         integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script type="application/javascript">
+    sendNavigationEvent = function (url, resource) {
+      window.fireAngularEvent('performNavigation', [{url: url, resource: resource}]);
+    }
+  </script>
+
 </head>
 <body>
 <app-root></app-root>

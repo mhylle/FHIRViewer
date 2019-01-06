@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {ConfigurationService} from '../../services/infrastructure/configuration.service';
-import {StructureDefinitionService} from '../../services/structure-definition.service';
+import {StructureDefinitionService} from '../../services/model/structure-definition.service';
 import {ContextService} from "../../services/infrastructure/context.service";
 
 
@@ -15,7 +15,6 @@ export class CapabilityViewerComponent implements OnInit {
   hideReadonly = true;
   hideUnused = true;
   structure: any;
-
 
   constructor(private route: ActivatedRoute,
               private configurationService: ConfigurationService,

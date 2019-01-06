@@ -6,21 +6,15 @@ import {switchMap} from "rxjs/operators";
 import {DiagramNodeElement} from "../model/DiagramNodeElement";
 import {DiagramConnection} from "../model/DiagramConnection";
 import {ConfigurationService} from "../../../../services/infrastructure/configuration.service";
-import {StructureDefinitionService} from "../../../../services/structure-definition.service";
+import {StructureDefinitionService} from "../../../../services/model/structure-definition.service";
 import {StringUtils} from "../../../../core/utils/string-utils";
 import {ModelUtils} from "../../../../core/utils/model-utils";
+import {GlobalPubSubService} from "../../../../services/infrastructure/global-pub-sub.service";
+import {ContextService} from "../../../../services/infrastructure/context.service";
 import StructureDefinition = fhir.StructureDefinition;
 
 // noinspection JSUnusedLocalSymbols
-declare var mxUtils: any;
-// noinspection JSUnusedLocalSymbols
-declare var mxGraphModel: any;
-// noinspection JSUnusedLocalSymbols
-declare var mxCodecRegistry: any;
-// noinspection JSUnusedLocalSymbols
-declare var mxEvent: any;
-// noinspection JSUnusedLocalSymbols
-declare var mxUndoManager: any;
+declare var mxConstants: any;
 
 @Component({
   selector: 'app-resource-diagram',
@@ -30,7 +24,7 @@ declare var mxUndoManager: any;
 export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChanges {
   @ViewChild('graphContainer') graphContainer: ElementRef;
   structureDefinition: StructureDefinition;
-  graph: mxGraph;
+  mxGraph: mxGraph;
 
   @Input()
   hideUnused = true;
@@ -38,22 +32,27 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
   @Input()
   hideReadonly = true;
 
-  private headerStyle = "font-size: 1.2em; font-weight: bold; color: white;background-color: #204e5f; height: 100%; padding-bottom: 8px;padding-top: 8px;margin:0";
+  private headerStyle = "font-size: 1.2em; font-weight: bold; color: white;background-color: #204e5f; height: 100%; padding-bottom: 8px;padding-top: 8px;margin:0; padding-left: 0; padding-right: 0";
   private elementStyle = "margin-left: 4px; margin-right: 4px;text-align: left; color: black; background-color: white;html=1;autosize=1;resizable=0;";
   private edgeStyle = 'defaultEdge;rounded=1;strokeColor=black;fontColor=black;startArrow=diamond';
   private $resource: Observable<any>;
   private nodes: Map<string, DiagramNode>;
+  private svgLink = "text-decoration: underline; color: blue; cursor: pointer";
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private configurationService: ConfigurationService,
-              private structureService: StructureDefinitionService) {
+              private structureService: StructureDefinitionService,
+              private contextService: ContextService,
+              private globalPubSubService: GlobalPubSubService) {
   }
 
-  ngOnInit() {
-    this.configurationService.serverChanged.subscribe(() => this.calculateElements());
-    this.calculateElements();
-  }
+  static configureStylesheet(graph) {
+    let style = graph.stylesheet.getDefaultEdgeStyle();
+    style[mxConstants.STYLE_LABEL_BACKGROUNDCOLOR] = '#ffffff';
+    style[mxConstants.STYLE_STROKECOLOR] = '#1B78C8';
+    style[mxConstants.STYLE_STROKEWIDTH] = '1';
+  };
 
   calculateElements() {
     this.$resource = this.route.paramMap.pipe(
@@ -143,104 +142,101 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
     }
   }
 
-  ngAfterViewInit() {
-    this.graph = new mxGraph(this.graphContainer.nativeElement);
-    this.createGraph();
+  ngOnInit() {
+    this.globalPubSubService.subscribe('performNavigation', (value) => {
+      this.performNavigation(value);
+    });
+    this.configurationService.serverChanged.subscribe(() => this.calculateElements());
+    this.calculateElements();
   }
-
-  // test() {
-  //   console.log('test');
-  // }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.createGraph();
   }
 
-  // private createElement() {
-  //   const hdrStyle = this.headerStyle;
-  //   const elmStyle = this.elementStyle;
-  //   this.graph.getLabel = function (cell) {
-  //     if (this.isHtmlLabel(cell)) {
-  //       let label = '';
-  //       console.log(cell.value);
-  //
-  //       if (cell.value) {
-  //         label += '<div style="margin-bottom: 4px" class="structureElement">';
-  //         label += '<div title="' + cell.value.short + '" style="' + hdrStyle + '">' + cell.value.title + '</div>';
-  //         if (cell.value.elements) {
-  //           for (let i = 0; i < cell.value.elements.length; i++) {
-  //             const element = cell.value.elements[i];
-  //             label += '<div style="' + elmStyle + '" class="structureElement">' + element.name + ':' + element.type + '[' + element.min + '...' + element.max + ']';
-  //             if (element.type === 'Reference') {
-  //               label += '<a href="/CapabilityStatement/' + StringUtils.stripUrl(element.profile) + '">' + StringUtils.stripUrl(element.profile) + '</a>';
-  //             }
-  //             label += '</div>';
-  //           }
-  //         }
-  //         label += '</div>';
-  //       }
-  //       // + mxUtils.htmlEntities(cell.value.name, false) + ': ' +
-  //       // mxUtils.htmlEntities(cell.value.type, false);
-  //       return label;
-  //     }
-  //
-  //     return mxGraph.prototype.getLabel.apply(this, arguments); // "supercall"
-  //   };
-  // }
+  ngAfterViewInit() {
+    this.mxGraph = new mxGraph(this.graphContainer.nativeElement);
+    this.createGraph();
+  }
+
+  performNavigation(args: any) {
+    let url = args.url;
+    let resource = args.resource;
+    this.contextService.currentResource = resource;
+    // noinspection JSIgnoredPromiseFromCall
+    this.router.navigate([url, resource]);
+  }
+
+  setContext(resourceName: string) {
+    this.contextService.currentResource = resourceName;
+  }
 
   private createGraph() {
     const vertices: Map<string, any> = new Map<string, any>();
-    if (!this.graph) {
+    if (!this.mxGraph) {
       return;
     }
-    this.graph.removeCells(this.graph.getChildVertices(this.graph.getDefaultParent()), true);
+    this.mxGraph.removeCells(this.mxGraph.getChildVertices(this.mxGraph.getDefaultParent()), true);
     if (this.nodes == null) {
       return;
     }
     try {
-      const parent = this.graph.getDefaultParent();
-      this.graph.getModel().beginUpdate();
-      this.graph.setHtmlLabels(true);
+      const parent = this.mxGraph.getDefaultParent();
+
+      ResourceDiagramComponent.configureStylesheet(this.mxGraph);
+      this.mxGraph.getModel().beginUpdate();
+      this.mxGraph.setHtmlLabels(true);
 
       this.nodes.forEach((value) => {
-        if (value.max != null && value.max != "0") {
-          let template = '<div style="margin-bottom: 4px;">';
-          template += '<div style="' + this.headerStyle + '">' + value.title + '</div>';
-          for (let i = 0; i < value.elements.length; i++) {
-            const element = value.elements[i];
-            if (!((element.max == null || element.max === '0') && this.hideUnused) && !(element.readOnly && this.hideReadonly)) {
-              template += '<div style="' + this.elementStyle + '">' + element.name + ':' + element.type + '[' + element.min + '...' + element.max + ']';
-              if (element.type === 'Reference') {
-                template += '<a href="/CapabilityStatement/' + StringUtils.stripUrl(element.profile) + '">' + StringUtils.stripUrl(element.profile) + '</a>';
-              }
-              template += '</div>';
-            }
-          }
-          template += '</div>';
-          let vertex = this.graph.insertVertex(parent, null, template, 0, 0, 100, 150, 'strokeColor=black;fillColor=white;margin:0', false);
-
-          this.graph.updateCellSize(vertex, false);
-          vertices.set(value.title, vertex);
-        }
+        this.createNode(value, parent, vertices);
       });
       this.nodes.forEach(value => {
-        let connection = value.connection;
-        if (connection != null) {
-          const source = vertices.get(connection.source.title);
-          const target = vertices.get(connection.target.title);
-          let label = connection.label + '[' + connection.sourceCardinality + '...' + connection.targetCardinality + ']';
-          this.graph.insertEdge(parent, 'path', label, source, target, this.edgeStyle);
-        }
+        this.createConnection(value, vertices, parent);
       });
 
     } finally {
-      this.graph.setEnabled(false);
-      let layout: mxHierarchicalLayout = new mxHierarchicalLayout(this.graph);
+      this.mxGraph.setEnabled(false);
+      let layout: mxHierarchicalLayout = new mxHierarchicalLayout(this.mxGraph);
 
-      layout.execute(this.graph.getDefaultParent());
-      this.graph.getModel().endUpdate();
+      layout.execute(this.mxGraph.getDefaultParent());
+      this.mxGraph.getModel().endUpdate();
 
     }
 
+  }
+
+  private createConnection(value, vertices: Map<string, any>, parent) {
+    let connection = value.connection;
+    if (connection != null) {
+      const source = vertices.get(connection.source.title);
+      const target = vertices.get(connection.target.title);
+      let label = connection.label + '[' + connection.sourceCardinality + '...' + connection.targetCardinality + ']';
+      this.mxGraph.insertEdge(parent, 'path', label, source, target, this.edgeStyle);
+    }
+  }
+
+  private createNode(value, parent, vertices: Map<string, any>) {
+    if (value.max != null && value.max != "0") {
+      let template = '<div style="margin-bottom: 4px;">';
+      template += '<div style="' + this.headerStyle + '">' + value.title + '</div>';
+      for (let i = 0; i < value.elements.length; i++) {
+        const element = value.elements[i];
+        if (!((element.max == null || element.max === '0') && this.hideUnused) && !(element.readOnly && this.hideReadonly)) {
+          template += '<div style="' + this.elementStyle + '">';
+          template += element.name + ':';
+          template += element.type;
+          template += '[' + element.min + '...' + element.max + '] ';
+          if (element.type === 'Reference') {
+            const navigationCommand = "sendNavigationEvent('/CapabilityStatement', '" + StringUtils.stripUrl(element.profile) + "')";
+            template += '<span style="' + this.svgLink + '" onmousedown="' + navigationCommand + '">' + StringUtils.stripUrl(element.profile) + '</span>';
+          }
+          template += '</div>';
+        }
+      }
+      template += '</div>';
+      let vertex = this.mxGraph.insertVertex(parent, null, template, 0, 0, 100, 150, 'strokeColor=black;fillColor=white;margin:0', false);
+      this.mxGraph.updateCellSize(vertex, false);
+      vertices.set(value.title, vertex);
+    }
   }
 }
