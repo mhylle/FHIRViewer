@@ -3,7 +3,7 @@ import {TestBed} from '@angular/core/testing';
 import {StructureDefinitionService} from './structure-definition.service';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {CookieService} from 'ngx-cookie-service';
-import {ConfigurationService} from "./infrastructure/configuration.service";
+import {ConfigurationService} from "../infrastructure/configuration.service";
 import {of} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
 

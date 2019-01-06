@@ -1,6 +1,6 @@
 {
   "name": "fhirdocs",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "scripts": {
     "ng": "ng",
     "prod": "ng serve --prod --host clud-13783-web",

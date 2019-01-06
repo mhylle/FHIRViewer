@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {ConfigurationService} from './infrastructure/configuration.service';
+import {ConfigurationService} from '../infrastructure/configuration.service';
 import {Observable} from 'rxjs';
 import Bundle = fhir.Bundle;
 

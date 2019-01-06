@@ -1,6 +1,6 @@
 import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {ActivatedRoute, ParamMap} from '@angular/router';
-import {CapabilityService} from '../../../services/capability.service';
+import {CapabilityService} from '../../../services/model/capability.service';
 import {Capability} from '../../../core/model/capability';
 import {Operation} from '../../../core/model/operation';
 import {switchMap} from 'rxjs/operators';
