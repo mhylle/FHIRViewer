@@ -44,6 +44,20 @@
       <div *ngIf="selection==='CapabilityStatement'" [@slideInLeft]="selection==='CapabilityStatement' ? 'in' : ''"
         class="selection_indicator"></div>
     </div>
+    <div class="menu_item">
+      <div *ngIf="menuEnabled" class="menu_item_container">
+        <a (click)="selectMenu('CreateResource', '')" routerLink="/CreateResource">
+          <fa class="menuIcon" name="book"></fa>
+          CREATE_RESOURCE
+        </a>
+      </div>
+      <div *ngIf="!menuEnabled" class="menu_item_disabled_container">
+        <fa class="menuIcon" name="book"></fa>
+        CREATE_RESOURCE
+      </div>
+      <div *ngIf="selection==='CreateResource'" [@slideInLeft]="selection==='CreateResource' ? 'in' : ''"
+        class="selection_indicator"></div>
+    </div>
   </div>
   <div class="spacer"></div>
   <div class="rightMenuItems">

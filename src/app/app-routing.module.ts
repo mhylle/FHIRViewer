@@ -8,6 +8,7 @@ import {CapabilityViewerComponent} from './viewers/capability-viewer/capability-
 import {AuthGuard} from './core/auth/auth.guard';
 import {ServerGuard} from './core/interceptors/server.guard';
 import {ServerSelectorComponent} from './selectors/server-selector/server-selector.component';
+import {DialogTestComponent} from "./viewers/capability-viewer/resource-diagram/resource-diagram/dialog-test/dialog-test.component";
 
 const routes: Routes = [
   {
@@ -58,6 +59,10 @@ const routes: Routes = [
     component: LoginComponent,
     canActivate: [ServerGuard],
     data: {'routeName': 'Login'}
+  },
+  {
+    path: 'CreateResource',
+    component: DialogTestComponent
   },
   {
     path: 'selectServer',

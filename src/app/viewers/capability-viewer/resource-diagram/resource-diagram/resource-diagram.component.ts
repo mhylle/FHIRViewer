@@ -11,10 +11,22 @@ import {StringUtils} from "../../../../core/utils/string-utils";
 import {ModelUtils} from "../../../../core/utils/model-utils";
 import {GlobalPubSubService} from "../../../../services/infrastructure/global-pub-sub.service";
 import {ContextService} from "../../../../services/infrastructure/context.service";
+import {TypeService} from "../../../../services/type.service";
+import {MatDialog} from "@angular/material";
 import StructureDefinition = fhir.StructureDefinition;
 
 // noinspection JSUnusedLocalSymbols
 declare var mxConstants: any;
+// noinspection JSUnusedLocalSymbols
+declare var mxCellOverlay: any;
+// noinspection JSUnusedLocalSymbols
+declare var mxUtils: any;
+// noinspection JSUnusedLocalSymbols
+declare var mxWindow: any;
+// noinspection JSUnusedLocalSymbols
+declare var mxEvent: any;
+// noinspection JSUnusedLocalSymbols
+declare var mxEffects: any;
 
 @Component({
   selector: 'app-resource-diagram',
@@ -44,7 +56,29 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
               private configurationService: ConfigurationService,
               private structureService: StructureDefinitionService,
               private contextService: ContextService,
-              private globalPubSubService: GlobalPubSubService) {
+              private globalPubSubService: GlobalPubSubService,
+              private typesService: TypeService,
+              public dialog: MatDialog) {
+  }
+
+  ngOnInit() {
+    this.globalPubSubService.subscribe('performNavigation', (value) => {
+      this.performNavigation(value);
+    });
+    this.globalPubSubService.subscribe('performAction', (value) => {
+      this.performAction(value);
+    });
+    this.configurationService.serverChanged.subscribe(() => this.calculateElements());
+    this.calculateElements();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.createGraph();
+  }
+
+  ngAfterViewInit() {
+    this.mxGraph = new mxGraph(this.graphContainer.nativeElement);
+    this.createGraph();
   }
 
   static configureStylesheet(graph) {
@@ -142,23 +176,6 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
     }
   }
 
-  ngOnInit() {
-    this.globalPubSubService.subscribe('performNavigation', (value) => {
-      this.performNavigation(value);
-    });
-    this.configurationService.serverChanged.subscribe(() => this.calculateElements());
-    this.calculateElements();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    this.createGraph();
-  }
-
-  ngAfterViewInit() {
-    this.mxGraph = new mxGraph(this.graphContainer.nativeElement);
-    this.createGraph();
-  }
-
   performNavigation(args: any) {
     let url = args.url;
     let resource = args.resource;
@@ -200,9 +217,7 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
 
       layout.execute(this.mxGraph.getDefaultParent());
       this.mxGraph.getModel().endUpdate();
-
     }
-
   }
 
   private createConnection(value, vertices: Map<string, any>, parent) {
@@ -215,28 +230,86 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
     }
   }
 
-  private createNode(value, parent, vertices: Map<string, any>) {
+  addChild(value: DiagramNode) {
+    this.openDialog();
+  }
+
+  openDialog(): void {
+    console.log('test');
+  }
+
+  private createNode(value: DiagramNode, parent, vertices: Map<string, any>) {
     if (value.max != null && value.max != "0") {
       let template = '<div style="margin-bottom: 4px;">';
-      template += '<div style="' + this.headerStyle + '">' + value.title + '</div>';
+      template += '<div style="' + this.headerStyle + '">';
+      template += value.title;
+      if (this.configurationService.isAdminServer) {
+        template += '<a>';
+      }
+      template += '</div>';
       for (let i = 0; i < value.elements.length; i++) {
         const element = value.elements[i];
         if (!((element.max == null || element.max === '0') && this.hideUnused) && !(element.readOnly && this.hideReadonly)) {
           template += '<div style="' + this.elementStyle + '">';
-          template += element.name + ':';
-          template += element.type;
-          template += '[' + element.min + '...' + element.max + '] ';
+          if (this.configurationService.isAdminServer && false) {
+            template += this.createEditableElement(element);
+          } else {
+            template += element.name + ':';
+            template += element.type;
+            template += '[' + element.min + '...' + element.max + '] ';
+          }
           if (element.type === 'Reference') {
             const navigationCommand = "sendNavigationEvent('/CapabilityStatement', '" + StringUtils.stripUrl(element.profile) + "')";
             template += '<span style="' + this.svgLink + '" onmousedown="' + navigationCommand + '">' + StringUtils.stripUrl(element.profile) + '</span>';
           }
           template += '</div>';
+          if (this.configurationService.isAdminServer && false) {
+            template += '<div></div>'
+          }
         }
       }
       template += '</div>';
       let vertex = this.mxGraph.insertVertex(parent, null, template, 0, 0, 100, 150, 'strokeColor=black;fillColor=white;margin:0', false);
+      if (this.configurationService.isAdminServer) {
+        this.addOverLay(this.mxGraph, vertex, value);
+      }
       this.mxGraph.updateCellSize(vertex, false);
       vertices.set(value.title, vertex);
     }
+  }
+
+  private createEditableElement(element: any) {
+    let result = "";
+    result += '<input type="test" value="' + element.name + '">:';
+    result += '<select placeholder="Select Resource">';
+    let types = this.typesService.types;
+    for (let i = 0; i < types.length; i++) {
+      const resourceType = types[i];
+      if (resourceType === element.type) {
+        result += '<option value="' + resourceType + '" selected>' + resourceType + '</option>'
+      } else {
+        result += '<option value="' + resourceType + '">' + resourceType + '</option>'
+      }
+    }
+    result += '</select>';
+    result += '[' + element.min + '...' + element.max + '] ';
+    result += '<button onclick="sendActionEvent(\'save\')">Save</button>'
+    return result;
+  }
+
+  private performAction(value: any) {
+    console.log(value.action);
+    // console.log(value.data.name);
+  }
+
+  private addOverLay(graph: mxGraph, vertex: any, value: DiagramNode) {
+    const overlay = new mxCellOverlay(new mxImage('/assets/images/add.png', 24, 24), 'Add child');
+    overlay.cursor = 'hand';
+    overlay.align = mxConstants.ALIGN_CENTER;
+    graph.addCellOverlay(vertex, overlay);
+
+    overlay.addListener(mxEvent.CLICK, mxUtils.bind(this, function (sender, evt) {
+      this.addChild(value);
+    }));
   }
 }

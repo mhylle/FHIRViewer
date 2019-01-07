@@ -87,6 +87,7 @@ declare class mxImage {
 declare class mxEvent {
   static ADD: any;
   static REMOVE: any;
+  static CLICK: any;
 }
 
 declare class mxMouseEvent {

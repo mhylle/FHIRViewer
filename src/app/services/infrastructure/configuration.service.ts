@@ -24,4 +24,8 @@ export class ConfigurationService {
     this.cookieService.set('selectedServer', server);
     this.serverChanged.emit(server);
   }
+
+  get isAdminServer() {
+    return true;
+  }
 }

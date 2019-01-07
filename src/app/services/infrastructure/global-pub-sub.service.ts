@@ -6,12 +6,12 @@ import {Injectable, NgZone} from '@angular/core';
  * events from outside
  *
  * Usage from outside of Angular:
- *   window.fireAngularEvent('sampleEventName', args)
- *   window.subscribeToAngularEvent('sampleEventName', fn)
+ *   window.fireAngularEvent('performNavigation', args)
+ *   window.subscribeToAngularEvent('performAction', fn)
  *
  * Usage from Angular component:
- *   globalPubSub.fireEvent('sampleEventName', args)
- *   globalPubSub.subscribe('sampleEventName', fn)
+ *   globalPubSub.fireEvent('performNavigation', args)
+ *   globalPubSub.subscribe('performAction', fn)
  */
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ import {Injectable, NgZone} from '@angular/core';
 export class GlobalPubSubService {
   allowedEvents = [
     "performNavigation",
-    "sampleEventName2"
+    "performAction"
   ];
 
   private subscriptions: { [key: string]: Function[]; } = {};
@@ -33,7 +33,6 @@ export class GlobalPubSubService {
       if (!this.subscriptions[eventName]) {
         throw new Error('Event has to be defined in the event list.')
       }
-
       zone.run(() => {
         this.fireEvent(eventName, args);
       });
@@ -58,7 +57,11 @@ export class GlobalPubSubService {
     }
 
     this.subscriptions[eventName].forEach((fn) => {
-      fn.apply(null, args);
+      try {
+        fn.apply(null, args);
+      } catch (e) {
+        console.log('a' + e);
+      }
     });
   }
 }
