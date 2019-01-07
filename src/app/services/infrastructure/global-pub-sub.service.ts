@@ -19,7 +19,7 @@ import {Injectable, NgZone} from '@angular/core';
 export class GlobalPubSubService {
   allowedEvents = [
     "performNavigation",
-    "performAction"
+    "sendActionEvent"
   ];
 
   private subscriptions: { [key: string]: Function[]; } = {};

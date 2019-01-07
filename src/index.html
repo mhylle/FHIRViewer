@@ -15,8 +15,9 @@
     sendNavigationEvent = function (url, resource) {
       window.fireAngularEvent('performNavigation', [{url: url, resource: resource}]);
     };
-    sendActionEvent = function (action) {
-      window.fireAngularEvent('performAction', [{action: action}]);
+    sendActionEvent = function (action, data) {
+      console.log(data);
+      window.fireAngularEvent('sendActionEvent', [{action: action, data: data}]);
     }
   </script>
 

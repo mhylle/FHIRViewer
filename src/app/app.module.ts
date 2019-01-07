@@ -29,8 +29,8 @@ import {MhUtilsModule} from './core/mh-utils/mh-utils.module';
 import {ResourceInformationComponent} from './viewers/capability-viewer/resource-information/resource-information.component';
 import {CreateBackboneElementComponent} from './viewers/capability-viewer/resource-diagram/resource-diagram/create-backbone-element/create-backbone-element.component';
 import {ResourceDiagramComponent} from "./viewers/capability-viewer/resource-diagram/resource-diagram/resource-diagram.component";
-import {DialogTestComponent} from './viewers/capability-viewer/resource-diagram/resource-diagram/dialog-test/dialog-test.component';
-import {DialogOverviewExampleDialogComponent} from './viewers/capability-viewer/resource-diagram/resource-diagram/dialog-test/dialog-overview-example-dialog/dialog-overview-example-dialog.component';
+import {ResourceElementComponent} from './viewers/capability-viewer/resource-diagram/resource-diagram/create-backbone-element/resource-element/resource-element.component';
+import {EditResourceElementDialogComponent} from "./viewers/capability-viewer/resource-diagram/resource-diagram/create-backbone-element/resource-element-dialog/edit-resource-element-dialog.component";
 
 @NgModule({
   declarations: [
@@ -48,8 +48,8 @@ import {DialogOverviewExampleDialogComponent} from './viewers/capability-viewer/
     ResourceInformationComponent,
     ResourceDiagramComponent,
     CreateBackboneElementComponent,
-    DialogTestComponent,
-    DialogOverviewExampleDialogComponent
+    ResourceElementComponent,
+    EditResourceElementDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -67,6 +67,7 @@ import {DialogOverviewExampleDialogComponent} from './viewers/capability-viewer/
     CookieService
     // {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
   ],
+  entryComponents: [CreateBackboneElementComponent, EditResourceElementDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

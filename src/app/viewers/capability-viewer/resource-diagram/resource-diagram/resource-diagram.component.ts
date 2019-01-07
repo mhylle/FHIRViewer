@@ -13,6 +13,8 @@ import {GlobalPubSubService} from "../../../../services/infrastructure/global-pu
 import {ContextService} from "../../../../services/infrastructure/context.service";
 import {TypeService} from "../../../../services/type.service";
 import {MatDialog} from "@angular/material";
+import {CreateBackboneElementComponent} from "./create-backbone-element/create-backbone-element.component";
+import {EditResourceElementDialogComponent} from "./create-backbone-element/resource-element-dialog/edit-resource-element-dialog.component";
 import StructureDefinition = fhir.StructureDefinition;
 
 // noinspection JSUnusedLocalSymbols
@@ -65,7 +67,7 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
     this.globalPubSubService.subscribe('performNavigation', (value) => {
       this.performNavigation(value);
     });
-    this.globalPubSubService.subscribe('performAction', (value) => {
+    this.globalPubSubService.subscribe('sendActionEvent', (value) => {
       this.performAction(value);
     });
     this.configurationService.serverChanged.subscribe(() => this.calculateElements());
@@ -235,7 +237,14 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
   }
 
   openDialog(): void {
-    console.log('test');
+    const dialogRef = this.dialog.open(CreateBackboneElementComponent, {
+      width: '500px',
+      data: {name: 'abc', animal: 'def'}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
   private createNode(value: DiagramNode, parent, vertices: Map<string, any>) {
@@ -243,9 +252,9 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
       let template = '<div style="margin-bottom: 4px;">';
       template += '<div style="' + this.headerStyle + '">';
       template += value.title;
-      if (this.configurationService.isAdminServer) {
-        template += '<a>';
-      }
+      // if (this.configurationService.isAdminServer) {
+      //   template += '<a>';
+      // }
       template += '</div>';
       for (let i = 0; i < value.elements.length; i++) {
         const element = value.elements[i];
@@ -262,10 +271,17 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
             const navigationCommand = "sendNavigationEvent('/CapabilityStatement', '" + StringUtils.stripUrl(element.profile) + "')";
             template += '<span style="' + this.svgLink + '" onmousedown="' + navigationCommand + '">' + StringUtils.stripUrl(element.profile) + '</span>';
           }
-          template += '</div>';
-          if (this.configurationService.isAdminServer && false) {
-            template += '<div></div>'
+
+          if (this.configurationService.isAdminServer) {
+            template += '<span>';
+            let stringify = JSON.stringify(element);
+            const editCommand = "sendActionEvent('edit', '" + encodeURI(stringify) + "')";
+            template += '<span style="text-align: right" onmousedown="' + editCommand + '"><img src="../../../../../assets/images/edit.png" alt="edit" width="12" height="12"/></span>';
+            template += '<span style="text-align: right"><img src="../../../../../assets/images/delete2.png" alt="delete" width="12" height="12"/></span>';
+            template += '</span>';
+
           }
+          template += '</div>';
         }
       }
       template += '</div>';
@@ -298,8 +314,15 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
   }
 
   private performAction(value: any) {
-    console.log(value.action);
-    // console.log(value.data.name);
+    let parse = JSON.parse(decodeURI(value.data));
+    const dialogRef = this.dialog.open(EditResourceElementDialogComponent, {
+      width: '500px',
+      data: parse
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed: ' + result);
+    });
   }
 
   private addOverLay(graph: mxGraph, vertex: any, value: DiagramNode) {

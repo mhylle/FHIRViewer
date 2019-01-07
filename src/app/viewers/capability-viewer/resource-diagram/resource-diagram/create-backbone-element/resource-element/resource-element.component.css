@@ -1,0 +1,22 @@
+.name {
+  display: inline-block;
+}
+
+.name .label {
+  float: left;
+}
+
+.name .input {
+  float: right;
+}
+
+.cardinality {
+  /*display: grid;*/
+  /*grid-template-columns: 50px 50px;*/
+  /*grid-template-rows: auto;*/
+  /*grid-template-areas: "header header header header" "opt1 opt2 opt3 opt4";*/
+}
+
+.header {
+  grid-area: header;
+}

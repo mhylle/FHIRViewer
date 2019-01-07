@@ -1,0 +1,29 @@
+<div class="name">
+  <div class="label">Element name:</div>
+  <div class="input"><input [(ngModel)]="data.name" required type="text"></div>
+</div>
+<div class="cardinality">
+  <div class="header">Cardinality:</div>
+  <mat-button-toggle-group name="fontStyle" aria-label="Font Style" required>
+    <mat-button-toggle value="zeroone" [checked]="data.min === 0 && data.max === '1'">0..1</mat-button-toggle>
+    <mat-button-toggle value="oneone" [checked]="data.min === 1 && data.max === '1'">1..1</mat-button-toggle>
+    <mat-button-toggle value="zeromany" [checked]="data.min === 0 && data.max === '*'">0..*</mat-button-toggle>
+    <mat-button-toggle value="onemany" [checked]="data.min === 1 && data.max === '*'">1..*</mat-button-toggle>
+  </mat-button-toggle-group>
+</div>
+<div>
+  <div>Type</div>
+  <div>
+    <select [(ngModel)]="data.type" placeholder="Select Resource">
+      <option *ngFor="let opt of typeService.types; trackBy resourceTypeTracker" value="{{opt}}"
+              [selected]="data.type=== opt">{{opt}}</option>
+    </select>
+  </div>
+</div>
+<div *ngIf="variableType == 'Reference'">
+  <select>
+    <option value="EpisodeOfCare">EpisodeOfCare</option>
+    <option value="Encounter">Encounter</option>
+  </select>
+</div>
+

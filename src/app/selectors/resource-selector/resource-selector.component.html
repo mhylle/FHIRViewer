@@ -1,7 +1,7 @@
 <div class="container">
   <div class="resourceSelection">
     <select [(ngModel)]="selectedResource" (change)="fireResourceChanged()" placeholder="Select Resource">
-      <option *ngFor="let opt of resourceTypes" value="{{opt.name}}">{{opt.label}}</option>
+      <option *ngFor="let opt of resourceTypes; trackBy resourceTypeTracker" value="{{opt.name}}">{{opt.label}}</option>
     </select>
   </div>
   <div class="checkbox">

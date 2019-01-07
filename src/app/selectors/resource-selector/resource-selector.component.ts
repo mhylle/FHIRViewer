@@ -5,6 +5,10 @@ import {ResourceService} from '../../services/model/resource.service';
 import {ContextService} from "../../services/infrastructure/context.service";
 import {Component, EventEmitter, OnInit, Output} from "@angular/core";
 
+export class ResourceType {
+  name: string;
+  label: string;
+}
 @Component({
   selector: 'app-resource-selector',
   templateUrl: './resource-selector.component.html',
@@ -14,7 +18,7 @@ export class ResourceSelectorComponent implements OnInit {
   hideUnused = true;
   hideReadonly = true;
 
-  resourceTypes = [];
+  resourceTypes: ResourceType[];
   selectedResource: string;
 
   @Output()
@@ -37,7 +41,7 @@ export class ResourceSelectorComponent implements OnInit {
 
         const entryElement = value.entry[i];
         if (entryElement.resource.id.startsWith('Columna')) {
-          this.resourceTypes.push({'name': entryElement.resource.id, 'label': entryElement.resource.name});
+          this.resourceTypes.push({name: entryElement.resource.id, label: entryElement.resource.name});
         }
       }
     });
@@ -60,5 +64,10 @@ export class ResourceSelectorComponent implements OnInit {
 
   fireReadOnlyChanged() {
     this.hideReadOnlyChanged.emit(this.hideReadonly);
+  }
+
+  resourceTypeTracker(index, item) {
+    return item.name;
+
   }
 }
