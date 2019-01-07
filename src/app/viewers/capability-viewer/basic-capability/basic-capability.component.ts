@@ -159,7 +159,11 @@ export class BasicCapabilityComponent implements OnInit, OnChanges {
                 }
                 operation.parameters = value.parameter;
                 operation.description = value.description;
-                operation.example = value.text.div;
+                if (value.text) {
+                  operation.example = value.text.div;
+                } else {
+                  operation.example = 'There are no examples for this operation.';
+                }
                 this.capability.operations.push(operation);
               }
             );
