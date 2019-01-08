@@ -5,4 +5,5 @@ export class DiagramNodeElement {
   type: fhir.uri;
   profile: fhir.uri;
   readOnly: boolean;
+  description: string;
 }

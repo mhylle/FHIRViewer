@@ -46,8 +46,8 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
   @Input()
   hideReadonly = true;
 
-  private headerStyle = "font-size: 1.2em; font-weight: bold; color: white;background-color: #204e5f; height: 100%; padding-bottom: 8px;padding-top: 8px;margin:0; padding-left: 0; padding-right: 0";
-  private elementStyle = "margin-left: 4px; margin-right: 4px;text-align: left; color: black; background-color: white;html=1;autosize=1;resizable=0;";
+  private headerStyle = "font-size: 1.2em; font-weight: bold; color: white;background-color: #204e5f; height: 100%; padding-bottom: 8px;padding-top: 8px;margin:0; padding-left: 0; padding-right: 0;margin-left: 0px; margin-right: 0px";
+  private elementStyle = "width: 100%;display: flex;margin-left: 4px; margin-right: 4px;text-align: left; color: black; background-color: white;html=1;autosize=1;resizable=0;";
   private edgeStyle = 'defaultEdge;rounded=1;strokeColor=black;fontColor=black;startArrow=diamond';
   private $resource: Observable<any>;
   private nodes: Map<string, DiagramNode>;
@@ -162,6 +162,7 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
               diagramNodeElement.max = elementDefinition.max;
               diagramNodeElement.type = elementDefinitionType.code;
               diagramNodeElement.readOnly = ModelUtils.isReadOnly(elementDefinition.constraint);
+              diagramNodeElement.description = elementDefinition.definition;
 
               if (elementDefinitionType.profile) {
                 diagramNodeElement.profile = elementDefinitionType.profile;
@@ -263,22 +264,23 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
           if (this.configurationService.isAdminServer && false) {
             template += this.createEditableElement(element);
           } else {
-            template += element.name + ':';
-            template += element.type;
-            template += '[' + element.min + '...' + element.max + '] ';
+            template += '<div>' + element.name + ': </div>';
+            template += '<div>' + element.type + '</div>';
+            template += '<div>[' + element.min + '...' + element.max + '] </div>';
           }
+          template += '<div>';
           if (element.type === 'Reference') {
             const navigationCommand = "sendNavigationEvent('/CapabilityStatement', '" + StringUtils.stripUrl(element.profile) + "')";
             template += '<span style="' + this.svgLink + '" onmousedown="' + navigationCommand + '">' + StringUtils.stripUrl(element.profile) + '</span>';
           }
-
+          template += '</div>';
           if (this.configurationService.isAdminServer) {
-            template += '<span>';
+
             let stringify = JSON.stringify(element);
             const editCommand = "sendActionEvent('edit', '" + encodeURI(stringify) + "')";
-            template += '<span style="text-align: right" onmousedown="' + editCommand + '"><img src="../../../../../assets/images/edit.png" alt="edit" width="12" height="12"/></span>';
-            template += '<span style="text-align: right"><img src="../../../../../assets/images/delete2.png" alt="delete" width="12" height="12"/></span>';
-            template += '</span>';
+            template += '<div style="text-align: right; width: 100%" onmousedown="' + editCommand + '"><img src="../../../../../assets/images/edit.png" alt="edit" width="12" height="12"/></div>';
+            template += '<div><img src="../../../../../assets/images/delete2.png" alt="delete" width="12" height="12"/></div>';
+
 
           }
           template += '</div>';

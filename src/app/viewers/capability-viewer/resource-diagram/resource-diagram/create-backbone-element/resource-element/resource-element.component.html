@@ -20,6 +20,18 @@
     </select>
   </div>
 </div>
+<div>
+  <div>Description</div>
+  <div>
+    <textarea [(ngModel)]="data.description"></textarea>
+  </div>
+</div>
+<div>
+  <div>Readonly?</div>
+  <div>
+    <input type="checkbox" [(ngModel)]="data.readOnly">
+  </div>
+</div>
 <div *ngIf="variableType == 'Reference'">
   <select>
     <option value="EpisodeOfCare">EpisodeOfCare</option>
