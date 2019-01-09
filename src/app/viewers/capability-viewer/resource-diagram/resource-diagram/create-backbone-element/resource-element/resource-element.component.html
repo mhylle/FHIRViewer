@@ -3,39 +3,49 @@
   <div class="input"><input [(ngModel)]="data.name" required type="text"></div>
 </div>
 <div class="cardinality">
-  <div class="header">Cardinality:</div>
-  <mat-button-toggle-group name="fontStyle" aria-label="Font Style" required>
-    <mat-button-toggle value="zeroone" [checked]="data.min === 0 && data.max === '1'">0..1</mat-button-toggle>
-    <mat-button-toggle value="oneone" [checked]="data.min === 1 && data.max === '1'">1..1</mat-button-toggle>
-    <mat-button-toggle value="zeromany" [checked]="data.min === 0 && data.max === '*'">0..*</mat-button-toggle>
-    <mat-button-toggle value="onemany" [checked]="data.min === 1 && data.max === '*'">1..*</mat-button-toggle>
-  </mat-button-toggle-group>
-</div>
-<div>
-  <div>Type</div>
-  <div>
-    <select [(ngModel)]="data.type" placeholder="Select Resource">
-      <option *ngFor="let opt of typeService.types; trackBy resourceTypeTracker" value="{{opt}}"
-              [selected]="data.type=== opt">{{opt}}</option>
-    </select>
+  <div class="label">Cardinality:</div>
+  <div class="input">
+    <mat-button-toggle-group name="fontStyle" aria-label="Font Style" required>
+      <mat-button-toggle value="zeroone" [checked]="data.min === 0 && data.max === '1'">0..1</mat-button-toggle>
+      <mat-button-toggle value="oneone" [checked]="data.min === 1 && data.max === '1'">1..1</mat-button-toggle>
+      <mat-button-toggle value="zeromany" [checked]="data.min === 0 && data.max === '*'">0..*</mat-button-toggle>
+      <mat-button-toggle value="onemany" [checked]="data.min === 1 && data.max === '*'">1..*</mat-button-toggle>
+    </mat-button-toggle-group>
   </div>
 </div>
-<div>
-  <div>Description</div>
-  <div>
+<div class="typereference">
+  <div class="type">
+    <div class="label">Type</div>
+    <div class="input">
+      <select [(ngModel)]="data.type" placeholder="Select Resource">
+        <option *ngFor="let opt of typeService.types; trackBy resourceTypeTracker" value="{{opt}}"
+                [selected]="data.type=== opt">{{opt}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="referenceType">
+    <div *ngIf="data.type == 'Reference'">
+      <div class="label">
+        Select reference
+      </div>
+      <select placeholder="Select reference">
+        <option value="EpisodeOfCare">EpisodeOfCare</option>
+        <option value="Encounter">Encounter</option>
+      </select>
+    </div>
+  </div>
+</div>
+<div class="description">
+  <div class="label">Description</div>
+  <div class="input">
     <textarea [(ngModel)]="data.description"></textarea>
   </div>
 </div>
-<div>
+<div class="additional">
   <div>Readonly?</div>
   <div>
     <input type="checkbox" [(ngModel)]="data.readOnly">
   </div>
 </div>
-<div *ngIf="variableType == 'Reference'">
-  <select>
-    <option value="EpisodeOfCare">EpisodeOfCare</option>
-    <option value="Encounter">Encounter</option>
-  </select>
-</div>
+
 
