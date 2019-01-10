@@ -97,48 +97,52 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
       }));
 
     this.$resource.subscribe(value => {
-      this.nodes = new Map<string, DiagramNode>();
-      this.structureDefinition = value.resource;
-      let parentNode = new DiagramNode();
-      parentNode.isParent = true;
-      parentNode.title = this.structureDefinition.title;
-      parentNode.min = 1;
-      parentNode.max = "1";
+      this.calculateGraph(value);
+    });
+  }
 
-      if (this.structureDefinition.snapshot) {
-        let elementDefinitions = this.structureDefinition.snapshot.element;
-        for (let i = 0; i < elementDefinitions.length; i++) {
-          const elementDefinition = elementDefinitions[i];
-          if (elementDefinition.type != null) {
-            const elementType = elementDefinition.type[0];
-            if (elementType.code === 'BackboneElement') {
-              let diagramNode = new DiagramNode();
-              let connection = new DiagramConnection();
-              connection.source = parentNode;
-              connection.target = diagramNode;
-              connection.label = elementDefinition.sliceName;
-              connection.sourceCardinality = "" + elementDefinition.min;
-              connection.targetCardinality = elementDefinition.max;
-              diagramNode.connection = connection;
-              diagramNode.title = elementDefinition.sliceName;
-              diagramNode.min = elementDefinition.min;
-              diagramNode.max = elementDefinition.max;
-              diagramNode.short = elementDefinition.short;
-              diagramNode.path = elementDefinition.path;
-              diagramNode.readOnly = ModelUtils.isReadOnly(elementDefinition.constraint);
-              this.nodes.set(elementDefinition.path, diagramNode);
-              this.calculateChildren(elementDefinition.path, diagramNode);
-            } else {
-              if (!this.nodes.has(elementDefinition.path)) {
-                this.calculateChildren(this.structureDefinition.title, parentNode);
-                this.nodes.set(this.structureDefinition.title, parentNode);
-              }
+  private calculateGraph(value) {
+    this.nodes = new Map<string, DiagramNode>();
+    this.structureDefinition = value.resource;
+    let parentNode = new DiagramNode();
+    parentNode.isParent = true;
+    parentNode.title = this.structureDefinition.title;
+    parentNode.min = 1;
+    parentNode.max = "1";
+
+    if (this.structureDefinition.snapshot) {
+      let elementDefinitions = this.structureDefinition.snapshot.element;
+      for (let i = 0; i < elementDefinitions.length; i++) {
+        const elementDefinition = elementDefinitions[i];
+        if (elementDefinition.type != null) {
+          const elementType = elementDefinition.type[0];
+          if (elementType.code === 'BackboneElement') {
+            let diagramNode = new DiagramNode();
+            let connection = new DiagramConnection();
+            connection.source = parentNode;
+            connection.target = diagramNode;
+            connection.label = elementDefinition.sliceName;
+            connection.sourceCardinality = "" + elementDefinition.min;
+            connection.targetCardinality = elementDefinition.max;
+            diagramNode.connection = connection;
+            diagramNode.title = elementDefinition.sliceName;
+            diagramNode.min = elementDefinition.min;
+            diagramNode.max = elementDefinition.max;
+            diagramNode.short = elementDefinition.short;
+            diagramNode.path = elementDefinition.path;
+            diagramNode.readOnly = ModelUtils.isReadOnly(elementDefinition.constraint);
+            this.nodes.set(elementDefinition.path, diagramNode);
+            this.calculateChildren(elementDefinition.path, diagramNode);
+          } else {
+            if (!this.nodes.has(elementDefinition.path)) {
+              this.calculateChildren(this.structureDefinition.title, parentNode);
+              this.nodes.set(this.structureDefinition.title, parentNode);
             }
           }
         }
       }
-      this.createGraph();
-    });
+    }
+    this.createGraph();
   }
 
   calculateChildren(path: string, diagramNode: DiagramNode) {
@@ -278,7 +282,7 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
 
             let stringify = JSON.stringify(element);
             const editCommand = "sendActionEvent('edit', '" + encodeURI(stringify) + "')";
-            template += '<div style="text-align: right; width: 100%" onmousedown="' + editCommand + '"><img src="../../../../../assets/images/edit.png" alt="edit" width="12" height="12"/></div>';
+            template += '<div style="text-align: right; width: 100%"  style="\' + this.svgLink + \'" onmousedown="' + editCommand + '"><img src="../../../../../assets/images/edit.png" alt="edit" width="12" height="12"/></div>';
             template += '<div><img src="../../../../../assets/images/delete2.png" alt="delete" width="12" height="12"/></div>';
 
 
@@ -287,9 +291,14 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
         }
       }
       template += '</div>';
+      if (this.configurationService.isAdminServer) {
+        let stringify = JSON.stringify(value);
+        const editCommand = "sendActionEvent('addElement', '" + encodeURI(stringify) + "')";
+        template += '<div  style="\' + this.svgLink + \'" onmousedown="' + editCommand + '">Add new element</div>';
+      }
       let vertex = this.mxGraph.insertVertex(parent, null, template, 0, 0, 100, 150, 'strokeColor=black;fillColor=white;margin:0', false);
       if (this.configurationService.isAdminServer) {
-        this.addOverLay(this.mxGraph, vertex, value);
+        // this.addOverLay(this.mxGraph, vertex, value);
       }
       this.mxGraph.updateCellSize(vertex, false);
       vertices.set(value.title, vertex);
@@ -316,15 +325,37 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
   }
 
   private performAction(value: any) {
-    let parse = JSON.parse(decodeURI(value.data));
-    const dialogRef = this.dialog.open(EditResourceElementDialogComponent, {
-      width: '500px',
-      data: parse
-    });
+    if (value.action === 'edit') {
+      let parse = JSON.parse(decodeURI(value.data));
+      const dialogRef = this.dialog.open(EditResourceElementDialogComponent, {
+        width: '500px',
+        data: parse
+      });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed: ' + result);
-    });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed: ' + result);
+      });
+    }
+    if (value.action === 'addElement') {
+      const dialogRef = this.dialog.open(EditResourceElementDialogComponent, {
+        width: '500px',
+        data: new DiagramNodeElement()
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          console.log('The dialog was closed: ' + result.name);
+          let diagramNode: DiagramNode = JSON.parse(decodeURI(value.data));
+          if (!diagramNode.elements) {
+            diagramNode.elements = [];
+          }
+          diagramNode.elements.push(result);
+          // this.calculateGraph(value);
+        } else {
+          console.log('The dialog was closed: ' + result);
+        }
+      });
+    }
   }
 
   private addOverLay(graph: mxGraph, vertex: any, value: DiagramNode) {
