@@ -1,12 +1,13 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { NoResourceSelectedComponent } from './no-resource-selected.component';
+import {NoResourceSelectedComponent} from './no-resource-selected.component';
 
 describe('NoResourceSelectedComponent', () => {
   let component: NoResourceSelectedComponent;
   let fixture: ComponentFixture<NoResourceSelectedComponent>;
 
   beforeEach(async(() => {
+    // noinspection JSIgnoredPromiseFromCall
     TestBed.configureTestingModule({
       declarations: [ NoResourceSelectedComponent ]
     })

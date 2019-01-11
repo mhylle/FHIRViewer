@@ -1,3 +1,4 @@
+/* tslint:disable:max-line-length */
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
@@ -28,9 +29,9 @@ import {CookieService} from 'ngx-cookie-service';
 import {MhUtilsModule} from './core/mh-utils/mh-utils.module';
 import {ResourceInformationComponent} from './viewers/capability-viewer/resource-information/resource-information.component';
 import {CreateBackboneElementComponent} from './viewers/capability-viewer/resource-diagram/resource-diagram/create-backbone-element/create-backbone-element.component';
-import {ResourceDiagramComponent} from "./viewers/capability-viewer/resource-diagram/resource-diagram/resource-diagram.component";
+import {ResourceDiagramComponent} from './viewers/capability-viewer/resource-diagram/resource-diagram/resource-diagram.component';
 import {ResourceElementComponent} from './viewers/capability-viewer/resource-diagram/resource-diagram/create-backbone-element/resource-element/resource-element.component';
-import {EditResourceElementDialogComponent} from "./viewers/capability-viewer/resource-diagram/resource-diagram/create-backbone-element/resource-element-dialog/edit-resource-element-dialog.component";
+import {EditResourceElementDialogComponent} from './viewers/capability-viewer/resource-diagram/resource-diagram/create-backbone-element/resource-element-dialog/edit-resource-element-dialog.component';
 
 @NgModule({
   declarations: [

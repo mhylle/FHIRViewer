@@ -11,6 +11,7 @@ describe('StructureDefinitionComponent', () => {
   let fixture: ComponentFixture<StructureDefinitionComponent>;
 
   beforeEach(async(() => {
+    // noinspection JSIgnoredPromiseFromCall
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, HttpClientTestingModule, MhUtilsModule],
       declarations: [StructureDefinitionComponent],

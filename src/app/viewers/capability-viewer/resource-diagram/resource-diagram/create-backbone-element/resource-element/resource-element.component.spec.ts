@@ -7,6 +7,7 @@ describe('ResourceElementComponent', () => {
   let fixture: ComponentFixture<ResourceElementComponent>;
 
   beforeEach(async(() => {
+    // noinspection JSIgnoredPromiseFromCall
     TestBed.configureTestingModule({
       declarations: [ResourceElementComponent]
     })

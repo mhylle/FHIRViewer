@@ -6,7 +6,7 @@ import {Operation} from '../../../core/model/operation';
 import {switchMap} from 'rxjs/operators';
 import {ConfigurationService} from '../../../services/infrastructure/configuration.service';
 import {Observable} from 'rxjs';
-import {animate, state, style, transition, trigger} from "@angular/animations";
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-basic-capability',
@@ -145,26 +145,26 @@ export class BasicCapabilityComponent implements OnInit, OnChanges {
           const searchString = this.resourceName.substring('Columna'.length, this.resourceName.length);
           if (opDef[1].startsWith(searchString)) {
             this.capabilityService.getOperation(op.name, searchString).subscribe(
-              value => {
-                const operation = new Operation();
-                operation.name = value.code;
-                if (value.resource) {
-                  operation.reference = value.resource[0];
+              operation => {
+                const operat = new Operation();
+                operat.name = operation.code;
+                if (operation.resource) {
+                  operat.reference = operation.resource[0];
                 }
-                operation.inParameters = [];
-                for (let i = 0; i < value.parameter.length; i++) {
-                  if (value.parameter[i].use === 'in') {
-                    operation.inParameters.push(value.parameter[i]);
+                operat.inParameters = [];
+                for (let i = 0; i < operation.parameter.length; i++) {
+                  if (operation.parameter[i].use === 'in') {
+                    operat.inParameters.push(operation.parameter[i]);
                   }
                 }
-                operation.parameters = value.parameter;
-                operation.description = value.description;
-                if (value.text) {
-                  operation.example = value.text.div;
+                operat.parameters = operation.parameter;
+                operat.description = operation.description;
+                if (operation.text) {
+                  operat.example = operation.text.div;
                 } else {
-                  operation.example = 'There are no examples for this operation.';
+                  operat.example = 'There are no examples for this operation.';
                 }
-                this.capability.operations.push(operation);
+                this.capability.operations.push(operat);
               }
             );
           }

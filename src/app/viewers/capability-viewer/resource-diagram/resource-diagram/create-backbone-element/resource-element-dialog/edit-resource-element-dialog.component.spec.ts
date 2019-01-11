@@ -7,6 +7,7 @@ describe('EditResourceElementDialogComponent', () => {
   let fixture: ComponentFixture<EditResourceElementDialogComponent>;
 
   beforeEach(async(() => {
+    // noinspection JSIgnoredPromiseFromCall
     TestBed.configureTestingModule({
       declarations: [EditResourceElementDialogComponent]
     })

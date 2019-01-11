@@ -1,6 +1,6 @@
 export class StringUtils {
   static stripUrl(referenceUrl: any) {
-    if (referenceUrl == '') {
+    if (referenceUrl === null || referenceUrl === '') {
       return '';
     }
     if (referenceUrl instanceof Array) {

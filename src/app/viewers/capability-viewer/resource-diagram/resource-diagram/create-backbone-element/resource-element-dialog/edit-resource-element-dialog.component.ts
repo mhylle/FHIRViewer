@@ -1,6 +1,6 @@
 import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
-import {DiagramNodeElement} from "../../../model/DiagramNodeElement";
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {DiagramNodeElement} from '../../../model/DiagramNodeElement';
 
 @Component({
   selector: 'app-resource-element-dialog',

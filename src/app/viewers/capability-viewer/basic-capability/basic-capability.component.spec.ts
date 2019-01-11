@@ -10,6 +10,7 @@ describe('BasicCapabilityComponent', () => {
   let fixture: ComponentFixture<BasicCapabilityComponent>;
 
   beforeEach(async(() => {
+    // noinspection JSIgnoredPromiseFromCall
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, HttpClientTestingModule],
       declarations: [BasicCapabilityComponent],

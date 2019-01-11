@@ -6,10 +6,18 @@
   <div class="label">Cardinality:</div>
   <div class="input">
     <mat-button-toggle-group name="fontStyle" aria-label="Font Style" required>
-      <mat-button-toggle value="zeroone" [checked]="data.min === 0 && data.max === '1'">0..1</mat-button-toggle>
-      <mat-button-toggle value="oneone" [checked]="data.min === 1 && data.max === '1'">1..1</mat-button-toggle>
-      <mat-button-toggle value="zeromany" [checked]="data.min === 0 && data.max === '*'">0..*</mat-button-toggle>
-      <mat-button-toggle value="onemany" [checked]="data.min === 1 && data.max === '*'">1..*</mat-button-toggle>
+      <mat-button-toggle value="zeroone" [checked]="data.min === 0 && data.max === '1'"
+                         (click)="setCardinality('zeroone')">0..1
+      </mat-button-toggle>
+      <mat-button-toggle value="oneone" [checked]="data.min === 1 && data.max === '1'"
+                         (click)="setCardinality('oneone')">1..1
+      </mat-button-toggle>
+      <mat-button-toggle value="zeromany" [checked]="data.min === 0 && data.max === '*'"
+                         (click)="setCardinality('zeromany')">0..*
+      </mat-button-toggle>
+      <mat-button-toggle value="onemany" [checked]="data.min === 1 && data.max === '*'"
+                         (click)="setCardinality('onemany')">1..*
+      </mat-button-toggle>
     </mat-button-toggle-group>
   </div>
 </div>

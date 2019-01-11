@@ -7,6 +7,7 @@ describe('CreateBackboneElementComponent', () => {
   let fixture: ComponentFixture<CreateBackboneElementComponent>;
 
   beforeEach(async(() => {
+    // noinspection JSIgnoredPromiseFromCall
     TestBed.configureTestingModule({
       declarations: [CreateBackboneElementComponent]
     })
