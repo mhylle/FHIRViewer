@@ -32,6 +32,12 @@ import {CreateBackboneElementComponent} from './viewers/capability-viewer/resour
 import {ResourceDiagramComponent} from './viewers/capability-viewer/resource-diagram/resource-diagram/resource-diagram.component';
 import {ResourceElementComponent} from './viewers/capability-viewer/resource-diagram/resource-diagram/create-backbone-element/resource-element/resource-element.component';
 import {EditResourceElementDialogComponent} from './viewers/capability-viewer/resource-diagram/resource-diagram/create-backbone-element/resource-element-dialog/edit-resource-element-dialog.component';
+import {StoreModule} from '@ngrx/store';
+import {structureDefinitionReducer} from './store/reducers/structureDefinition.reducer';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {environment} from '../environments/environment';
+import {EffectsModule} from '@ngrx/effects';
+import {StructureDefinitionsEffects} from './store/effects/structureDefinitions.effects';
 
 @NgModule({
   declarations: [
@@ -61,7 +67,10 @@ import {EditResourceElementDialogComponent} from './viewers/capability-viewer/re
     BrowserAnimationsModule,
     AngularFontAwesomeModule,
     MaterialImportModule,
-    MhUtilsModule
+    MhUtilsModule,
+    StoreModule.forRoot({structureDefinitions: structureDefinitionReducer}),
+    EffectsModule.forRoot([StructureDefinitionsEffects]),
+    !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

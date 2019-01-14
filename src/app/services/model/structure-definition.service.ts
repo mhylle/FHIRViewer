@@ -3,6 +3,7 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {ConfigurationService} from '../infrastructure/configuration.service';
 import Bundle = fhir.Bundle;
+import StructureDefinition = fhir.StructureDefinition;
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -53,5 +54,9 @@ export class StructureDefinitionService {
     httpOptions.headers.append('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
     httpOptions.headers.append('Access-Control-Allow-Credentials', 'true');
     return this.http.post<string>(this.configurationService.selectedServer + '/fhir/StructureDefinition', structureDefinition);
+  }
+
+  getStructures(): Observable<StructureDefinition[]> {
+    return this.http.get<StructureDefinition[]>(this.configurationService.selectedServer + '/fhir/StructureDefinition');
   }
 }

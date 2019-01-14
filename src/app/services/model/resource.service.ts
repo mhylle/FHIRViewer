@@ -18,7 +18,7 @@ export class ResourceService {
   constructor(private http: HttpClient, private configurationService: ConfigurationService) {
   }
 
-  get bundle(): Observable<any> {
+  get bundle(): Observable<Bundle> {
     httpOptions.headers.append('Access-Control-Allow-Origin', '*');
     httpOptions.headers.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     httpOptions.headers.append('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');

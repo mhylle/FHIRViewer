@@ -15,9 +15,9 @@ import {TypeService} from '../../../../services/type.service';
 import {MatDialog} from '@angular/material';
 import {CreateBackboneElementComponent} from './create-backbone-element/create-backbone-element.component';
 import {EditResourceElementDialogComponent} from './create-backbone-element/resource-element-dialog/edit-resource-element-dialog.component';
-import {TypeElement} from '../../../../core/model/fhir/type-element';
+import {ElementDefinitionMapperService} from '../../../../services/model/mappers/element-definition-mapper.service';
+import {EditAction} from "../../../../core/actions/EditAction";
 import StructureDefinition = fhir.StructureDefinition;
-import ElementDefinition = fhir.ElementDefinition;
 
 // noinspection JSUnusedLocalSymbols
 declare var mxConstants: any;
@@ -66,7 +66,8 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
               private contextService: ContextService,
               private globalPubSubService: GlobalPubSubService,
               private typesService: TypeService,
-              public dialog: MatDialog) {
+              public dialog: MatDialog,
+              private elementDefinitionMapper: ElementDefinitionMapperService) {
   }
 
   static configureStylesheet(graph) {
@@ -125,21 +126,7 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
           if (elementDefinition.type != null) {
             const elementDefinitionType = elementDefinition.type[0];
             if (elementDefinitionType.code !== 'BackboneElement') {
-              const diagramNodeElement = new DiagramNodeElement();
-              diagramNodeElement.name = elementDefinition.sliceName;
-              diagramNodeElement.min = elementDefinition.min;
-              diagramNodeElement.max = elementDefinition.max;
-              diagramNodeElement.type = elementDefinitionType.code;
-              diagramNodeElement.readOnly = ModelUtils.isReadOnly(elementDefinition.constraint);
-              diagramNodeElement.description = elementDefinition.definition;
-
-              if (elementDefinitionType.profile) {
-                diagramNodeElement.profile = elementDefinitionType.profile;
-              }
-              if (elementDefinitionType.targetProfile) {
-                diagramNodeElement.profile = elementDefinitionType.targetProfile;
-              }
-
+              const diagramNodeElement = ElementDefinitionMapperService.fromFHIR(elementDefinition);
               diagramNode.elements.push(diagramNodeElement);
             }
           }
@@ -182,276 +169,11 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
     const parentNode = this.nodes.get(this.structureDefinition.title);
     for (let i = 0; i < parentNode.elements.length; i++) {
       const element = parentNode.elements[i];
-      let elementDefinition: ElementDefinition;
-      elementDefinition = new class implements ElementDefinition {
-        _alias: fhir.Element[];
-        _comment: fhir.Element;
-        _condition: fhir.Element[];
-        _contentReference: fhir.Element;
-        _defaultValueBase64Binary: fhir.Element;
-        _defaultValueBoolean: fhir.Element;
-        _defaultValueCode: fhir.Element;
-        _defaultValueDate: fhir.Element;
-        _defaultValueDateTime: fhir.Element;
-        _defaultValueDecimal: fhir.Element;
-        _defaultValueId: fhir.Element;
-        _defaultValueInstant: fhir.Element;
-        _defaultValueInteger: fhir.Element;
-        _defaultValueMarkdown: fhir.Element;
-        _defaultValueOid: fhir.Element;
-        _defaultValuePositiveInt: fhir.Element;
-        _defaultValueString: fhir.Element;
-        _defaultValueTime: fhir.Element;
-        _defaultValueUnsignedInt: fhir.Element;
-        _defaultValueUri: fhir.Element;
-        _definition: fhir.Element;
-        _fhir_comments: fhir.Element[];
-        _fixedBase64Binary: fhir.Element;
-        _fixedBoolean: fhir.Element;
-        _fixedCode: fhir.Element;
-        _fixedDate: fhir.Element;
-        _fixedDateTime: fhir.Element;
-        _fixedDecimal: fhir.Element;
-        _fixedId: fhir.Element;
-        _fixedInstant: fhir.Element;
-        _fixedInteger: fhir.Element;
-        _fixedMarkdown: fhir.Element;
-        _fixedOid: fhir.Element;
-        _fixedPositiveInt: fhir.Element;
-        _fixedString: fhir.Element;
-        _fixedTime: fhir.Element;
-        _fixedUnsignedInt: fhir.Element;
-        _fixedUri: fhir.Element;
-        _id: fhir.Element;
-        _isModifier: fhir.Element;
-        _isSummary: fhir.Element;
-        _label: fhir.Element;
-        _max: fhir.Element;
-        _maxLength: fhir.Element;
-        _maxValueDate: fhir.Element;
-        _maxValueDateTime: fhir.Element;
-        _maxValueDecimal: fhir.Element;
-        _maxValueInstant: fhir.Element;
-        _maxValueInteger: fhir.Element;
-        _maxValuePositiveInt: fhir.Element;
-        _maxValueTime: fhir.Element;
-        _maxValueUnsignedInt: fhir.Element;
-        _meaningWhenMissing: fhir.Element;
-        _min: fhir.Element;
-        _minValueDate: fhir.Element;
-        _minValueDateTime: fhir.Element;
-        _minValueDecimal: fhir.Element;
-        _minValueInstant: fhir.Element;
-        _minValueInteger: fhir.Element;
-        _minValuePositiveInt: fhir.Element;
-        _minValueTime: fhir.Element;
-        _minValueUnsignedInt: fhir.Element;
-        _mustSupport: fhir.Element;
-        _orderMeaning: fhir.Element;
-        _path: fhir.Element;
-        _patternBase64Binary: fhir.Element;
-        _patternBoolean: fhir.Element;
-        _patternCode: fhir.Element;
-        _patternDate: fhir.Element;
-        _patternDateTime: fhir.Element;
-        _patternDecimal: fhir.Element;
-        _patternId: fhir.Element;
-        _patternInstant: fhir.Element;
-        _patternInteger: fhir.Element;
-        _patternMarkdown: fhir.Element;
-        _patternOid: fhir.Element;
-        _patternPositiveInt: fhir.Element;
-        _patternString: fhir.Element;
-        _patternTime: fhir.Element;
-        _patternUnsignedInt: fhir.Element;
-        _patternUri: fhir.Element;
-        _representation: fhir.Element[];
-        _requirements: fhir.Element;
-        _short: fhir.Element;
-        _sliceName: fhir.Element;
-        alias: string[];
-        base: fhir.ElementDefinitionBase;
-        binding: fhir.ElementDefinitionBinding;
-        code: fhir.Coding[];
-        comment: fhir.markdown;
-        condition: fhir.id[];
-        constraint: fhir.ElementDefinitionConstraint[];
-        contentReference: fhir.uri;
-        defaultValueAddress: fhir.Address;
-        defaultValueAge: fhir.Age;
-        defaultValueAnnotation: fhir.Annotation;
-        defaultValueAttachment: fhir.Attachment;
-        defaultValueBase64Binary: fhir.base64Binary;
-        defaultValueBoolean: boolean;
-        defaultValueCode: fhir.code;
-        defaultValueCodeableConcept: fhir.CodeableConcept;
-        defaultValueCoding: fhir.Coding;
-        defaultValueContactPoint: fhir.ContactPoint;
-        defaultValueCount: fhir.Count;
-        defaultValueDate: fhir.date;
-        defaultValueDateTime: fhir.dateTime;
-        defaultValueDecimal: fhir.decimal;
-        defaultValueDistance: fhir.Distance;
-        defaultValueDuration: fhir.Duration;
-        defaultValueHumanName: fhir.HumanName;
-        defaultValueId: fhir.id;
-        defaultValueIdentifier: fhir.Identifier;
-        defaultValueInstant: fhir.instant;
-        defaultValueInteger: fhir.integer;
-        defaultValueMarkdown: fhir.markdown;
-        defaultValueMeta: fhir.Meta;
-        defaultValueMoney: fhir.Money;
-        defaultValueOid: fhir.oid;
-        defaultValuePeriod: fhir.Period;
-        defaultValuePositiveInt: fhir.positiveInt;
-        defaultValueQuantity: fhir.Quantity;
-        defaultValueRange: fhir.Range;
-        defaultValueRatio: fhir.Ratio;
-        defaultValueReference: fhir.Reference;
-        defaultValueSampledData: fhir.SampledData;
-        defaultValueSignature: fhir.Signature;
-        defaultValueString: string;
-        defaultValueTime: fhir.time;
-        defaultValueTiming: fhir.Timing;
-        defaultValueUnsignedInt: fhir.unsignedInt;
-        defaultValueUri: fhir.uri;
-        definition: fhir.markdown;
-        example: fhir.ElementDefinitionExample[];
-        extension: fhir.Extension[];
-        fhir_comments: string[];
-        fixedAddress: fhir.Address;
-        fixedAge: fhir.Age;
-        fixedAnnotation: fhir.Annotation;
-        fixedAttachment: fhir.Attachment;
-        fixedBase64Binary: fhir.base64Binary;
-        fixedBoolean: boolean;
-        fixedCode: fhir.code;
-        fixedCodeableConcept: fhir.CodeableConcept;
-        fixedCoding: fhir.Coding;
-        fixedContactPoint: fhir.ContactPoint;
-        fixedCount: fhir.Count;
-        fixedDate: fhir.date;
-        fixedDateTime: fhir.dateTime;
-        fixedDecimal: fhir.decimal;
-        fixedDistance: fhir.Distance;
-        fixedDuration: fhir.Duration;
-        fixedHumanName: fhir.HumanName;
-        fixedId: fhir.id;
-        fixedIdentifier: fhir.Identifier;
-        fixedInstant: fhir.instant;
-        fixedInteger: fhir.integer;
-        fixedMarkdown: fhir.markdown;
-        fixedMeta: fhir.Meta;
-        fixedMoney: fhir.Money;
-        fixedOid: fhir.oid;
-        fixedPeriod: fhir.Period;
-        fixedPositiveInt: fhir.positiveInt;
-        fixedQuantity: fhir.Quantity;
-        fixedRange: fhir.Range;
-        fixedRatio: fhir.Ratio;
-        fixedReference: fhir.Reference;
-        fixedSampledData: fhir.SampledData;
-        fixedSignature: fhir.Signature;
-        fixedString: string;
-        fixedTime: fhir.time;
-        fixedTiming: fhir.Timing;
-        fixedUnsignedInt: fhir.unsignedInt;
-        fixedUri: fhir.uri;
-        id: string;
-        isModifier: boolean;
-        isSummary: boolean;
-        label: string;
-        mapping: fhir.ElementDefinitionMapping[];
-        max: string;
-        maxLength: fhir.integer;
-        maxValueDate: fhir.date;
-        maxValueDateTime: fhir.dateTime;
-        maxValueDecimal: fhir.decimal;
-        maxValueInstant: fhir.instant;
-        maxValueInteger: fhir.integer;
-        maxValuePositiveInt: fhir.positiveInt;
-        maxValueQuantity: fhir.Quantity;
-        maxValueTime: fhir.time;
-        maxValueUnsignedInt: fhir.unsignedInt;
-        meaningWhenMissing: fhir.markdown;
-        min: fhir.unsignedInt;
-        minValueDate: fhir.date;
-        minValueDateTime: fhir.dateTime;
-        minValueDecimal: fhir.decimal;
-        minValueInstant: fhir.instant;
-        minValueInteger: fhir.integer;
-        minValuePositiveInt: fhir.positiveInt;
-        minValueQuantity: fhir.Quantity;
-        minValueTime: fhir.time;
-        minValueUnsignedInt: fhir.unsignedInt;
-        mustSupport: boolean;
-        orderMeaning: string;
-        path: string;
-        patternAddress: fhir.Address;
-        patternAge: fhir.Age;
-        patternAnnotation: fhir.Annotation;
-        patternAttachment: fhir.Attachment;
-        patternBase64Binary: fhir.base64Binary;
-        patternBoolean: boolean;
-        patternCode: fhir.code;
-        patternCodeableConcept: fhir.CodeableConcept;
-        patternCoding: fhir.Coding;
-        patternContactPoint: fhir.ContactPoint;
-        patternCount: fhir.Count;
-        patternDate: fhir.date;
-        patternDateTime: fhir.dateTime;
-        patternDecimal: fhir.decimal;
-        patternDistance: fhir.Distance;
-        patternDuration: fhir.Duration;
-        patternHumanName: fhir.HumanName;
-        patternId: fhir.id;
-        patternIdentifier: fhir.Identifier;
-        patternInstant: fhir.instant;
-        patternInteger: fhir.integer;
-        patternMarkdown: fhir.markdown;
-        patternMeta: fhir.Meta;
-        patternMoney: fhir.Money;
-        patternOid: fhir.oid;
-        patternPeriod: fhir.Period;
-        patternPositiveInt: fhir.positiveInt;
-        patternQuantity: fhir.Quantity;
-        patternRange: fhir.Range;
-        patternRatio: fhir.Ratio;
-        patternReference: fhir.Reference;
-        patternSampledData: fhir.SampledData;
-        patternSignature: fhir.Signature;
-        patternString: string;
-        patternTime: fhir.time;
-        patternTiming: fhir.Timing;
-        patternUnsignedInt: fhir.unsignedInt;
-        patternUri: fhir.uri;
-        representation: fhir.code[];
-        requirements: fhir.markdown;
-        short: string;
-        sliceName: string;
-        slicing: fhir.ElementDefinitionSlicing;
-        type: fhir.ElementDefinitionType[];
-      };
-      elementDefinition.min = element.min;
-      elementDefinition.max = element.max;
-      // if (element.readOnly) {
-      //   let constraint = elementDefinition.constraint;
-      //   constraint.keys() = 'Readonly';
-      // }
-
-      elementDefinition.definition = element.description;
-      const typeElement = new TypeElement();
-      typeElement.code = element.type;
-      typeElement.profile = element.profile;
-      if (!elementDefinition.type) {
-        elementDefinition.type = [];
-      }
-      elementDefinition.type.push(typeElement);
-      elementDefinition.sliceName = element.name;
-
+      const elementDefinition = ElementDefinitionMapperService.toFHIR(element);
       snapshot.element.push(elementDefinition);
     }
     this.structureDefinition.snapshot = snapshot;
+    console.log(JSON.stringify(this.structureDefinition.snapshot));
     this.structureService.save(this.structureDefinition).subscribe(value => console.log(value));
   }
 
@@ -546,9 +268,6 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
       let template = '<div style="margin-bottom: 4px;">';
       template += '<div style="' + this.headerStyle + '">';
       template += value.title;
-      // if (this.configurationService.isAdminServer) {
-      //   template += '<a>';
-      // }
       template += '</div>';
       for (let i = 0; i < value.elements.length; i++) {
         const element = value.elements[i];
@@ -557,15 +276,25 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
           if (this.configurationService.isAdminServer && false) {
             template += this.createEditableElement(element);
           } else {
-            template += '<div>' + element.name + ': </div>';
-            template += '<div>' + element.type + '</div>';
-            template += '<div>[' + element.min + '...' + element.max + '] </div>';
+            template += '<div>' + element.name + ':&nbsp;</div>';
+            template += '<div>';
+            for (let j = 0; j < element.type.length; j++) {
+              const type = element.type[j];
+              template += '<span>';
+              if (j > 0) {
+                template += '|';
+              }
+              template += type.code + '</span>';
+            }
+            template += '</div>';
+            template += '<div>&nbsp;[' + element.min + '...' + element.max + ']&nbsp;</div>';
           }
           template += '<div>';
-          if (element.type === 'Reference') {
-            const navigationCommand = 'sendNavigationEvent(\'/CapabilityStatement\', \'' + StringUtils.stripUrl(element.profile) + '\')';
+          if (ElementDefinitionMapperService.isReference(element)) {
+            const navigationCommand = 'sendNavigationEvent(\'/CapabilityStatement\', \'' +
+              ElementDefinitionMapperService.referenceUrl(element) + '\')';
             template += '<span style="' + this.svgLink + '" onmousedown="' + navigationCommand + '">'
-              + StringUtils.stripUrl(element.profile) + '</span>';
+              + ElementDefinitionMapperService.referenceUrl(element) + '</span>';
           }
           template += '</div>';
           if (this.configurationService.isAdminServer) {
@@ -575,8 +304,6 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
               'style="\' + this.svgLink + \'" onmousedown="' + editCommand + '">' +
               '<img src="../../../../../assets/images/edit.png" alt="edit" width="12" height="12"/></div>';
             template += '<div><img src="../../../../../assets/images/delete2.png" alt="delete" width="12" height="12"/></div>';
-
-
           }
           template += '</div>';
         }
@@ -618,16 +345,10 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
 
   private performAction(value: any) {
     if (value.action === 'edit') {
-      const parse = JSON.parse(decodeURI(value.data));
-      const dialogRef = this.dialog.open(EditResourceElementDialogComponent, {
-        width: '500px',
-        data: parse
-      });
-
-      dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed: ' + result);
-      });
+      const editAction = new EditAction(this.dialog);
+      editAction.execute(value);
     }
+
     if (value.action === 'addElement') {
       const dialogRef = this.dialog.open(EditResourceElementDialogComponent, {
         width: '500px',

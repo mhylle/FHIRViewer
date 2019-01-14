@@ -47,6 +47,7 @@
               (click)="setContext(stripUrl(entry.type[0].profile))"
               routerLink="/StructureDefinition/{{stripUrl(entry.type[0].profile)}}">{{stripUrl(entry.type[0].profile)}}</a>)</span>
           </div>
+          <div *ngIf="entry.type[0].code === 'Extension' && entry.type[0].profile">{{entry.type[0].profile}}</div>
         </div>
         <div *ngIf="!entry.short && descriptionVisible">{{entry.definition}}</div>
         <div *ngIf="entry.short && descriptionVisible">{{entry.short}}</div>

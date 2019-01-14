@@ -41,9 +41,10 @@ export class ResourceSelectorComponent implements OnInit {
 
         const entryElement = value.entry[i];
         if (entryElement.resource.id.startsWith('Columna')) {
-          this.resourceTypes.push({name: entryElement.resource.id, label: entryElement.resource.name});
+          this.resourceTypes.push({name: entryElement.resource.id, label: entryElement.resource.id});
         }
       }
+      this.resourceTypes.sort((a, b) => a.name.localeCompare(b.name));
     });
     this.$resource = this.route.paramMap.pipe(
       switchMap((params: ParamMap) => {
