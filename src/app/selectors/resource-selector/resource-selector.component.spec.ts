@@ -13,6 +13,7 @@ describe('ResourceSelectorComponent', () => {
   let fixture: ComponentFixture<ResourceSelectorComponent>;
 
   beforeEach(async(() => {
+    // noinspection JSIgnoredPromiseFromCall
     TestBed.configureTestingModule({
       imports: [BrowserModule, FormsModule, RouterTestingModule, HttpClientTestingModule, MaterialImportModule],
       declarations: [ResourceSelectorComponent],

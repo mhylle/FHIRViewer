@@ -12,6 +12,7 @@ describe('HomeComponent', () => {
   let fixture: ComponentFixture<HomeComponent>;
 
   beforeEach(async(() => {
+    // noinspection JSIgnoredPromiseFromCall
     TestBed.configureTestingModule({
       imports: [AngularFontAwesomeModule, MaterialImportModule, RouterTestingModule, HttpClientTestingModule],
       declarations: [HomeComponent],

@@ -2,8 +2,8 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
 import {ResourceService} from '../../services/model/resource.service';
-import {ContextService} from "../../services/infrastructure/context.service";
-import {Component, EventEmitter, OnInit, Output} from "@angular/core";
+import {ContextService} from '../../services/infrastructure/context.service';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-resource-selector',

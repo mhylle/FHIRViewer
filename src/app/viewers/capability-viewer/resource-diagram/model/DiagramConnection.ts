@@ -1,4 +1,4 @@
-import {DiagramNode} from "./DiagramNode";
+import {DiagramNode} from './DiagramNode';
 
 export class DiagramConnection {
   source: DiagramNode;

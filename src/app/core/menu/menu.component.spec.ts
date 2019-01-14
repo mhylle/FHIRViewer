@@ -4,7 +4,7 @@ import {MenuComponent} from './menu.component';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import {MaterialImportModule} from '../../material-import/material-import.module';
 import {CookieService} from 'ngx-cookie-service';
-import {RouterTestingModule} from "@angular/router/testing";
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('MenuComponent', () => {
   let component: MenuComponent;

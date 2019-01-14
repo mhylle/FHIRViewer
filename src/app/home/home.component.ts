@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ServerInformationService} from '../services/server-information.service';
 import {ConfigurationService} from '../services/infrastructure/configuration.service';
 import {ResourceService} from '../services/model/resource.service';
-import {ContextService} from "../services/infrastructure/context.service";
+import {ContextService} from '../services/infrastructure/context.service';
 
 @Component({
   selector: 'app-home',

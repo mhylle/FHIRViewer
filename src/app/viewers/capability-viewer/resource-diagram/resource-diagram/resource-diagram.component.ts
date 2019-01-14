@@ -1,16 +1,16 @@
 import {AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
-import {Observable} from "rxjs";
-import {DiagramNode} from "../model/DiagramNode";
-import {ActivatedRoute, ParamMap, Router} from "@angular/router";
-import {switchMap} from "rxjs/operators";
-import {DiagramNodeElement} from "../model/DiagramNodeElement";
-import {DiagramConnection} from "../model/DiagramConnection";
-import {ConfigurationService} from "../../../../services/infrastructure/configuration.service";
-import {StructureDefinitionService} from "../../../../services/model/structure-definition.service";
-import {StringUtils} from "../../../../core/utils/string-utils";
-import {ModelUtils} from "../../../../core/utils/model-utils";
-import {GlobalPubSubService} from "../../../../services/infrastructure/global-pub-sub.service";
-import {ContextService} from "../../../../services/infrastructure/context.service";
+import {Observable} from 'rxjs';
+import {DiagramNode} from '../model/DiagramNode';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {switchMap} from 'rxjs/operators';
+import {DiagramNodeElement} from '../model/DiagramNodeElement';
+import {DiagramConnection} from '../model/DiagramConnection';
+import {ConfigurationService} from '../../../../services/infrastructure/configuration.service';
+import {StructureDefinitionService} from '../../../../services/model/structure-definition.service';
+import {StringUtils} from '../../../../core/utils/string-utils';
+import {ModelUtils} from '../../../../core/utils/model-utils';
+import {GlobalPubSubService} from '../../../../services/infrastructure/global-pub-sub.service';
+import {ContextService} from '../../../../services/infrastructure/context.service';
 import StructureDefinition = fhir.StructureDefinition;
 
 // noinspection JSUnusedLocalSymbols
@@ -32,12 +32,14 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
   @Input()
   hideReadonly = true;
 
-  private headerStyle = "font-size: 1.2em; font-weight: bold; color: white;background-color: #204e5f; height: 100%; padding-bottom: 8px;padding-top: 8px;margin:0; padding-left: 0; padding-right: 0";
-  private elementStyle = "margin-left: 4px; margin-right: 4px;text-align: left; color: black; background-color: white;html=1;autosize=1;resizable=0;";
+  private headerStyle = 'font-size: 1.2em; font-weight: bold; color: white;background-color: #204e5f; height: 100%; ' +
+    'padding-bottom: 8px;padding-top: 8px;margin:0; padding-left: 0; padding-right: 0';
+  private elementStyle = 'margin-left: 4px; margin-right: 4px;text-align: left; color: black; ' +
+    'background-color: white;html=1;autosize=1;resizable=0;';
   private edgeStyle = 'defaultEdge;rounded=1;strokeColor=black;fontColor=black;startArrow=diamond';
   private $resource: Observable<any>;
   private nodes: Map<string, DiagramNode>;
-  private svgLink = "text-decoration: underline; color: blue; cursor: pointer";
+  private svgLink = 'text-decoration: underline; color: blue; cursor: pointer';
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -48,11 +50,11 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
   }
 
   static configureStylesheet(graph) {
-    let style = graph.stylesheet.getDefaultEdgeStyle();
+    const style = graph.stylesheet.getDefaultEdgeStyle();
     style[mxConstants.STYLE_LABEL_BACKGROUNDCOLOR] = '#ffffff';
     style[mxConstants.STYLE_STROKECOLOR] = '#1B78C8';
     style[mxConstants.STYLE_STROKEWIDTH] = '1';
-  };
+  }
 
   calculateElements() {
     this.$resource = this.route.paramMap.pipe(
@@ -63,25 +65,25 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
     this.$resource.subscribe(value => {
       this.nodes = new Map<string, DiagramNode>();
       this.structureDefinition = value.resource;
-      let parentNode = new DiagramNode();
+      const parentNode = new DiagramNode();
       parentNode.isParent = true;
       parentNode.title = this.structureDefinition.title;
       parentNode.min = 1;
-      parentNode.max = "1";
+      parentNode.max = '1';
 
       if (this.structureDefinition.snapshot) {
-        let elementDefinitions = this.structureDefinition.snapshot.element;
+        const elementDefinitions = this.structureDefinition.snapshot.element;
         for (let i = 0; i < elementDefinitions.length; i++) {
           const elementDefinition = elementDefinitions[i];
           if (elementDefinition.type != null) {
             const elementType = elementDefinition.type[0];
             if (elementType.code === 'BackboneElement') {
-              let diagramNode = new DiagramNode();
-              let connection = new DiagramConnection();
+              const diagramNode = new DiagramNode();
+              const connection = new DiagramConnection();
               connection.source = parentNode;
               connection.target = diagramNode;
               connection.label = elementDefinition.sliceName;
-              connection.sourceCardinality = "" + elementDefinition.min;
+              connection.sourceCardinality = '' + elementDefinition.min;
               connection.targetCardinality = elementDefinition.max;
               diagramNode.connection = connection;
               diagramNode.title = elementDefinition.sliceName;
@@ -107,20 +109,21 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
 
   calculateChildren(path: string, diagramNode: DiagramNode) {
     if (this.structureDefinition.snapshot) {
-      let elementDefinitions = this.structureDefinition.snapshot.element;
+      const elementDefinitions = this.structureDefinition.snapshot.element;
       diagramNode.elements = [];
 
       for (let i = 0; i < elementDefinitions.length; i++) {
         const elementDefinition = elementDefinitions[i];
-        let elementLevel = StringUtils.computeLevel(elementDefinition.path);
-        let pathLevel = StringUtils.computeLevel(path);
+        const elementLevel = StringUtils.computeLevel(elementDefinition.path);
+        const pathLevel = StringUtils.computeLevel(path);
         // cannot use startswith as we may have a deeper level. So we need to be one level below the path and not more
         // MISSING: do the lower level
-        if ((elementLevel == 1 && pathLevel === 0) || (elementLevel - pathLevel) === 1 && elementDefinition.path.startsWith(path) && elementDefinition.path != diagramNode.path) {
+        if ((elementLevel === 1 && pathLevel === 0) || (elementLevel - pathLevel) === 1 &&
+          elementDefinition.path.startsWith(path) && elementDefinition.path !== diagramNode.path) {
           if (elementDefinition.type != null) {
-            let elementDefinitionType = elementDefinition.type[0];
+            const elementDefinitionType = elementDefinition.type[0];
             if (elementDefinitionType.code !== 'BackboneElement') {
-              let diagramNodeElement = new DiagramNodeElement();
+              const diagramNodeElement = new DiagramNodeElement();
               diagramNodeElement.name = elementDefinition.sliceName;
               diagramNodeElement.min = elementDefinition.min;
               diagramNodeElement.max = elementDefinition.max;
@@ -160,8 +163,8 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
   }
 
   performNavigation(args: any) {
-    let url = args.url;
-    let resource = args.resource;
+    const url = args.url;
+    const resource = args.resource;
     this.contextService.currentResource = resource;
     // noinspection JSIgnoredPromiseFromCall
     this.router.navigate([url, resource]);
@@ -196,7 +199,7 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
 
     } finally {
       this.mxGraph.setEnabled(false);
-      let layout: mxHierarchicalLayout = new mxHierarchicalLayout(this.mxGraph);
+      const layout: mxHierarchicalLayout = new mxHierarchicalLayout(this.mxGraph);
 
       layout.execute(this.mxGraph.getDefaultParent());
       this.mxGraph.getModel().endUpdate();
@@ -206,17 +209,17 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
   }
 
   private createConnection(value, vertices: Map<string, any>, parent) {
-    let connection = value.connection;
+    const connection = value.connection;
     if (connection != null) {
       const source = vertices.get(connection.source.title);
       const target = vertices.get(connection.target.title);
-      let label = connection.label + '[' + connection.sourceCardinality + '...' + connection.targetCardinality + ']';
+      const label = connection.label + '[' + connection.sourceCardinality + '...' + connection.targetCardinality + ']';
       this.mxGraph.insertEdge(parent, 'path', label, source, target, this.edgeStyle);
     }
   }
 
   private createNode(value, parent, vertices: Map<string, any>) {
-    if (value.max != null && value.max != "0") {
+    if (value.max != null && value.max !== '0') {
       let template = '<div style="margin-bottom: 4px;">';
       template += '<div style="' + this.headerStyle + '">' + value.title + '</div>';
       for (let i = 0; i < value.elements.length; i++) {
@@ -227,14 +230,16 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
           template += element.type;
           template += '[' + element.min + '...' + element.max + '] ';
           if (element.type === 'Reference') {
-            const navigationCommand = "sendNavigationEvent('/CapabilityStatement', '" + StringUtils.stripUrl(element.profile) + "')";
-            template += '<span style="' + this.svgLink + '" onmousedown="' + navigationCommand + '">' + StringUtils.stripUrl(element.profile) + '</span>';
+            const navigationCommand = 'sendNavigationEvent(\'/CapabilityStatement\', \'' + StringUtils.stripUrl(element.profile) + '\')';
+            template += '<span style="' + this.svgLink + '" onmousedown="' + navigationCommand + '">';
+            template += StringUtils.stripUrl(element.profile) + '</span>';
           }
           template += '</div>';
         }
       }
       template += '</div>';
-      let vertex = this.mxGraph.insertVertex(parent, null, template, 0, 0, 100, 150, 'strokeColor=black;fillColor=white;margin:0', false);
+      const vertexStyle = 'strokeColor=black;fillColor=white;margin:0';
+      const vertex = this.mxGraph.insertVertex(parent, null, template, 0, 0, 100, 150, vertexStyle, false);
       this.mxGraph.updateCellSize(vertex, false);
       vertices.set(value.title, vertex);
     }

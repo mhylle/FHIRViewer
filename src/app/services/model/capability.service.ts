@@ -75,7 +75,8 @@ export class CapabilityService {
     httpOptions.headers.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     httpOptions.headers.append('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
     httpOptions.headers.append('Access-Control-Allow-Credentials', 'true');
-    return this.http.get<OperationDefinition>(this.configurationService.selectedServer + '/fhir/operationDefinition/' + resource + '/' + operation, httpOptions)
+    const url = this.configurationService.selectedServer + '/fhir/operationDefinition/' + resource + '/' + operation;
+    return this.http.get<OperationDefinition>(url, httpOptions)
       .pipe(
         catchError(CapabilityService.handleOperationError)
       );

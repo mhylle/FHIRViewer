@@ -25,6 +25,4 @@ export class ResourceService {
     httpOptions.headers.append('Access-Control-Allow-Credentials', 'true');
     return this.http.get<Bundle>(this.configurationService.selectedServer + '/fhir/StructureDefinition/', httpOptions);
   }
-
-
 }

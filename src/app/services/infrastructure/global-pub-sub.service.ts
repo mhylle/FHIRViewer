@@ -18,20 +18,20 @@ import {Injectable, NgZone} from '@angular/core';
 })
 export class GlobalPubSubService {
   allowedEvents = [
-    "performNavigation",
-    "sampleEventName2"
+    'performNavigation',
+    'sampleEventName2'
   ];
 
   private subscriptions: { [key: string]: Function[]; } = {};
 
   constructor(private zone: NgZone) {
     this.allowedEvents.forEach((eventName) => {
-      this.subscriptions[eventName] = []
+      this.subscriptions[eventName] = [];
     });
 
     window['fireAngularEvent'] = (eventName, args) => {
       if (!this.subscriptions[eventName]) {
-        throw new Error('Event has to be defined in the event list.')
+        throw new Error('Event has to be defined in the event list.');
       }
 
       zone.run(() => {
