@@ -7,6 +7,7 @@ import {switchMap} from 'rxjs/operators';
 import {ConfigurationService} from '../../../services/infrastructure/configuration.service';
 import {Observable} from 'rxjs';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import CapabilityStatement = fhir.CapabilityStatement;
 
 @Component({
   selector: 'app-basic-capability',
@@ -32,7 +33,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 export class BasicCapabilityComponent implements OnInit, OnChanges {
   private $resource: Observable<Capability>;
   private shownOperations: Map<Operation, boolean> = new Map<Operation, boolean>();
-
+  private capabilityStatement: CapabilityStatement;
   capability: Capability = new Capability();
   resourceName: string;
 

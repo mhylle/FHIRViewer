@@ -5,6 +5,7 @@ import {Capability} from '../../core/model/capability';
 import {catchError} from 'rxjs/operators';
 import {ConfigurationService} from '../infrastructure/configuration.service';
 import OperationDefinition = fhir.OperationDefinition;
+import CapabilityStatement = fhir.CapabilityStatement;
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -28,6 +29,25 @@ export class CapabilityService {
     } else {
       if (error.status === 404) {
         return of<Capability>();
+      }
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong,
+      console.error(
+        `Backend returned code ${error.status}, ` +
+        `body was: ${error.error}`);
+    }
+    // return an observable with a user-facing error message
+    return throwError(
+      'Something bad happened; please try again later.');
+  }
+
+  private static handleCapabilityStatementError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error.message);
+    } else {
+      if (error.status === 404) {
+        return of<CapabilityStatement>();
       }
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong,
@@ -67,6 +87,18 @@ export class CapabilityService {
     return this.http.get<Capability>(this.configurationService.selectedServer + '/fhir/metadata/' + resource, httpOptions)
       .pipe(
         catchError(CapabilityService.handleCapabilityError)
+      );
+  }
+
+
+  getCapabilityStatement(resource: string): Observable<CapabilityStatement> {
+    httpOptions.headers.append('Access-Control-Allow-Origin', '*');
+    httpOptions.headers.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    httpOptions.headers.append('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    httpOptions.headers.append('Access-Control-Allow-Credentials', 'true');
+    return this.http.get<CapabilityStatement>(this.configurationService.selectedServer + '/fhir/metadata/' + resource, httpOptions)
+      .pipe(
+        catchError(CapabilityService.handleCapabilityStatementError)
       );
   }
 
