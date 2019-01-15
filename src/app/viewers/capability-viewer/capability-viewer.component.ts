@@ -2,7 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {ConfigurationService} from '../../services/infrastructure/configuration.service';
 import {StructureDefinitionService} from '../../services/model/structure-definition.service';
-import {ContextService} from "../../services/infrastructure/context.service";
+import {ContextService} from '../../services/infrastructure/context.service';
+import {CapabilityService} from '../../services/model/capability.service';
 
 
 @Component({
@@ -15,17 +16,24 @@ export class CapabilityViewerComponent implements OnInit {
   hideReadonly = true;
   hideUnused = true;
   structure: any;
+  private capabilityStatement: fhir.CapabilityStatement;
 
   constructor(private route: ActivatedRoute,
               private configurationService: ConfigurationService,
               private structureService: StructureDefinitionService,
+              private capabilityService: CapabilityService,
               private contextService: ContextService) {
   }
 
   ngOnInit() {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.selectedResource = params.get('resource');
+      this.capabilityStatement = null;
       this.contextService.currentResource = this.selectedResource;
+      this.capabilityService.getCapabilityStatement(this.selectedResource).subscribe(value => {
+        this.capabilityStatement = value;
+      });
+
     });
     this.configurationService.serverChanged.subscribe(() => this.updateDescription());
 

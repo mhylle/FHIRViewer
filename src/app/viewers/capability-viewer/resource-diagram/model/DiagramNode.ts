@@ -1,5 +1,5 @@
-import {DiagramConnection} from "./DiagramConnection";
-import {DiagramNodeElement} from "./DiagramNodeElement";
+import {DiagramConnection} from './DiagramConnection';
+import {DiagramNodeElement} from './DiagramNodeElement';
 
 export class DiagramNode {
   isParent: boolean;

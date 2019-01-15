@@ -1,0 +1,11 @@
+.expander {
+  text-align: left;
+  text-decoration: underline;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.expander:hover {
+  cursor: pointer;
+  color: #0066cc;
+}

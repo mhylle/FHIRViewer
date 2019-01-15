@@ -2,11 +2,13 @@
                        (hideUnusedChanged)="updateUnused($event)"></app-resource-selector>
 <div class="container" *ngIf="selectedResource">
   <div class="descriptionContainer">
-    <app-resource-information [resource]="selectedResource"></app-resource-information>
+    <app-resource-information [resource]="selectedResource"
+                              [implementationDetails]="capabilityStatement?.implementation.description"></app-resource-information>
   </div>
   <div class="capabilityContainer">
     <app-resource-diagram [hideReadonly]="hideReadonly" [hideUnused]="hideUnused"></app-resource-diagram>
     <app-basic-capability></app-basic-capability>
   </div>
+
 </div>
 <app-no-resource-selected *ngIf="!selectedResource"></app-no-resource-selected>

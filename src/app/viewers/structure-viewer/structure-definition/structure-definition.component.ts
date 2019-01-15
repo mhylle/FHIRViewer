@@ -4,9 +4,9 @@ import {ActivatedRoute, ParamMap} from '@angular/router';
 import {Observable} from 'rxjs';
 import {StructureDefinitionService} from '../../../services/model/structure-definition.service';
 import {BreakpointObserver} from '@angular/cdk/layout';
-import {StringUtils} from "../../../core/utils/string-utils";
-import {ModelUtils} from "../../../core/utils/model-utils";
-import {ContextService} from "../../../services/infrastructure/context.service";
+import {StringUtils} from '../../../core/utils/string-utils';
+import {ModelUtils} from '../../../core/utils/model-utils';
+import {ContextService} from '../../../services/infrastructure/context.service';
 import ElementDefinition = fhir.ElementDefinition;
 import StructureDefinition = fhir.StructureDefinition;
 
@@ -72,7 +72,7 @@ export class StructureDefinitionComponent implements OnInit {
   ngOnInit() {
     this.$resource = this.route.paramMap.pipe(
       switchMap((params: ParamMap) => {
-        let currentResource = params.get('resource');
+        const currentResource = params.get('resource');
         this.contextService.currentResource = currentResource;
         return this.structureService.getStructure(currentResource);
       }));

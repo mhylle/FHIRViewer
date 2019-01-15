@@ -3,9 +3,9 @@ import {TestBed} from '@angular/core/testing';
 import {StructureDefinitionService} from './structure-definition.service';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {CookieService} from 'ngx-cookie-service';
-import {ConfigurationService} from "../infrastructure/configuration.service";
-import {of} from "rxjs";
-import {HttpErrorResponse} from "@angular/common/http";
+import {ConfigurationService} from '../infrastructure/configuration.service';
+import {of} from 'rxjs';
+import {HttpErrorResponse} from '@angular/common/http';
 
 describe('StructureDefinitionService', () => {
   let httpClientSpy: { get: jasmine.Spy };
@@ -16,7 +16,7 @@ describe('StructureDefinitionService', () => {
         imports: [HttpClientTestingModule],
         providers: [CookieService, ConfigurationService]
       });
-      httpClientSpy = jasmine.createSpyObj('HttpClient', ['get'])
+    httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
       httpMock = TestBed.get(HttpTestingController);
     }
   );
@@ -27,11 +27,11 @@ describe('StructureDefinitionService', () => {
   });
 
   it('should retrieve an observable with values when values exist', () => {
-    const expectedStructure = "{'name': 'aabc}";
+    const expectedStructure = '{\'name\': \'aabc}';
     const service: StructureDefinitionService = TestBed.get(StructureDefinitionService);
     httpClientSpy.get.and.returnValue(of(expectedStructure));
 
-    service.getStructure("EpisodeOfCare").subscribe(structure => {
+    service.getStructure('EpisodeOfCare').subscribe(structure => {
       expect(structure).toEqual(expectedStructure, 'Expected result');
       expect(httpClientSpy.get.calls.count()).toBe(1, 'one call');
     });
@@ -42,7 +42,7 @@ describe('StructureDefinitionService', () => {
     const service: StructureDefinitionService = TestBed.get(StructureDefinitionService);
     httpClientSpy.get.and.returnValue(of(null));
 
-    service.getStructure("EpisodeOfCare").subscribe(structure => {
+    service.getStructure('EpisodeOfCare').subscribe(structure => {
       expect(structure).toEqual(null, 'Expected result');
     });
     const configurationService: ConfigurationService = TestBed.get(ConfigurationService);
@@ -60,9 +60,9 @@ describe('StructureDefinitionService', () => {
     });
 
     httpClientSpy.get.and.returnValue(of(errorResponse));
-    service.getStructure("EpisodeOfCare").subscribe(
-      structure => fail('expected an error not a structure'),
+    service.getStructure('EpisodeOfCare').subscribe(
+      structure => fail('expected an error not a structure' + structure),
       error => expect(error.message).toContain('tesaasasddadtaa 404 error')
     );
-  })
+  });
 });

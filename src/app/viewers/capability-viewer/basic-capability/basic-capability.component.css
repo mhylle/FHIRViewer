@@ -4,6 +4,10 @@
   text-align: center;
 }
 
+.information {
+  text-align: left;
+  font-size: 0.8em;
+}
 .interaction {
   width: 100%;
   display: grid;

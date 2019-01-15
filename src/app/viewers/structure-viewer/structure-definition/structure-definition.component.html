@@ -39,13 +39,20 @@
         <div class="cardinality">{{entry.min}}..{{entry.max}}</div>
         <div class="type">
           <div *ngIf="entry.type">
-            <span>{{entry.type[0].code}}</span>
-            <span *ngIf="entry.type[0].code === 'Reference' && entry.type[0].targetProfile">(<a
-              (click)="setContext(stripUrl(entry.type[0].targetProfile))"
-              routerLink="/StructureDefinition/{{stripUrl(entry.type[0].targetProfile)}}">{{stripUrl(entry.type[0].targetProfile)}}</a>)</span>
-            <span *ngIf="entry.type[0].code === 'Reference' && entry.type[0].profile">(<a
-              (click)="setContext(stripUrl(entry.type[0].profile))"
-              routerLink="/StructureDefinition/{{stripUrl(entry.type[0].profile)}}">{{stripUrl(entry.type[0].profile)}}</a>)</span>
+            <span *ngFor="let type of entry.type; index as i">
+              <div *ngIf="type.code === 'Reference'"></div>
+              <span>{{type.code}}</span>
+              <div *ngIf="type.code === 'Extension'"><a
+                routerLink="/StructureDefinition/{{stripUrl(type.profile)}}">{{stripUrl(type.profile)}}</a>
+              </div>
+              <span *ngIf="type.code === 'Reference' && type.targetProfile">(<a
+                (click)="setContext(stripUrl(type.targetProfile))"
+                routerLink="/StructureDefinition/{{stripUrl(type.targetProfile)}}">{{stripUrl(type.targetProfile)}}</a>)</span>
+              <span *ngIf="type.code === 'Reference' && type.profile">(<a
+                (click)="setContext(stripUrl(type.profile))"
+                routerLink="/StructureDefinition/{{stripUrl(type.profile)}}">{{stripUrl(type.profile)}}</a>)</span>
+              <span *ngIf="i < entry.type.length-1">&nbsp;|&nbsp;</span>
+            </span>
           </div>
         </div>
         <div *ngIf="!entry.short && descriptionVisible">{{entry.definition}}</div>

@@ -13,6 +13,7 @@ describe('ServerSelectorComponent', () => {
   let fixture: ComponentFixture<ServerSelectorComponent>;
 
   beforeEach(async(() => {
+    // noinspection JSIgnoredPromiseFromCall
     TestBed.configureTestingModule({
       imports: [BrowserModule, FormsModule, RouterTestingModule, HttpClientTestingModule, MaterialImportModule],
       declarations: [ServerSelectorComponent],

@@ -6,7 +6,8 @@ import {Operation} from '../../../core/model/operation';
 import {switchMap} from 'rxjs/operators';
 import {ConfigurationService} from '../../../services/infrastructure/configuration.service';
 import {Observable} from 'rxjs';
-import {animate, state, style, transition, trigger} from "@angular/animations";
+import {animate, state, style, transition, trigger} from '@angular/animations';
+import CapabilityStatement = fhir.CapabilityStatement;
 
 @Component({
   selector: 'app-basic-capability',
@@ -32,7 +33,7 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
 export class BasicCapabilityComponent implements OnInit, OnChanges {
   private $resource: Observable<Capability>;
   private shownOperations: Map<Operation, boolean> = new Map<Operation, boolean>();
-
+  private capabilityStatement: CapabilityStatement;
   capability: Capability = new Capability();
   resourceName: string;
 
@@ -145,22 +146,22 @@ export class BasicCapabilityComponent implements OnInit, OnChanges {
           const searchString = this.resourceName.substring('Columna'.length, this.resourceName.length);
           if (opDef[1].startsWith(searchString)) {
             this.capabilityService.getOperation(op.name, searchString).subscribe(
-              value => {
+              operationResult => {
                 const operation = new Operation();
-                operation.name = value.code;
-                if (value.resource) {
-                  operation.reference = value.resource[0];
+                operation.name = operationResult.code;
+                if (operationResult.resource) {
+                  operation.reference = operationResult.resource[0];
                 }
                 operation.inParameters = [];
-                for (let i = 0; i < value.parameter.length; i++) {
-                  if (value.parameter[i].use === 'in') {
-                    operation.inParameters.push(value.parameter[i]);
+                for (let i = 0; i < operationResult.parameter.length; i++) {
+                  if (operationResult.parameter[i].use === 'in') {
+                    operation.inParameters.push(operationResult.parameter[i]);
                   }
                 }
-                operation.parameters = value.parameter;
-                operation.description = value.description;
-                if (value.text) {
-                  operation.example = value.text.div;
+                operation.parameters = operationResult.parameter;
+                operation.description = operationResult.description;
+                if (operationResult.text) {
+                  operation.example = operationResult.text.div;
                 } else {
                   operation.example = 'There are no examples for this operation.';
                 }

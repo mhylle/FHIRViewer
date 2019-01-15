@@ -27,7 +27,7 @@ import {NoResourceSelectedComponent} from './viewers/no-resource-selected/no-res
 import {CookieService} from 'ngx-cookie-service';
 import {MhUtilsModule} from './core/mh-utils/mh-utils.module';
 import {ResourceInformationComponent} from './viewers/capability-viewer/resource-information/resource-information.component';
-import {ResourceDiagramComponent} from "./viewers/capability-viewer/resource-diagram/resource-diagram/resource-diagram.component";
+import {ResourceDiagramComponent} from './viewers/capability-viewer/resource-diagram/resource-diagram/resource-diagram.component';
 
 @NgModule({
   declarations: [
