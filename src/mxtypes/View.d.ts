@@ -48,6 +48,7 @@ declare class mxHierarchicalLayout {
 
   constructor(graph: mxGraph);
 
+  orientation: string;
   execute(parent: any);
 
 }

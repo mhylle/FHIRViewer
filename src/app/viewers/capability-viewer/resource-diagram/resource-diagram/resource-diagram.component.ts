@@ -200,7 +200,7 @@ export class ResourceDiagramComponent implements OnInit, AfterViewInit, OnChange
     } finally {
       this.mxGraph.setEnabled(false);
       const layout: mxHierarchicalLayout = new mxHierarchicalLayout(this.mxGraph);
-
+      layout.orientation = mxConstants.DIRECTION_WEST;
       layout.execute(this.mxGraph.getDefaultParent());
       this.mxGraph.getModel().endUpdate();
 

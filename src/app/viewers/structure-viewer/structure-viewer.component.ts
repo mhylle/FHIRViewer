@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap} from '@angular/router';
+import {ContextService} from '../../services/infrastructure/context.service';
 
 @Component({
   selector: 'app-structure-viewer',
@@ -11,11 +12,14 @@ export class StructureViewerComponent implements OnInit {
   hideReadonly = true;
   hideUnused = true;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private contextService: ContextService) {
   }
 
   ngOnInit() {
-    this.route.paramMap.subscribe((params: ParamMap) => this.selectedResource = params.get('resource'));
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.selectedResource = params.get('resource');
+      this.contextService.currentResource = this.selectedResource;
+    });
   }
 
   updateReadOnly(hideReadOnly: boolean) {

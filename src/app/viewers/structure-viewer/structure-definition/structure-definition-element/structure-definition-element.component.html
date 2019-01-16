@@ -1,0 +1,47 @@
+<div class="userList table_row">
+  <div class="entry">
+    <div class="entry_indention">
+    <span *ngFor="let idx of computeLevel(entry.path)|repeat">
+      <span *ngIf="idx === 1" class="outerElement">&nbsp;</span>
+      <span *ngIf="idx === 1">...</span>
+      <span *ngIf="idx > 1">.....</span>
+    </span>
+    </div>
+
+    <div *ngIf="entry.type">
+      <div class="entry_icon"><img src="../../../../assets/icon_{{resolveIcon(entry)}}"
+                                   title="{{resolveIconTitle(entry)}}"></div>
+    </div>
+    <div *ngIf="!entry.type"></div>
+    <div *ngIf="entry.label" class="entry_name">{{entry.label}}</div>
+    <div *ngIf="entry.sliceName && !entry.label" class="entry_name">{{entry.sliceName}}</div>
+    <div *ngIf="!entry.sliceName && !entry.label" class="entry_name">{{computeName(entry.path)}}</div>
+  </div>
+  <div class="flags">
+    <span *ngIf="entry.isModifier">?!</span>
+    <span *ngIf="entry.isSummary">Σ</span>
+  </div>
+  <div class="cardinality">{{entry.min}}..{{entry.max}}</div>
+  <div *ngIf="entry.type" class="type">
+    <span *ngFor="let type of entry.type; index as i">
+      <span *ngIf="type.code === 'Reference'"></span>
+      <span>{{type.code}}</span>
+      <div *ngIf="type.code === 'Extension'"><span
+        (click)="toggleExtension(stripUrl(type.profile))" class="link">{{stripUrl(type.profile)}}</span></div>
+      <span *ngIf="type.code === 'Reference' && type.targetProfile">(<a
+        (click)="setContext(stripUrl(type.targetProfile))"
+        routerLink="/StructureDefinition/{{stripUrl(type.targetProfile)}}">{{stripUrl(type.targetProfile)}}</a>)</span>
+      <span *ngIf="type.code === 'Reference' && type.profile">(<a
+        (click)="setContext(stripUrl(type.profile))"
+        routerLink="/StructureDefinition/{{stripUrl(type.profile)}}">{{stripUrl(type.profile)}}</a>)</span>
+      <span *ngIf="i < entry.type.length-1">&nbsp;|&nbsp;</span>
+    </span>
+  </div>
+  <div *ngIf="!entry.short && descriptionVisible">{{entry.definition}}</div>
+  <div *ngIf="entry.short && descriptionVisible">{{entry.short}}</div>
+
+  <app-structure-definition *ngIf="entry.type && isVisible(entry.type[0].profile)"
+                            [@slideIn] [resource]="stripUrl(entry.type[0].profile)"
+                            class="extensionExpander"></app-structure-definition>
+</div>
+

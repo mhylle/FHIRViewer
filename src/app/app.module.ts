@@ -28,6 +28,7 @@ import {CookieService} from 'ngx-cookie-service';
 import {MhUtilsModule} from './core/mh-utils/mh-utils.module';
 import {ResourceInformationComponent} from './viewers/capability-viewer/resource-information/resource-information.component';
 import {ResourceDiagramComponent} from './viewers/capability-viewer/resource-diagram/resource-diagram/resource-diagram.component';
+import {StructureDefinitionElementComponent} from './viewers/structure-viewer/structure-definition/structure-definition-element/structure-definition-element.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import {ResourceDiagramComponent} from './viewers/capability-viewer/resource-dia
     MenuComponent,
     NoResourceSelectedComponent,
     ResourceInformationComponent,
-    ResourceDiagramComponent
+    ResourceDiagramComponent,
+    StructureDefinitionElementComponent
   ],
   imports: [
     BrowserModule,

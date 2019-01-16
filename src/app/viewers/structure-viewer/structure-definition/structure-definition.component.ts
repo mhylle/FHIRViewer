@@ -1,19 +1,32 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {switchMap} from 'rxjs/operators';
-import {ActivatedRoute, ParamMap} from '@angular/router';
-import {Observable} from 'rxjs';
+import {ActivatedRoute} from '@angular/router';
 import {StructureDefinitionService} from '../../../services/model/structure-definition.service';
 import {BreakpointObserver} from '@angular/cdk/layout';
-import {StringUtils} from '../../../core/utils/string-utils';
 import {ModelUtils} from '../../../core/utils/model-utils';
 import {ContextService} from '../../../services/infrastructure/context.service';
-import ElementDefinition = fhir.ElementDefinition;
+import {animate, state, style, transition, trigger} from '@angular/animations';
 import StructureDefinition = fhir.StructureDefinition;
 
 @Component({
   selector: 'app-structure-definition',
   templateUrl: './structure-definition.component.html',
-  styleUrls: ['./structure-definition.component.css']
+  styleUrls: ['./structure-definition.component.css'],
+  animations: [
+    trigger(
+      'slideIn', [
+        state('*', style({'overflow-y': 'hidden'})),
+        state('void', style({'overflow-y': 'hidden'})),
+        transition('* => void', [
+          style({height: '*'}),
+          animate(200, style({height: 0}))
+        ]),
+        transition('void => *', [
+          style({height: '0'}),
+          animate(200, style({height: '*'}))
+        ])
+      ]
+    )
+  ]
 })
 export class StructureDefinitionComponent implements OnInit {
   descriptionVisible: boolean;
@@ -43,98 +56,23 @@ export class StructureDefinitionComponent implements OnInit {
   structure: any;
   private result: string;
   baseResource: string;
-  private $resource: Observable<any>;
-
-  static checkType(code: string) {
-    switch (code) {
-      case 'boolean':
-      case'integer':
-      case 'string':
-      case 'decimal':
-      case 'uri':
-      case 'base64Binary':
-      case 'instant':
-      case 'date':
-      case 'dateTime':
-      case 'time':
-      case 'code':
-      case 'oid':
-      case 'id':
-      case 'markdown':
-      case 'unsignedInt':
-      case 'positiveInt':
-        return 'primitive_data_type';
-      default:
-        return 'data_type';
-    }
-  }
 
   ngOnInit() {
-    this.$resource = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => {
-        const currentResource = params.get('resource');
-        this.contextService.currentResource = currentResource;
-        return this.structureService.getStructure(currentResource);
-      }));
-    this.$resource.subscribe(value => {
+    this.contextService.resourceChanged.subscribe(value => {
+      this.resource = value;
+      this.retrieveStructure();
+    });
+    this.retrieveStructure();
+  }
+
+  private retrieveStructure() {
+    this.structureService.getStructure(this.resource).subscribe(value => {
       this.baseResource = JSON.stringify(value);
       if (value.resource) {
         this.structureDefinition = value.resource;
         this.structure = value.resource;
       }
     });
-  }
-
-  computeLevel(path: string): number {
-    return StringUtils.computeLevel(path);
-  }
-
-  computeName(path: string): string {
-    return StringUtils.computeName(path);
-  }
-
-  stripUrl(referenceUrl: any) {
-    return StringUtils.stripUrl(referenceUrl);
-  }
-
-  resolveIcon(entry: ElementDefinition) {
-    if (entry.type && entry.type instanceof Array) {
-      if (entry.type[0].code === 'Reference') {
-        return 'reference.png';
-      }
-      if (entry.type[0].code === 'Extension') {
-        return 'extension_simple.png';
-      }
-
-      if (entry.type[0].code === 'BackboneElement') {
-        return 'element.gif';
-      }
-
-      if (StructureDefinitionComponent.checkType(entry.type[0].code) === 'primitive_data_type') {
-        return 'primitive.png';
-      }
-    }
-    return 'datatype.gif';
-  }
-
-  resolveIconTitle(entry: ElementDefinition) {
-    if (entry.type && entry.type instanceof Array) {
-      if (entry.type[0].code === 'Reference') {
-        return 'Reference to another resource';
-      }
-      if (entry.type[0].code === 'Extension') {
-        return 'Data Type';
-      }
-
-      if (entry.type[0].code === 'BackboneElement') {
-        return 'Element';
-      }
-
-      if (StructureDefinitionComponent.checkType(entry.type[0].code) === 'primitive_data_type') {
-        return 'Primitive Data Type';
-      }
-    }
-    return 'Data Type';
   }
 
   showJson() {

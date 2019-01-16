@@ -1,10 +1,16 @@
 <div innerHTML="{{structure?.description}}"></div>
 <div *ngIf="implementationDetails && implementationDetails !== ''" (click)="toggleImplementationDetails()"
      class="expander">
+
   <span>
-    <fa name="chevron-down" *ngIf="!showImplementationDetails"></fa>
-    <fa name="chevron-up" *ngIf="showImplementationDetails"></fa>
+    <button>
+       Show implementation details
+      <div>
+        <fa name="chevron-down" *ngIf="!showImplementationDetails"></fa>
+        <fa name="chevron-up" *ngIf="showImplementationDetails"></fa>
+      </div>
+
+    </button>
   </span>
-  <span>Show implementation details</span>
 </div>
 <div [innerHTML]="implementationDetails" *ngIf="showImplementationDetails" [@slideIn]></div>

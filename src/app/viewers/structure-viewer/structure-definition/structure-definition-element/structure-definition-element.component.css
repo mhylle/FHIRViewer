@@ -1,0 +1,60 @@
+.userList {
+  font-size: 0.8em;
+  display: grid;
+  background-color: white;
+  grid-template-columns: 300px 50px 50px 250px auto;
+  grid-template-areas: "entry flags cardinality type description" "extension extension extension extension extension";
+  align-self: center;
+  padding: 4px;
+  transition: background-color 0.25s linear;
+}
+
+.extensionExpander {
+  grid-area: extension;
+  border: 2px solid #204e5f;
+  background-color: #204e5f;
+  font-size: 1.2em;
+}
+
+.table_row {
+  border-bottom: 1px solid #dbdbdb;
+  min-height: 40px;
+}
+
+.entry {
+  display: grid;
+  grid-template-columns: auto 24px auto;
+  align-self: start;
+  justify-self: start;
+  text-align: left;
+}
+
+.entry_indention {
+  align-self: start;
+  justify-self: start;
+  text-align: left;
+}
+
+.outerElement {
+  border: 1px aliceblue dashed;
+  width: 20px;
+  height: 100%;
+}
+
+.entry_icon {
+  align-self: start;
+  justify-self: start;
+  text-align: left;
+}
+
+.entry_name {
+  align-self: start;
+  justify-self: start;
+  text-align: left;
+}
+
+.link {
+  text-decoration: underline;
+  color: #0066cc;
+  cursor: pointer;
+}
