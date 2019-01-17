@@ -30,6 +30,8 @@ import {ResourceInformationComponent} from './viewers/capability-viewer/resource
 import {ResourceDiagramComponent} from './viewers/capability-viewer/resource-diagram/resource-diagram/resource-diagram.component';
 // tslint:disable-next-line:max-line-length
 import {StructureDefinitionElementComponent} from './viewers/structure-viewer/structure-definition/structure-definition-element/structure-definition-element.component';
+import {DependencyViewerComponent} from './viewers/dependency-viewer/dependency-viewer.component';
+import {DependencyDiagramComponent} from './viewers/dependency-viewer/dependency-diagram/dependency-diagram.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,9 @@ import {StructureDefinitionElementComponent} from './viewers/structure-viewer/st
     NoResourceSelectedComponent,
     ResourceInformationComponent,
     ResourceDiagramComponent,
-    StructureDefinitionElementComponent
+    StructureDefinitionElementComponent,
+    DependencyViewerComponent,
+    DependencyDiagramComponent
   ],
   imports: [
     BrowserModule,
