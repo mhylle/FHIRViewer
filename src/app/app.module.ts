@@ -7,8 +7,6 @@ import {AppComponent} from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-import {HomeComponent} from './home/home.component';
-
 import {BasicCapabilityComponent} from './viewers/capability-viewer/basic-capability/basic-capability.component';
 import {StructureViewerComponent} from './viewers/structure-viewer/structure-viewer.component';
 
@@ -30,13 +28,19 @@ import {ResourceInformationComponent} from './viewers/capability-viewer/resource
 import {ResourceDiagramComponent} from './viewers/capability-viewer/resource-diagram/resource-diagram/resource-diagram.component';
 // tslint:disable-next-line:max-line-length
 import {StructureDefinitionElementComponent} from './viewers/structure-viewer/structure-definition/structure-definition-element/structure-definition-element.component';
-import {DependencyViewerComponent} from './viewers/dependency-viewer/dependency-viewer.component';
-import {DependencyDiagramComponent} from './viewers/dependency-viewer/dependency-diagram/dependency-diagram.component';
+import {DependencyModule} from './viewers/dependency-viewer/dependency/dependency.module';
+import {HomeModule} from './home/home/home.module';
+import {StoreModule} from '@ngrx/store';
+import {metaReducers, reducers} from './store/reducers';
+import {RouterStateSerializer, StoreRouterConnectingModule} from '@ngrx/router-store';
+import {EffectsModule} from '@ngrx/effects';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {environment} from '../environments/environment';
+import {CustomSerializer} from './store/utils';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     BasicCapabilityComponent,
     StructureViewerComponent,
     ResourceSelectorComponent,
@@ -48,9 +52,7 @@ import {DependencyDiagramComponent} from './viewers/dependency-viewer/dependency
     NoResourceSelectedComponent,
     ResourceInformationComponent,
     ResourceDiagramComponent,
-    StructureDefinitionElementComponent,
-    DependencyViewerComponent,
-    DependencyDiagramComponent
+    StructureDefinitionElementComponent
   ],
   imports: [
     BrowserModule,
@@ -61,10 +63,17 @@ import {DependencyDiagramComponent} from './viewers/dependency-viewer/dependency
     BrowserAnimationsModule,
     AngularFontAwesomeModule,
     MaterialImportModule,
-    MhUtilsModule
+    StoreModule.forRoot(reducers, {metaReducers}),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    EffectsModule.forRoot([]),
+    StoreRouterConnectingModule.forRoot({stateKey: 'router'}),
+    MhUtilsModule,
+    DependencyModule,
+    HomeModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    {provide: RouterStateSerializer, useClass: CustomSerializer},
     CookieService
     // {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
   ],

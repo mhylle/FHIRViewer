@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "FHIRDocs": {
+    "FHIRViewer": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/FHIRDocs",
+            "outputPath": "dist/FHIRViewer",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -76,18 +76,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "FHIRDocs:build"
+            "browserTarget": "FHIRViewer:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "FHIRDocs:build:production"
+              "browserTarget": "FHIRViewer:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "FHIRDocs:build"
+            "browserTarget": "FHIRViewer:build"
           }
         },
         "test": {
@@ -122,7 +122,7 @@
         }
       }
     },
-    "FHIRDocs-e2e": {
+    "FHIRViewer-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -131,11 +131,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "FHIRDocs:serve"
+            "devServerTarget": "FHIRViewer:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "FHIRDocs:serve:production"
+              "devServerTarget": "FHIRViewer:serve:production"
             }
           }
         },
@@ -151,5 +151,17 @@
       }
     }
   },
-  "defaultProject": "FHIRDocs"
+  "defaultProject": "FHIRViewer",
+  "schematics": {
+    "@ngrx/schematics:component": {
+      "prefix": "",
+      "styleext": "css"
+    },
+    "@ngrx/schematics:directive": {
+      "prefix": ""
+    }
+  },
+  "cli": {
+    "defaultcollection": "@ngrx/schematics"
+  }
 }

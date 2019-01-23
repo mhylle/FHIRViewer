@@ -5,7 +5,16 @@ import {BreakpointObserver} from '@angular/cdk/layout';
 import {ModelUtils} from '../../../core/utils/model-utils';
 import {ContextService} from '../../../services/infrastructure/context.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {
+  AllResourcesRequested,
+  ResourceRequested
+} from '../../../store/structureDefinitions/structureDefinitions.actions';
+import {select, Store} from '@ngrx/store';
+import {selectResourceByName} from '../../../store/structureDefinitions/structuredefinitions.selectors';
+import {AppState} from '../../../store/reducers';
+import {filter, first, tap} from 'rxjs/operators';
 import StructureDefinition = fhir.StructureDefinition;
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-structure-definition',
@@ -34,6 +43,7 @@ export class StructureDefinitionComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private breakpointObserver: BreakpointObserver,
+              private store: Store<AppState>,
               private structureService: StructureDefinitionService,
               private contextService: ContextService) {
     breakpointObserver.observe([
@@ -44,6 +54,7 @@ export class StructureDefinitionComponent implements OnInit {
   }
 
   structureDefinition: StructureDefinition;
+  structureDefinition$: Observable<StructureDefinition>;
   @Input()
   hideUnused = true;
 
@@ -53,26 +64,29 @@ export class StructureDefinitionComponent implements OnInit {
   @Input()
   resource: string;
 
-  structure: any;
+  structure: string;
   private result: string;
   baseResource: string;
 
   ngOnInit() {
+    this.store.dispatch(new AllResourcesRequested());
     this.contextService.resourceChanged.subscribe(value => {
       this.resource = value;
-      this.retrieveStructure();
+      this.retrieveStructure(value);
     });
-    this.retrieveStructure();
+    this.retrieveStructure(this.resource);
   }
 
-  private retrieveStructure() {
-    this.structureService.getStructure(this.resource).subscribe(value => {
-      this.baseResource = JSON.stringify(value);
-      if (value.resource) {
-        this.structureDefinition = value.resource;
-        this.structure = value.resource;
-      }
-    });
+  private retrieveStructure(baseResource: string) {
+    this.structure = baseResource;
+    this.structureDefinition$ = this.store.pipe(select(selectResourceByName(baseResource)));
+    // structureDefinitions$.subscribe(value => {
+    //   // this.baseResource = JSON.stringify(value);
+    //   if (value) {
+    //     this.structureDefinition = value;
+    //     this.structure = value;
+    //   }
+    // });
   }
 
   showJson() {

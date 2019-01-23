@@ -2,7 +2,9 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {ConfigurationService} from '../infrastructure/configuration.service';
+import {catchError} from 'rxjs/operators';
 import Bundle = fhir.Bundle;
+import StructureDefinition = fhir.StructureDefinition;
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -35,6 +37,7 @@ export class StructureDefinitionService {
   }
 
   getStructure(resource: string): Observable<any> {
+    console.log('getting structure: ' + resource);
     httpOptions.headers.append('Access-Control-Allow-Origin', '*');
     httpOptions.headers.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     httpOptions.headers.append('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
@@ -45,6 +48,19 @@ export class StructureDefinitionService {
     // .pipe(
     //   catchError(StructureDefinitionService.handleError)
     // );
+  }
+
+  getAllStructures(): Observable<StructureDefinition[]> {
+    httpOptions.headers.append('Access-Control-Allow-Origin', '*');
+    httpOptions.headers.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    httpOptions.headers.append('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    httpOptions.headers.append('Access-Control-Allow-Credentials', 'true');
+    return this.http.get<StructureDefinition[]>(
+      this.configurationService.selectedServer + '/fhir/StructureDefinition/',
+      httpOptions)
+      .pipe(
+        catchError(StructureDefinitionService.handleError)
+      );
   }
 
   save(structureDefinition: fhir.StructureDefinition) {

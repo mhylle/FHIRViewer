@@ -6,45 +6,42 @@
           <fa name="list-alt"></fa>
         </mat-icon>
       </button>
-      <button (click)="setLayout('grid')" mat-icon-button title="Show as grid">
+      <button (click)="setLayout('dependencyGraph')" mat-icon-button title="Show as grid">
         <mat-icon>
           <fa name="th"></fa>
         </mat-icon>
       </button>
     </div>
     <div class="bottomMargin">
-      {{selectedServer}} has {{resourceTypes.length}} resources.
+      {{selectedServer}} has {{(bundle$ |async)?.length}} resources.
     </div>
-    <div [ngClass]="layoutMode">
-      <div *ngIf="layoutMode==='table'" class="header userListHeader">
+    <div class="table" *ngIf="layoutMode === 'table'">
+      <div class="header userListHeader">
         <div class="headerItem">Name</div>
         <div class="headerItem">Action</div>
       </div>
-      <div *ngFor="let resourceType of resourceTypes" [ngClass]="layoutMode_item">
-        <div [ngClass]="layoutMode_header">{{resourceType.label}}</div>
-        <div *ngIf="layoutMode === 'grid'"><span *ngIf="!resourceType.short">Short description of the element coming soon.</span><span
-          *ngIf="resourceType.short">{{resourceType.short}}</span></div>
-        <div [ngClass]="layoutMode_actions">
-          <span class="actionItem" title="Display the structure definition for {{resourceType.name}}">
-          <a (click)="setContext(resourceType.name)" routerLink="/StructureDefinition/{{resourceType.name}}">
-            <fa *ngIf="layoutMode === 'grid'" class="linkIcon" name="address-card"></fa>
-            <span *ngIf="layoutMode==='table'">StructureDefinition</span>
+      <div *ngFor="let resourceType of (bundle$ |async)" class="table_row userList">
+        <div>{{resourceType.resource.id}}</div>
+        <div>
+          <span class="actionItem" title="Display the structure definition for {{resourceType.resource.id}}">
+          <a (click)="setContext(resourceType.resource.id)"
+             routerLink="/StructureDefinition/{{resourceType.resource.id}}">
+            <span>StructureDefinition</span>
           </a>
-        </span>
-          <span class="actionItem" title="Display the capability statement for {{resourceType.name}}">
-          <a (click)="setContext(resourceType.name)" routerLink="/CapabilityStatement/{{resourceType.name}}">
-            <fa *ngIf="layoutMode === 'grid'" class="linkIcon" name="book"></fa>
-            <span *ngIf="layoutMode==='table'">CapabilityStatement</span>
+          </span>
+          <span class="actionItem" title="Display the capability statement for {{resourceType.resource.id}}">
+          <a (click)="setContext(resourceType.resource.id)"
+             routerLink="/CapabilityStatement/{{resourceType.resource.id}}">
+            <span>CapabilityStatement</span>
           </a>
         </span>
         </div>
       </div>
     </div>
+    <app-dependency-viewer *ngIf="layoutMode==='dependencyGraph'"></app-dependency-viewer>
   </div>
   <div class="serverDescription">
     <!--suppress HtmlUnknownAttribute -->
     <div innerHTML="{{serverDescription}}"></div>
   </div>
 </div>
-
-<app-dependency-viewer></app-dependency-viewer>
