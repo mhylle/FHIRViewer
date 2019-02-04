@@ -7,3 +7,19 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   overflow-y: scroll
 }
+
+:root {
+  --background-color-theme-dark: #07131c;
+  --background-color-theme-light: white;
+  --color-theme-dark: white;
+  --color-theme-light: black;
+  --selection-background-color: #d66b1a;
+  /*--header-background-color: #07131c;*/
+  --header-background-color-light: #204e5f;
+  --header-background-color-dark: #204e5f;
+  --header-font-color: white;
+  --shadow-color-light: rgba(128, 128, 128, 0.44);
+  --shadow-color-dark: rgba(0, 0, 0, 0.44);
+}
+
+

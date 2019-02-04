@@ -1,18 +1,12 @@
-.card {
-  -webkit-box-shadow: 2px 2px 4px 1px rgba(0, 0, 0, 0.44);
-  -moz-box-shadow: 2px 2px 4px 1px rgba(0, 0, 0, 0.44);
-  box-shadow: 2px 2px 4px 1px rgba(0, 0, 0, 0.44);
-}
-
 .table_row {
   border-bottom: 1px solid #dbdbdb;
   height: 40px;
 }
 
 .header {
-  background: rgb(255, 255, 255);
+  background: var(--header-background-color);
   border-bottom: 1px solid #dbdbdb;
-  color: #a89da4;
+  color: var(--header-font-color);
   height: 40px;
 }
 

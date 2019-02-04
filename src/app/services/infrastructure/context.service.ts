@@ -7,10 +7,11 @@ import {Subject} from 'rxjs';
 })
 export class ContextService {
   private selectedResource: string;
-  private selectedUser: User;
   private resource = new Subject<string>();
-  private user = new Subject<User>();
   resourceChanged = this.resource.asObservable();
+
+  private selectedUser: User;
+  private user = new Subject<User>();
   userChanged = this.user.asObservable();
 
   constructor() {

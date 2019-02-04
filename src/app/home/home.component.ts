@@ -20,6 +20,8 @@ export class HomeComponent implements OnInit {
   layoutMode_header: string;
   layoutMode_actions: string;
   selectedServer: string;
+  public cardTheme = 'card-dark';
+  public theme: string;
 
   constructor(private configurationService: ConfigurationService,
               private serverInformationService: ServerInformationService,
@@ -28,6 +30,11 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.configurationService.themeChanged.subscribe(theme => {
+      this.theme = theme;
+      this.cardTheme = 'card-' + theme;
+      console.log('CardTheme: ' + this.cardTheme);
+    });
     this.layoutMode = 'table';
     this.layoutMode_item = 'table_row userList';
     this.configurationService.serverChanged.subscribe(() => this.retrieveServerInformation());

@@ -1,4 +1,4 @@
-<mat-toolbar class="menuContainer">
+<mat-toolbar class="menuContainer" [ngClass]="theme">
   <div class="leftMenuItems">
     <div class="menu_item">
       <div class="menu_item_container" *ngIf="menuEnabled">
@@ -79,6 +79,18 @@
         <fa class="menuIcon" name="sign-in"></fa>
         LOGIN
       </div>
+    </div>
+    <div class="menu_item">
+      <div *ngIf="menuEnabled" class="menu_item_container">
+        <a routerLink="/login">
+          <mat-slide-toggle
+            class="example-margin"
+            [(ngModel)]="darkTheme" (change)="fireThemeChange()">
+            Theme
+          </mat-slide-toggle>
+        </a>
+      </div>
+
     </div>
   </div>
 </mat-toolbar>

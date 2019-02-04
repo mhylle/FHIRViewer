@@ -23,7 +23,7 @@
 .selectionHeader {
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
-  background-color: #204e5f;
+  background-color: var(--header-background-color);
   font-size: 1.1em;
   color: white;
   text-align: left;

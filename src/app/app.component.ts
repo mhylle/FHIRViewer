@@ -13,8 +13,14 @@ import {ConfigurationService} from './services/infrastructure/configuration.serv
 export class AppComponent {
   currentUser: User;
   loggedIn: boolean;
+  public theme: string;
 
   constructor(private router: Router, private configurationService: ConfigurationService, private authenticationService: AuthService) {
+    this.theme = this.configurationService.currentTheme;
+    this.configurationService.themeChanged.subscribe(theme => {
+      console.log('setting theme to : ' + theme);
+      this.theme = theme;
+    });
     this.authenticationService.loginChanged.subscribe(value => {
       this.loggedIn = value;
     });

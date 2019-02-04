@@ -1,3 +1,19 @@
+:host {
+  background-color: #5a976a;
+}
+
+.main {
+  height: 100%
+}
+.dark {
+  background-color: var(--background-color-theme-dark);
+  color: var(--color-theme-dark);
+}
+
+.light {
+  background-color: var(--background-color-theme-light);
+  color: var(--color-theme-light);
+}
 .mainContainer {
   margin-top: 8px;
   width: 70%;

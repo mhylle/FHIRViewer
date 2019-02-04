@@ -52,6 +52,8 @@ export class MenuComponent implements OnInit {
   menuEnabled = false;
   availableServers: string[];
   selectedUser: User;
+  darkTheme: boolean = false;
+   theme: string;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -62,6 +64,10 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.theme = this.configurationService.currentTheme;
+    this.configurationService.themeChanged.subscribe(theme => {
+      this.theme = 'menuContainer-' + theme;
+    });
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         // this will not work unless the context url is also the root url. Fix later.
@@ -96,5 +102,15 @@ export class MenuComponent implements OnInit {
     if (server) {
       this.configurationService.changeServer(server);
     }
+  }
+
+  fireThemeChange() {
+    console.log('theme changed: ' + this.darkTheme);
+    if (this.darkTheme) {
+      this.configurationService.currentTheme = 'dark';
+    } else {
+      this.configurationService.currentTheme = 'light';
+    }
+
   }
 }

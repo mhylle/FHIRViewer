@@ -19,9 +19,9 @@
 }
 
 .cardHeader {
-  background-color: #204e5f;
+  background-color: var(--header-background-color);
   font-size: 1.1em;
-  color: white;
+  color: var(--header-font-color);
   text-align: left;
   font-style: normal;
   font-variant-ligatures: normal;

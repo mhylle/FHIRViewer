@@ -15,7 +15,7 @@
     <div class="bottomMargin">
       {{selectedServer}} has {{resourceTypes.length}} resources.
     </div>
-    <div [ngClass]="layoutMode">
+    <div [ngClass]="cardTheme">
       <div *ngIf="layoutMode==='table'" class="header userListHeader">
         <div class="headerItem">Name</div>
         <div class="headerItem">Action</div>

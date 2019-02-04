@@ -1,7 +1,9 @@
-<app-menu></app-menu>
-<!--<app-menu [menuItems]="menuItems" [selectedMenuItem]="selectedMenuItem"></app-menu>-->
-<main>
-  <div class="mainContainer">
-    <router-outlet></router-outlet>
-  </div>
-</main>
+<div [ngClass]="theme" class="main">
+  <app-menu></app-menu>
+
+  <main>
+    <div class="mainContainer">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>
